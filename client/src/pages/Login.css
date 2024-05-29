@@ -1,0 +1,113 @@
+/* Login.css */
+
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff; /* Background color for the page */
+    font-family: 'Arial', sans-serif; /* Use a clean, modern font */
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically */
+}
+
+.logo {
+    width: 250px;
+    height: auto; /* Maintain aspect ratio */
+    margin-bottom: 20px; /* Space between logo and wrapper */
+}
+
+.wrapper {
+    width: 350px;
+    background: #EF7B00;
+    border-radius: 10px;
+    color: #003D7C;
+    display: flex;
+    flex-direction: column; /* Ensure contents are in a column */
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically */
+    padding: 20px; /* Add some padding for better spacing */
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); /* Enhance shadow for better visualization */
+}
+
+.form-box {
+    width: 100%;
+    max-width: 300px; /* Adjust as needed */
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form h1 {
+    font-size: 32px; /* Slightly smaller font size for better balance */
+    text-align: center;
+    margin-bottom: 20px; /* Space between heading and inputs */
+    color: #ffffff; /* White color for better contrast */
+}
+
+form label {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 8px; /* Space between label and input */
+    color: #ffffff; /* White color for better contrast */
+    font-weight: bold; /* Make labels bold */
+}
+
+form input {
+    width: 100%;
+    margin-bottom: 20px; /* Space between inputs */
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
+    font-size: 16px; /* Increase font size for better readability */
+}
+
+form input:focus {
+    border-color: #003D7C; /* Change border color on focus */
+    outline: none; /* Remove default outline */
+    box-shadow: 0 0 5px rgba(0, 61, 124, 0.5); /* Add shadow on focus */
+}
+
+form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #003D7C;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px; /* Increase font size for button */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+form button:hover {
+    background-color: #002F5A; /* Darker shade on hover */
+}
+
+.footer {
+    text-align: center;
+    margin-top: 20px; /* Space between form and footer */
+    color: #ffffff; /* White color for better contrast */
+}
+
+.footer hr {
+    border: 0;
+    border-top: 1px solid #ffffff; /* White line */
+    width: 80%;
+    margin: 10px auto; /* Center and add some spacing */
+}
+
+.footer p {
+    margin: 0;
+    font-size: 14px; /* Smaller font size for footer text */
+}
