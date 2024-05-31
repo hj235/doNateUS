@@ -13,7 +13,10 @@ export default function Login() {
   function loginUser(e) {
     e.preventDefault();
     axios.get('/');
+    // TODO
   }
+
+  document.title = "Login";
   
   return (
     <div className="page-container">

@@ -16,6 +16,8 @@ export default function Register() {
     // TODO
   }
   
+  document.title = "Register";
+  
   return (
     <div className="page-container">
       <img src={logo} className="logo" alt="logo" />
