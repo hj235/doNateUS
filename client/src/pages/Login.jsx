@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import './Login.css';
 import logo from '../assets/logo.png';
+import axios from 'axios';
 
 export default function Login() {
   
@@ -10,8 +11,8 @@ export default function Login() {
   })
 
   function loginUser(e) {
-    e.preventDefault()
-    // TODO
+    e.preventDefault();
+    axios.get('/');
   }
   
   return (
@@ -23,12 +24,12 @@ export default function Login() {
             <h1>Login</h1>
             
             <label htmlFor="username">Username: </label>
-            <input id="username" className="username" type="text" required 
+            <input id="username" className="username" type="text" 
               value ={data.name} onChange={(e) => setData({...data, name: e.target.value})}/>
             <br />
 
             <label htmlFor="password">Password: </label>
-            <input id="password" className="password" type="password" required 
+            <input id="password" className="password" type="password" 
               value ={data.password} onChange={(e) => setData({...data, password: e.target.value})}/>
             <br />
 

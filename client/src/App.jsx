@@ -10,6 +10,13 @@ import Login from './pages/Login';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
+// axios stuff to make life easier
+import axios from 'axios';
+// simplifies having to type out the server url multiple times
+axios.defaults.baseURL = 'http://localhost:8000';
+// allows cookies on client side
+axios.defaults.withCredentials = true; 
+
 function App() {
 
   return (
