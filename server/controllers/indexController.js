@@ -1,4 +1,4 @@
-// controller for index.js entrypoint at path '/'
+// controller for index page entrypoint at path '/'
 
 // initial test function
 const test = (req, res) => {
