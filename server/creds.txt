@@ -1,0 +1,7 @@
+// Credentials for MongoDB:
+Username: donateus
+password: l5hbZtOimS76uaJA
+connection string: mongodb+srv://donateus:l5hbZtOimS76uaJA@donateus.juv56yi.mongodb.net/
+
+enabled ip addresses: 
+103.6.151.113(HJ)
