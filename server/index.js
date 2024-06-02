@@ -1,9 +1,10 @@
 const express = require('express'); //imports the Express framework
+const app = express(); // initialize Express application
 const dotenv = require('dotenv').config(); // imports dotenv package and invokes config
 const cors = require('cors'); // imports cors middleware, allows web app to access resources from different origins
 const {mongoose} = require('mongoose'); // imports the Mongoose library, Object Data Modelling library from MongoDB and Node.js
 
-const app = express(); // initialize Express application
+
 
 // Database ----------------------------
 
@@ -21,7 +22,6 @@ mongoose.connection.on('error', err => {
 mongoose.connection.on('disconnected', () => console.log('Server disconnected from mongoDB'));
 
 // Middleware ---------------------------
-
 // to parse incoming requests with JSON payloads and make the parsed JSON data available in the 'req.body' of the routes
 app.use(express.json());
 
