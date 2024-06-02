@@ -2,7 +2,7 @@ import React from 'react';
 import './LoginRegister.css';
 import { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button, TextField, Typography } from '@mui/material'
 
 export default function Register() {
@@ -10,16 +10,16 @@ export default function Register() {
   const [data, setData] = useState({
     name: '',
     email: '',
-    password: ''  
+    password: ''
   })
 
   async function registerUser(e) {
     e.preventDefault();
     // duplicate the data, not sure if I need to do this?
-    const {name, email, password} = data;
+    const { name, email, password } = data;
     try {
       // data is the response provided by the server from the POST request
-      const {data} = await axios.post('/register', {
+      const { data } = await axios.post('/register', {
         name, email, password
       });
 
@@ -38,7 +38,7 @@ export default function Register() {
         //navigate('/login');
       }
 
-    // can have what error sia idk
+      // can have what error sia idk
     } catch (error) {
       console.log(error);
     }
@@ -62,7 +62,8 @@ export default function Register() {
             <TextField label="Password" variant="outlined" id="password" className="password" type="password" required
               value={data.password} onChange={(e) => setData({ ...data, password: e.target.value })} sx={{ background: 'white', userSelect: "none" }} />
             <br />
-            <Button type ="submit" variant="text" sx={{ color: 'darkgray', '&:hover': { color: "black", userSelect: "none" } }}> Continue</Button>
+            <Link to="/login" fontSize={13} variant="inherit" sx={{userSelect: "none" }}> Already have an account?</Link>
+            <Button type="submit" variant="text" sx={{ color: 'darkgray', '&:hover': { color: "black", userSelect: "none" } }}> Continue</Button>
           </form>
           <br />
           <Typography variant='h6' fontSize={10}>
