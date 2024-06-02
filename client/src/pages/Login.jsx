@@ -36,8 +36,7 @@ export default function Login() {
             <br />
             <FormControlLabel control={<Checkbox checked={keepSignedIn} onChange={(e) => setKeepSignedIn(e.target.checked)}
               sx={{ color: 'gray', '&.Mui-checked': { color: 'gray' } }} />} label={<Typography sx={{ color: 'black' }}>Keep me signed in</Typography>} />
-            <Typography type="submit" variant="text"
-              sx={{ color: 'darkgray', '&:hover': { color: "black", userSelect: "none" } }}  >Continue</Typography>
+            <Button type ="submit" variant="text" sx={{ color: 'darkgray', '&:hover': { color: "black", userSelect: "none" } }}> Continue</Button>
           </form>
         </div>
       </div>

@@ -62,7 +62,7 @@ export default function Register() {
             <TextField label="Password" variant="outlined" id="password" className="password" type="password" required
               value={data.password} onChange={(e) => setData({ ...data, password: e.target.value })} sx={{ background: 'white', userSelect: "none" }} />
             <br />
-            <Typography type="submit" variant="text" sx={{ color: 'darkgray', '&:hover': { color: "black", userSelect: "none" } }}>Continue</Typography>
+            <Button type ="submit" variant="text" sx={{ color: 'darkgray', '&:hover': { color: "black", userSelect: "none" } }}> Continue</Button>
           </form>
           <br />
           <Typography variant='h6' fontSize={10}>
