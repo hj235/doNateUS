@@ -6,10 +6,10 @@ const {comparePassword} = require('../helpers/auth')
 // login user function
 async function loginUser(req, res) {
     try {
-        const {email, password} = req.body;
+        const {name, password} = req.body;
 
         // check if user exists
-        const user = await User.findOne({email});
+        const user = await User.findOne({name});
         if (!user) {
             return res.json({
                 error: 'No user found'
