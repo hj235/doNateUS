@@ -33,7 +33,7 @@ async function registerUser(req, res) {
         }
 
         // hashes password
-        const hashedPassword = await hashPassword
+        const hashedPassword = await hashPassword(password)
 
         // Checks all passed, register user into database
         const user = await User.create({

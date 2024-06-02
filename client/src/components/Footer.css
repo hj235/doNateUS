@@ -5,8 +5,6 @@
     color: #000000;
     padding: 5px;
     display: flex;
-    align-items: center;
-    /* Align items vertically */
     box-sizing: border-box;
     position: fixed;
     bottom: 0;
@@ -15,8 +13,6 @@
 /* Footer sections */
 .footer-section {
     display: flex;
-    align-items: center;
-    /* Align items vertically */
 }
 
 /* Footer headings */
