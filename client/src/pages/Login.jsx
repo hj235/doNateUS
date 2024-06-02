@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import './LoginRegister.css';
-import logo from '../assets/logo.png';
 import axios from 'axios';
 import { Button, TextField, Typography, Checkbox, FormControlLabel } from '@mui/material';
+import {useNavigate} from 'react-router-dom'
 
 export default function Login() {
-
+  const navigate = useNavigate()
   const [data, setData] = useState({
     name: '',
     password: ''
@@ -13,10 +13,23 @@ export default function Login() {
 
   const [keepSignedIn, setKeepSignedIn] = useState(false);
 
-  function loginUser(e) {
+  async function loginUser(e) {
     e.preventDefault();
-    axios.get('/');
-    // TODO
+    const { email, password } = data
+    try {
+      const { data } = await axios.post('/login', {
+        email,
+        password
+      });
+      if (data.error) {
+        alert("Data Error")
+      } else {
+        setData({});
+        navigate('/')
+      }
+    } catch (error) {
+
+    }
   }
 
   document.title = "Login";
@@ -36,7 +49,7 @@ export default function Login() {
             <br />
             <FormControlLabel control={<Checkbox checked={keepSignedIn} onChange={(e) => setKeepSignedIn(e.target.checked)}
               sx={{ color: 'gray', '&.Mui-checked': { color: 'gray' } }} />} label={<Typography sx={{ color: 'black' }}>Keep me signed in</Typography>} />
-            <Button type ="submit" variant="text" sx={{ color: 'darkgray', '&:hover': { color: "black", userSelect: "none" } }}> Continue</Button>
+            <Button type="submit" variant="text" sx={{ color: 'darkgray', '&:hover': { color: "black", userSelect: "none" } }}> Continue</Button>
           </form>
         </div>
       </div>

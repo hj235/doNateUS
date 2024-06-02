@@ -4,8 +4,27 @@ const User = require('../models/user');
 const { hashPassword, comparePassword} = require('../helper/auth')
 
 // login user function
-const loginUser = (req, res) => {
-    
+async function loginUser(req, res) {
+    try {
+        const {email, password} = req.body;
+
+        // check if user exists
+        const user = await User.findOne({email});
+        if (!user) {
+            return res.json({
+                error: 'No user found'
+            })
+        }
+
+        // check if password match
+        const match = await comparePassword(password, user.password)
+        if(match) {
+            res.json('passwords')
+
+        }
+    } catch (error) {
+        console.log(error)
+    }
 }
     
 module.exports = {
