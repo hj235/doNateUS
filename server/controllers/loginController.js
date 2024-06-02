@@ -1,7 +1,7 @@
 // controller for login page at path '/login'
 
 const User = require('../models/user');
-const { hashPassword, comparePassword} = require('../helper/auth')
+const {comparePassword} = require('../helpers/auth')
 
 // login user function
 async function loginUser(req, res) {
@@ -19,8 +19,9 @@ async function loginUser(req, res) {
         // check if password match
         const match = await comparePassword(password, user.password)
         if(match) {
-            res.json('passwords')
-
+            res.json('password match')
+        } else {
+            res.json('incorrect password')
         }
     } catch (error) {
         console.log(error)

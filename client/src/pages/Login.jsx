@@ -15,10 +15,10 @@ export default function Login() {
 
   async function loginUser(e) {
     e.preventDefault();
-    const { email, password } = data
+    const {name, password } = data
     try {
       const { data } = await axios.post('/login', {
-        email,
+        name,
         password
       });
       if (data.error) {
@@ -41,7 +41,7 @@ export default function Login() {
           <form method="get" onSubmit={loginUser}>
             <h1>Login</h1>
             <br />
-            <TextField label="Username" variant="outlined" id="username" className="username" type="text" required
+            <TextField label="Username" variant="outlined" id="name" className="username" type="text" required
               value={data.name} onChange={(e) => setData({ ...data, name: e.target.value })} sx={{ background: 'white', userSelect: "none" }} />
             <br />
             <TextField label="Password" variant="outlined" id="password" className="password" type="password" required
