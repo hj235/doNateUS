@@ -32,10 +32,11 @@ export default function Register() {
           email: '',
           password: ''
         });
+        //redirect doesn't work? idk why
         //redirect('/login'); // TODO: redirect to '/' homepage and store session info as cookies somehow
 
         alert('Registration success. Welcome!');
-        //navigate('/login');
+        navigate('/login');
       }
 
       // can have what error sia idk
