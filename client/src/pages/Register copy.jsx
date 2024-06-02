@@ -1,47 +1,20 @@
 import React from 'react';
 import './LoginRegister.css';
 import { useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import { Button, TextField, Typography } from '@mui/material'
 
 export default function Register() {
-  const navigate = useNavigate();
+
   const [data, setData] = useState({
     name: '',
     email: '',
     password: ''  
   })
 
-  async function registerUser(e) {
+  function registerUser(e) {
     e.preventDefault();
-    // duplicate the data, not sure if I need to do this?
-    const {name, email, password} = data;
-    try {
-      // data is the response provided by the server from the POST request
-      const {data} = await axios.post('/register', {
-        name, email, password
-      });
-
-      if (data.error) {
-        // TODO: use toast for notifications
-        alert(data.error);
-      } else {
-        setData({
-          name: '',
-          email: '',
-          password: ''
-        });
-        //redirect('/login'); // TODO: redirect to '/' homepage and store session info as cookies somehow
-
-        alert('Registration success. Welcome!');
-        //navigate('/login');
-      }
-
-    // can have what error sia idk
-    } catch (error) {
-      console.log(error);
-    }
+    console.log("Form submitted")
+    // TODO
   }
 
   document.title = "Register";
@@ -50,13 +23,13 @@ export default function Register() {
     <div className="page-container">
       <div className="wrapper">
         <div className="form-box">
-          <form method="post" onSubmit={registerUser}>
+          <form method="get" onSubmit={registerUser}>
             <h1>Register</h1>
             <br />
             <TextField label="Username" variant="outlined" id="username" className="username" type="text" required
               value={data.name} onChange={(e) => setData({ ...data, name: e.target.value })} sx={{ background: 'white', userSelect: "none" }} />
             <br />
-            <TextField label="Email" variant="outlined" id="email" className="email" type="email" required
+            <TextField label="Email" variant="outlined" id="email" className="email" type="text" required
               value={data.email} onChange={(e) => setData({ ...data, email: e.target.value })} sx={{ background: 'white', userSelect: "none" }} />
             <br />
             <TextField label="Password" variant="outlined" id="password" className="password" type="password" required
