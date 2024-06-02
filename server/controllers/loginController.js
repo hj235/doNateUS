@@ -19,9 +19,9 @@ async function loginUser(req, res) {
         // check if password match
         const match = await comparePassword(password, user.password)
         if(match) {
-            res.json('password match')
+            return res.json({error:'password match'})
         } else {
-            res.json('incorrect password')
+            return res.json({error:'incorrect password'})
         }
     } catch (error) {
         console.log(error)
