@@ -1,18 +1,18 @@
 import React from 'react';
 import './Footer.css';
+import logo from '../assets/logo50.png'; // Import the logo image
 
-export default function Footer() {
+function Footer() {
   return (
-    <>
-        <br/>
-        <div className='page-container'>
-            <div className='wrapper'>
-                <footer className="footer">
-                    <hr/>
-                    <p>DoNateUS 2024 Pte. Ltd.</p>
-                </footer>
-            </div>
-        </div>
-    </>
+    <footer className="footer-container">
+      <div className="footer-section">
+        <img src={logo} alt="Logo" className="footer-logo" />
+      </div>
+      <div className="footer-section">
+        <p>&copy; 2024 doNateUS. All rights reserved.</p>
+      </div>
+    </footer>
   );
 }
+
+export default Footer;

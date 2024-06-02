@@ -1,14 +1,17 @@
 import React, { useState } from 'react'
-import './Login.css';
+import './LoginRegister.css';
 import logo from '../assets/logo.png';
 import axios from 'axios';
+import { Button, TextField, Typography, Checkbox, FormControlLabel } from '@mui/material';
 
 export default function Login() {
-  
+
   const [data, setData] = useState({
     name: '',
     password: ''
   })
+
+  const [keepSignedIn, setKeepSignedIn] = useState(false);
 
   function loginUser(e) {
     e.preventDefault();
@@ -17,26 +20,24 @@ export default function Login() {
   }
 
   document.title = "Login";
-  
+
   return (
     <div className="page-container">
-      <img src={logo} className="logo" alt="logo" />
       <div className="wrapper">
         <div className="form-box">
           <form method="get" onSubmit={loginUser}>
             <h1>Login</h1>
-            
-            <label htmlFor="username">Username: </label>
-            <input id="username" className="username" type="text" 
-              value ={data.name} onChange={(e) => setData({...data, name: e.target.value})}/>
             <br />
-
-            <label htmlFor="password">Password: </label>
-            <input id="password" className="password" type="password" 
-              value ={data.password} onChange={(e) => setData({...data, password: e.target.value})}/>
+            <TextField label="Username" variant="outlined" id="username" className="username" type="text" required
+              value={data.name} onChange={(e) => setData({ ...data, name: e.target.value })} sx={{ background: 'white', userSelect: "none" }} />
             <br />
-
-            <button type="submit">Login</button>
+            <TextField label="Password" variant="outlined" id="password" className="password" type="password" required
+              value={data.password} onChange={(e) => setData({ ...data, password: e.target.value })} sx={{ background: 'white', userSelect: "none" }} />
+            <br />
+            <FormControlLabel control={<Checkbox checked={keepSignedIn} onChange={(e) => setKeepSignedIn(e.target.checked)}
+              sx={{ color: 'gray', '&.Mui-checked': { color: 'gray' } }} />} label={<Typography sx={{ color: 'black' }}>Keep me signed in</Typography>} />
+            <Typography type="submit" variant="text"
+              sx={{ color: 'darkgray', '&:hover': { color: "black", userSelect: "none" } }}  >Continue</Typography>
           </form>
         </div>
       </div>
