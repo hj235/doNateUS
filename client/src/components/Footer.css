@@ -1,82 +1,25 @@
-/* Footer container */
 .footer-container {
-    width: 100%;
-    background-color: #ffffff;
-    color: #000000;
-    padding: 5px;
-    display: flex;
-    box-sizing: border-box;
-    position: fixed;
-    bottom: 0;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 1rem 0;
+  background-color: #ffffff; /* Primary color */
+  color: rgb(0, 0, 0);
 }
 
-/* Footer sections */
-.footer-section {
-    display: flex;
-}
-
-/* Footer headings */
-.footer-section h3 {
-    margin-bottom: 10px;
-    font-size: 16px;
-}
-
-/* Footer text */
-.footer-section p {
-    margin: 5px 0;
-    font-size: 14px;
-}
-
-/* Footer links */
-.footer-section ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.footer-section ul li {
-    margin-bottom: 5px;
-}
-
-.footer-section ul li a {
-    color: #000000;
-    /* Changed link color to black */
-    text-decoration: none;
-    font-size: 14px;
-}
-
-.footer-section ul li a:hover {
-    text-decoration: underline;
-}
-
-/* Social media icons */
-.social-icons {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.social-icons li {
-    display: inline-block;
-    margin-right: 10px;
-}
-
-.social-icons li a {
-    color: #000000;
-    /* Changed icon color to black */
-    font-size: 18px;
-}
-
-/* Copyright text */
-.footer-section p {
-    margin: 0;
-    font-size: 12px;
+.footer-logo-container,
+.footer-text-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .footer-logo {
-    width: 100px;
-    /* Adjust logo width as needed */
-    height: auto;
-    margin-right: 20px;
-    /* Add space between logo and text */
+  height: 20px;
+}
+
+body {
+  margin-top: 65px; /* Adjust as needed */
+  margin-bottom: 60px; /* Height of the footer */
+  position: relative;
 }

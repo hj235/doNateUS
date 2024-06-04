@@ -1,17 +1,24 @@
 import React from 'react';
-import './Footer.css';
+import { Container, Grid, Typography, Box } from '@mui/material';
 import logo from '../assets/logo50.png'; // Import the logo image
+import './Footer.css'; // Import the CSS file
 
 function Footer() {
   return (
-    <footer className="footer-container">
-      <div className="footer-section">
-        <img src={logo} alt="Logo" className="footer-logo" />
-      </div>
-      <div className="footer-section">
-        <p>&copy; 2024 doNateUS. All rights reserved.</p>
-      </div>
-    </footer>
+    <Box component="footer" className="footer-container">
+      <Container>
+        <Grid container spacing={3} alignItems="center">
+          <Grid item xs={12} sm={6} className="footer-logo-container">
+            <img src={logo} alt="Logo" className="footer-logo" />
+          </Grid>
+          <Grid item xs={12} sm={6} className="footer-text-container">
+            <Typography variant="body1">
+              &copy; 2024 doNateUS. All rights reserved.
+            </Typography>
+          </Grid>
+        </Grid>
+      </Container>
+    </Box>
   );
 }
 
