@@ -3,6 +3,7 @@ import './LoginRegister.css';
 import axios from 'axios';
 import { Button, TextField, Typography, Checkbox, FormControlLabel } from '@mui/material';
 import {useNavigate} from 'react-router-dom'
+import toast from 'react-hot-toast'
 
 export default function Login() {
   const navigate = useNavigate()
@@ -23,7 +24,7 @@ export default function Login() {
         password
       });
       if (data.error) {
-        alert("Data Error")
+        toast.error("Incorrect username or password")
       } else {
         setData({});
         navigate('/')
