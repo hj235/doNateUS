@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import styles from './LoginRegister.css';
+import './LoginRegister.css';
 import axios from 'axios';
 import { Button, TextField, Typography, Checkbox, FormControlLabel } from '@mui/material';
 import {useNavigate} from 'react-router-dom'
