@@ -19,7 +19,7 @@
 }
 
 .navbar-logo {
-    width: 200px;
+    width: 100px;
     /* Adjust the width of the logo as needed */
     height: auto;
 }
@@ -38,5 +38,5 @@
 }
 
 .navbar-link:hover {
-    background-color: #002F5A;
+    background-color: #cecece;
 }
