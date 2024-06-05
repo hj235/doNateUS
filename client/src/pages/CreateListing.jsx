@@ -22,7 +22,7 @@ export default function createListing() {
     const { listing_id, status, title, description, media, target_balance } = data;
     try {
       // data is the response provided by the server from the POST request
-      const { data } = await axios.post('/register', {
+      const { data } = await axios.post('/create', {
         listing_id, status, title, description, media, target_balance
       });
 
