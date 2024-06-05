@@ -1,3 +1,5 @@
+// Functions to hash/check passwords using bcrypt
+
 const bcrypt = require('bcrypt');
 
 // Hash password
