@@ -57,20 +57,20 @@ export default function createListing() {
           <form method="post" onSubmit={createListing}>
             <h1>Create a Listing</h1>
             <br />
-            <TextField label="Listing ID" variant="outlined" id="username" className="textfield" type="text" required
-              value={data.listing_id} onChange={(e) => setData({ ...data, name: e.target.value })} sx={{ background: 'white', userSelect: "none" }} />
+            <TextField label="Listing ID" variant="outlined" id="listing_id" className="textfield" type="text" required
+              value={data.listing_id} onChange={(e) => setData({ ...data, listing_id: e.target.value })} sx={{ background: 'white', userSelect: "none" }} />
             <br />
-            <TextField label="Title" variant="outlined" id="username" className="textfield" type="text" required
-              value={data.title} onChange={(e) => setData({ ...data, name: e.target.value })} sx={{ background: 'white', userSelect: "none" }} />
+            <TextField label="Title" variant="outlined" id="title" className="textfield" type="text" required
+              value={data.title} onChange={(e) => setData({ ...data, title: e.target.value })} sx={{ background: 'white', userSelect: "none" }} />
             <br />
-            <TextField label="Description" variant="outlined" id="username" className="textfield" type="text" 
-              value={data.description} onChange={(e) => setData({ ...data, name: e.target.value })} sx={{ background: 'white', userSelect: "none" }} />
+            <TextField label="Description" variant="outlined" id="description" className="textfield" type="text" 
+              value={data.description} onChange={(e) => setData({ ...data, description: e.target.value })} sx={{ background: 'white', userSelect: "none" }} />
             <br />
-            <TextField label="Link to Image/Video" variant="outlined" id="username" className="textfield" type="text" 
-              value={data.media} onChange={(e) => setData({ ...data, name: e.target.value })} sx={{ background: 'white', userSelect: "none" }} />
+            <TextField label="Link to Image/Video" variant="outlined" id="media" className="textfield" type="text" 
+              value={data.media} onChange={(e) => setData({ ...data, media: e.target.value })} sx={{ background: 'white', userSelect: "none" }} />
             <br />
-            <TextField label="Target Balance" variant="outlined" id="username" className="textfield" type="text" 
-              value={data.target_balance} onChange={(e) => setData({ ...data, name: e.target.value })} sx={{ background: 'white', userSelect: "none" }} />
+            <TextField label="Target Balance" variant="outlined" id="target_balance" className="textfield" type="text" 
+              value={data.target_balance} onChange={(e) => setData({ ...data, target_balance: e.target.value })} sx={{ background: 'white', userSelect: "none" }} />
             <br />
             <Button type="submit" variant="text" sx={{ color: 'darkgray', '&:hover': { color: "black", userSelect: "none" } }}> Create</Button>
           </form>
