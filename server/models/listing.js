@@ -10,4 +10,4 @@ const listingSchema = new mongoose.Schema({
   target_balance: {type: Number}
 });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('Listing', listingSchema);
