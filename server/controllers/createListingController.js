@@ -3,7 +3,7 @@
 const Listing = require('../models/listing');
 
 // create listing function
-async function registerUser(req, res) {
+async function createListing(req, res) {
     try {
         const { listing_id, status, title, description, media, target_balance } = req.body;
         // Check if fields are present? not sure if need since I'll add
@@ -16,12 +16,12 @@ async function registerUser(req, res) {
             })
         }
 
-        // Check for status
-        if (!status) { // TO BE REMOVED
-            return res.json({
-                error: 'A status is needed'
-            })
-        }
+        // // Check for status
+        // if (!status) { // TO BE REMOVED
+        //     return res.json({
+        //         error: 'A status is needed'
+        //     })
+        // }
 
         // Check for title
         if (!title) {
@@ -37,19 +37,19 @@ async function registerUser(req, res) {
             })
         }
 
-        // Check for status
-        if (!media) { // TO BE REMOVED
-            return res.json({
-                error: 'A media is needed'
-            })
-        }
+        // // Check for status
+        // if (!media) { // TO BE REMOVED
+        //     return res.json({
+        //         error: 'A media is needed'
+        //     })
+        // }
 
-        // Check for target_balance
-        if (!target_balance) { // TO BE REMOVED
-            return res.json({
-                error: 'A target balance is needed'
-            })
-        }
+        // // Check for target_balance
+        // if (!target_balance) { // TO BE REMOVED
+        //     return res.json({
+        //         error: 'A target balance is needed'
+        //     })
+        // }
 
         // // Check for title
         // const exist = await User.findOne({ email }); // finds a matching email in database
@@ -86,5 +86,5 @@ async function registerUser(req, res) {
 // }
 
 module.exports = {
-    createListingController
+    createListing
 };

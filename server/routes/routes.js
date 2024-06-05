@@ -4,7 +4,7 @@ const cors = require('cors');
 const {test} = require('../controllers/indexController');
 const {registerUser} = require('../controllers/registerController');
 const {loginUser} = require('../controllers/loginController');
-const {createListing} = require('../controllers/CreateListingController');
+const {createListing} = require('../controllers/createListingController');
 
 // middleware
 const corsOptions = {
@@ -17,6 +17,6 @@ router.use(cors(corsOptions));
 router.get('/', test);
 router.post('/register', registerUser);
 router.post('/login', loginUser);
-router.post('/crate', createListing)
+router.post('/create', createListing)
 
 module.exports = router;

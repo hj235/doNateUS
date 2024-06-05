@@ -6,7 +6,7 @@ const listingSchema = new mongoose.Schema({
   status: { type: String, default: "Open"},
   title: { type: String, required: true},
   description: { type: String},
-  media: { type: URL},
+  media: { type: String},
   current_balance: { type: Number, default: 0},
   target_balance: {type: Number, default: 0}
 });
