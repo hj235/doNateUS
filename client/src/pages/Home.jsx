@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Typography, Grid, Paper, Box, Avatar } from '@mui/material';
-import './Home.css';
+import styles from './Home.css';
 
 export default function Home() {
   // Change the document title

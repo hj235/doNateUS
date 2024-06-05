@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const listingSchema = new mongoose.Schema({
   listing_id: { type: String, unique: true, required: true },
   created_at: { type: Date, default: Date.now },
-  status: { type: String, unique: "Open"},
+  status: { type: String, default: "Open"},
   title: { type: String, required: true},
   description: { type: String},
   media: { type: URL},

@@ -3,6 +3,7 @@ import {Routes, Route} from 'react-router-dom';
 import Home from './pages/Home';
 import Register from './pages/Register';
 import Login from './pages/Login';
+import Create from './pages/CreateListing';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import axios from 'axios';
@@ -22,6 +23,7 @@ function App() {
         <Route path='/' element={<Home/>} />
         <Route path='/register' element={<Register/>} />
         <Route path='/login' element={<Login/>} />
+        <Route path='/create' element={<Create/>} />
       </Routes>
       <Footer/>
     </>
