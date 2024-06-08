@@ -1,7 +1,8 @@
 // controller for register page at path '/register'
 
 const User = require('../models/user');
-const { hashPassword} = require('../helpers/auth.js')
+const { hashPassword} = require('../helpers/auth');
+const { createToken } = require('../helpers/token');
 
 // register user function
 async function registerUser(req, res) {
@@ -11,14 +12,15 @@ async function registerUser(req, res) {
         // a required attribute to the html input tag
 
         // Check for name
-        if (!name) {
+        const nameExist = await User.findOne({ name }); // finds a matching name in database
+        if (!name || nameExist) {
             return res.json({
-                error: 'A username is required'
+                error: 'Username is invalid or already in use'
             })
         }
 
         // Check if password is good
-        if (!password) {
+        if (!password/* || password.length < 8*/) {
             return res.json({
                 error: 'Password should be at least 8 characters long'
             })
@@ -26,9 +28,9 @@ async function registerUser(req, res) {
 
         // Check for email
         const exist = await User.findOne({ email }); // finds a matching email in database
-        if (exist) {
+        if (!name || exist) {
             return res.json({
-                error: 'Email has already been registered'
+                error: 'Email is invalid or already registered'
             });
         }
 
@@ -40,11 +42,17 @@ async function registerUser(req, res) {
             name, email, password: hashedPassword
         });
 
-        return res.json(user);
+        // Create a login token
+        const token = createToken(user._id);
+
+        res.status(200).json({ user, token });
 
         // IDK what to do LMAO
     } catch (err) {
-        return res.json('An error occurred in registerController');
+        res.status(400).json({
+            description: 'An error occurred in registerController',
+            error: err.message
+        });
     }
 }
 

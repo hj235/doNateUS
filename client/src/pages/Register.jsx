@@ -25,7 +25,6 @@ export default function Register() {
       });
 
       if (data.error) {
-        // TODO: use toast for notifications
         toast.error(data.error);
       } else {
         setData({

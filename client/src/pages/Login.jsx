@@ -24,7 +24,7 @@ export default function Login() {
         password
       });
       if (data.error) {
-        toast.error("Incorrect username or password")
+        toast.error(data.error);
       } else {
         setData({
           name: '',
