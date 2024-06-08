@@ -1,13 +1,20 @@
+// dependencies
 import './App.css';
 import {Routes, Route} from 'react-router-dom';
+import axios from 'axios';
+import {Toaster} from 'react-hot-toast'
+
+// pages
 import Home from './pages/Home';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Create from './pages/CreateListing';
+
+
+// components
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import axios from 'axios';
-import {Toaster} from 'react-hot-toast'
+
 
 // axios stuff to make life easier
 axios.defaults.baseURL = 'http://localhost:8000'; // simplifies having to type out the server url multiple times
