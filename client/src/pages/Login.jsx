@@ -7,12 +7,13 @@ import toast from 'react-hot-toast'
 import { useUserContext } from '../../hooks/useUserContext';
 
 export default function Login() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { user, dispatch } = useUserContext();
+  if (user) navigate('/');
   const [data, setData] = useState({
     name: '',
     password: ''
   });
-  const { dispatch } = useUserContext();
 
   //havent implement, this is wrong
   const [keepSignedIn, setKeepSignedIn] = useState(false);

@@ -9,12 +9,13 @@ import { useUserContext } from '../../hooks/useUserContext';
 
 export default function Register() {
   const navigate = useNavigate();
+  const { user, dispatch } = useUserContext();
+  if (user) navigate('/');
   const [data, setData] = useState({
     name: '',
     email: '',
     password: ''
-  })
-  const { dispatch } = useUserContext();
+  });
 
   async function registerUser(e) {
     e.preventDefault();
