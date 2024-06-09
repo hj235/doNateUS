@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import './LoginRegister.css';
 import axios from 'axios';
 import { Button, TextField, Typography, Checkbox, FormControlLabel } from '@mui/material';
-import {useNavigate} from 'react-router-dom'
-import toast from 'react-hot-toast'
+import {useNavigate} from 'react-router-dom';
+import toast from 'react-hot-toast';
 import { useUserContext } from '../../hooks/useUserContext';
 
 export default function Login() {

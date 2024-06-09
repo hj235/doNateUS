@@ -1,20 +1,29 @@
 import React from 'react';
 import './CreateListing.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button, TextField, Typography } from '@mui/material'
 import toast from 'react-hot-toast';
+import { useUserContext } from '../../hooks/useUserContext';
+
 
 export default function createListing() {
   const navigate = useNavigate();
+  const { user } = useUserContext();
+  useEffect(() => {
+    if (!user) {
+      toast("Log in or register to an account to access this feature!");
+      navigate("/login");
+    }
+  });
   const [data, setData] = useState({
     status: '',
     title: '',
     description: '',
     media: '',
     target_balance: '',
-  })
+  });
 
   async function createListing(e) {
     e.preventDefault();
@@ -26,7 +35,6 @@ export default function createListing() {
       });
 
       if (data.error) {
-        // TODO: use toast for notifications
         toast.error("Error occured")
       } else {
         setData({
