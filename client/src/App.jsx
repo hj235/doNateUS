@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Create from './pages/CreateListing';
+import Discover from './pages/Discover';
 
 
 // components
@@ -32,6 +33,7 @@ function App() {
         <Route path='/register' element={<Register/>} />
         <Route path='/login' element={<Login/>} />
         <Route path='/create' element={<Create/>} />
+        <Route path='/discover' element={<Discover/>} />
       </Routes>
       </div>
     </>
