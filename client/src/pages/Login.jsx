@@ -15,7 +15,6 @@ export default function Login() {
     password: ''
   });
 
-  //havent implement, this is wrong
   const [keepSignedIn, setKeepSignedIn] = useState(false);
 
   async function loginUser(e) {
@@ -35,7 +34,9 @@ export default function Login() {
         });
 
         // save user data to local storage
-        localStorage.setItem('user', JSON.stringify(data));
+        if (keepSignedIn) {
+          localStorage.setItem('user', JSON.stringify(data));
+        }
 
         // update the user context
         dispatch({type: 'LOGIN', payload: data});

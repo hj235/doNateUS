@@ -38,8 +38,8 @@ export default function Register() {
         //redirect doesn't work? idk why
         //redirect('/login'); // TODO: redirect to '/' homepage and store session info as cookies somehow
 
-        // save user data to local storage
-        localStorage.setItem('user', JSON.stringify(data));
+        // // save user data to local storage
+        // localStorage.setItem('user', JSON.stringify(data));
 
         // update the user context
         dispatch({type: 'LOGIN', payload: data});
