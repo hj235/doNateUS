@@ -49,7 +49,7 @@ export default function createListing() {
   document.title = "Create a listing";
 
   return (
-    <div className="page-container">
+    <div className="page-container-box">
       <div className="wrapper">
         <div className="form-box">
           <form method="post" onSubmit={createListing}>

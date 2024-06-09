@@ -36,7 +36,9 @@ export default function Discover() {
 
   return (
     <div className="page-container">
-      <TextField label='Search' className='search-bar'> Search bar </TextField>
+      <div className='search-bar'>
+      <TextField label='Search' fullWidth> Search bar </TextField>
+      </div>
       <br/>
       <div className="listing">
         {listings.map(listing => (

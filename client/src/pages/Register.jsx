@@ -48,7 +48,7 @@ export default function Register() {
   document.title = "Register";
 
   return (
-    <div className="page-container">
+    <div className="page-container-box">
       <div className="wrapper">
         <div className="form-box">
           <form method="post" onSubmit={registerUser}>
