@@ -1,3 +1,4 @@
 loginController & registerController: // json the user for development purposes, but later should remove for confidentiality
 login.jsx: keep signed in button
 server/routes: split up and reorganise route js files
+Navbar.jsx: why is the login/logout/register squished (nvm? LOL i tagged the div as  className="navbar-link")

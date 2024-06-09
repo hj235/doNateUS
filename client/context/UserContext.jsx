@@ -1,4 +1,4 @@
-import { createContext, useReducer, useState } from 'react';
+import { createContext, useReducer, useState, useEffect } from 'react';
 
 export const UserContext = createContext(null);
 
@@ -17,48 +17,22 @@ export const UserContextProvider = ({children}) => {
     const [state, dispatch] = useReducer(userReducer, {
         user: null
     });
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (user) {
+            dispatch({type: 'LOGIN', payload: user});
+            setIsLoggedIn(true);
+        }
+    }, []);
 
     console.log('UserContext state: ', state);
+    console.log('Logged in: ', isLoggedIn);
 
     return (
-        <UserContext.Provider value={{...state, dispatch}}>
+        <UserContext.Provider value={{...state, dispatch, isLoggedIn, setIsLoggedIn }}>
             { children }
         </UserContext.Provider>
     )
 }
-
-// export const UserContextProvider = ({ children }) => {
-//     const [userInfo, setUserInfo] = useState(null);
-//     const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-//     const login = (user) => {
-//         setUserInfo(user);
-//         setIsLoggedIn(true);
-//     };
-
-//     const logout = () => {
-//         setUserInfo(null);
-//         setIsLoggedIn(false);
-//     };
-
-//     const value = {
-//         userInfo,
-//         setUserInfo,
-//         isLoggedIn,
-//         setIsLoggedIn,
-//         login,
-//         logout
-//     };
-
-//     // const [state, dispatch] = useReducer(userReducer, {
-//     //     user: null
-//     // })
-
-//     // console.log('UserContext state: ', state);
-
-//     return (
-//         <UserContext.Provider value={ value }>
-//             { children }
-//         </UserContext.Provider>
-//     );
-// };

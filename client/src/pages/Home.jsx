@@ -1,26 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
+import { useUserContext } from '../../hooks/useUserContext';
 
 export default function Home() {
   document.title = "Welcome";
+  const { user, isLoggedIn } = useUserContext();
+  // const welcomeText = isLoggedIn ? ", " + user.name + "!" : " to doNateUS!";
 
   return (
-    <div className="page-container">
-      <h1>Welcome to doNateUs</h1>
-      <div className="link-container">
-        <Link to="/login" className="link">Login</Link>
-        <Link to="/register" className="link">Create an account</Link>
-      </div>
-      <h2>Why you should create an account</h2>
-      <ul className="benefits-list">
-        <li>Like projects and view them whenever</li>
-        <li>Add comments on projects</li>
-        <li>Receive updates and notifications from projects</li>
-      </ul>
-      <div className="link-container">
-        <Link to="/discover">Browse without an account</Link>
-      </div>
-    </div>
+    <nav>
+      {!user && (
+        <div className="page-container">
+          <h1>Welcome to doNateUS!</h1>
+          <div className="link-container">
+            <Link to="/login" className="link">Login</Link>
+            <Link to="/register" className="link">Create an account</Link>
+          </div>
+          <h2>Why you should create an account</h2>
+          <ul className="benefits-list">
+            <li>Like projects and view them whenever</li>
+            <li>Add comments on projects</li>
+            <li>Receive updates and notifications from projects</li>
+          </ul>
+          <div className="link-container">
+            <Link to="/discover">Browse without an account</Link>
+          </div>
+        </div>
+      )}
+      {user && (
+        <div className="page-container">
+          <h1>Welcome back, {user.name}!</h1>
+          <div className="link-container">
+            <Link to="/discover">Browse</Link>
+          </div>
+        </div>
+      )}
+    </nav>
   );
 }

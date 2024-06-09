@@ -44,7 +44,7 @@ export default function Register() {
         dispatch({type: 'LOGIN', payload: data});
 
         toast.success('Registration success. Welcome!');
-        navigate('/login');
+        navigate('/');
       }
 
       // can have what error sia idk

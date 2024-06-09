@@ -84,6 +84,34 @@ async function loginUser(req, res) {
     }
 }
 
+// TODO
+async function logoutUser(req, res) {
+    try {
+        const { name, password } = req.body;
+
+        // check if user exists
+        const user = await User.findOne({ name });
+        if (!user) {
+            return res.json({
+                error: 'User not found'
+            })
+        }
+
+        // check if password match
+        const match = await comparePassword(password, user.password)
+        if (match) {
+            // Create a login token
+            const token = createToken(user._id);
+
+            // json the user for development purposes, but later should remove for confidentiality
+            return res.json({ ...user._doc, token });
+        } else {
+            return res.json({ error: 'Incorrect password' })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 
 // Test: successfully creates entry in mongoDB collection
@@ -99,5 +127,6 @@ async function loginUser(req, res) {
 
 module.exports = {
     registerUser,
-    loginUser
+    loginUser,
+    logoutUser
 };
