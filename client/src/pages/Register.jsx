@@ -4,6 +4,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button, TextField, Typography } from '@mui/material'
+import toast from 'react-hot-toast';
 
 export default function Register() {
   const navigate = useNavigate();
@@ -24,8 +25,7 @@ export default function Register() {
       });
 
       if (data.error) {
-        // TODO: use toast for notifications
-        alert(data.error);
+        toast.error(data.error);
       } else {
         setData({
           name: '',
@@ -35,7 +35,7 @@ export default function Register() {
         //redirect doesn't work? idk why
         //redirect('/login'); // TODO: redirect to '/' homepage and store session info as cookies somehow
 
-        alert('Registration success. Welcome!');
+        toast.success('Registration success. Welcome!');
         navigate('/login');
       }
 

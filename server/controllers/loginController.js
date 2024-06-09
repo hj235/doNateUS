@@ -1,7 +1,8 @@
 // controller for login page at path '/login'
 
 const User = require('../models/user');
-const {comparePassword} = require('../helpers/auth')
+const {comparePassword} = require('../helpers/auth');
+const { createToken } = require('../helpers/token');
 
 // login user function
 async function loginUser(req, res) {
@@ -12,16 +13,20 @@ async function loginUser(req, res) {
         const user = await User.findOne({name});
         if (!user) {
             return res.json({
-                error: 'No user found'
+                error: 'User not found'
             })
         }
 
         // check if password match
         const match = await comparePassword(password, user.password)
         if(match) {
-            return res.json('password match')
+            // Create a login token
+            const token = createToken(user._id);
+
+            // json the user for development purposes, but later should remove for confidentiality
+            return res.json({ user, token });
         } else {
-            return res.json({error:'incorrect password'})
+            return res.json({error: 'Incorrect password'})
         }
     } catch (error) {
         console.log(error)

@@ -1,0 +1,3 @@
+loginController & registerController: // json the user for development purposes, but later should remove for confidentiality
+login.jsx: keep signed in button
+server/routes: split up and reorganise route js files
