@@ -30,7 +30,7 @@ export default function Login() {
           name: '',
           password: ''
         });
-        navigate('/');
+        navigate('/discover');
       }
     } catch (error) {
 
