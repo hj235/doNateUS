@@ -9,7 +9,6 @@ import toast from 'react-hot-toast';
 export default function createListing() {
   const navigate = useNavigate();
   const [data, setData] = useState({
-    listing_id: '',
     status: '',
     title: '',
     description: '',
@@ -19,11 +18,11 @@ export default function createListing() {
 
   async function createListing(e) {
     e.preventDefault();
-    const { listing_id, status, title, description, media, target_balance } = data;
+    const { status, title, description, media, target_balance } = data;
     try {
       // data is the response provided by the server from the POST request
       const { data } = await axios.post('/api/listings/create', {
-        listing_id, status, title, description, media, target_balance
+        status, title, description, media, target_balance
       });
 
       if (data.error) {
@@ -31,7 +30,6 @@ export default function createListing() {
         toast.error("Error occured")
       } else {
         setData({
-            listing_id: '',
             status: '',
             title: '',
             description: '',
@@ -57,19 +55,16 @@ export default function createListing() {
           <form method="post" onSubmit={createListing}>
             <h1>Create a Listing</h1>
             <br />
-            <TextField label="Listing ID" variant="outlined" id="listing_id" className="textfield" type="text" required
-              value={data.listing_id} onChange={(e) => setData({ ...data, listing_id: e.target.value })} sx={{ background: 'white', userSelect: "none" }} />
-            <br />
             <TextField label="Title" variant="outlined" id="title" className="textfield" type="text" required
               value={data.title} onChange={(e) => setData({ ...data, title: e.target.value })} sx={{ background: 'white', userSelect: "none" }} />
             <br />
-            <TextField label="Description" variant="outlined" id="description" className="textfield" type="text" 
+            <TextField label="Description" variant="outlined" id="description" className="textfield" type="text" required multiline minRows={8} maxRows ={8}
               value={data.description} onChange={(e) => setData({ ...data, description: e.target.value })} sx={{ background: 'white', userSelect: "none" }} />
             <br />
             <TextField label="Link to Image/Video" variant="outlined" id="media" className="textfield" type="text" 
               value={data.media} onChange={(e) => setData({ ...data, media: e.target.value })} sx={{ background: 'white', userSelect: "none" }} />
             <br />
-            <TextField label="Target Balance" variant="outlined" id="target_balance" className="textfield" type="text" 
+            <TextField label="Goal ($)" variant="outlined" id="target_balance" className="textfield" type="text" 
               value={data.target_balance} onChange={(e) => setData({ ...data, target_balance: e.target.value })} sx={{ background: 'white', userSelect: "none" }} />
             <br />
             <Button type="submit" variant="text" sx={{ color: 'darkgray', '&:hover': { color: "black", userSelect: "none" } }}> Create</Button>

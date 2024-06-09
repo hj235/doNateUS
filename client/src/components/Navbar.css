@@ -14,7 +14,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgb(216, 216, 216);
+    background: rgb(255, 255, 255);
     padding: 10px;
 }
 
@@ -34,9 +34,18 @@
     font-weight: bold;
     padding: 10px 20px;
     border-radius: 5px;
-    transition: background-color 0.3s ease;
 }
 
-.navbar-link:hover {
-    background-color: #cecece;
+.button {
+    color: rgb(0, 0, 0);
+    background-color: #0068cf;
+    border-radius: 5px;
+    padding: 10px 0px;
+    font-weight: bold;
+    align-items: center;
 }
+
+.button:hover {
+    background-color: #0076ec;
+}
+

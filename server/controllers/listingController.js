@@ -5,16 +5,10 @@ const Listing = require('../models/listing');
 // create listing function
 async function createListing(req, res) {
     try {
-        const { listing_id, status, title, description, media, target_balance } = req.body;
+        const { status, title, description, media, target_balance } = req.body;
         // Check if fields are present? not sure if need since I'll add
         // a required attribute to the html input tag
 
-        // Check for listing_id
-        if (!listing_id) { // TO BE REMOVED
-            return res.json({
-                error: 'A listing id is needed'
-            })
-        }
 
         // // Check for status
         // if (!status) { // TO BE REMOVED
@@ -61,7 +55,7 @@ async function createListing(req, res) {
 
         // Checks all passed, register user into database
         const listing = await Listing.create({
-            listing_id, status, title, description, media, target_balance
+            status, title, description, media, target_balance
         });
 
         return res.json(listing);

@@ -32,6 +32,10 @@
     align-items: center;
 }
 
+.textfield {
+    width: 300px;
+}
+
 /* Form */
 form {
     display: flex;

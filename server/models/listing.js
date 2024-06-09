@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const listingSchema = new mongoose.Schema({
-  listing_id: { type: String, unique: true, required: true },
+  listing_id: { type: String, unique: true},
   created_at: { type: Date, default: Date.now },
   status: { type: String, default: "Open"},
   title: { type: String, required: true},
