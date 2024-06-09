@@ -1,31 +1,28 @@
-.container {
-    padding-top: 2rem;
-  }
-  
-  .title {
-    margin-bottom: 2rem;
-  }
-  
-  .grid-item {
-    position: relative;
-    padding-top: 100%; /* 1:1 Aspect Ratio */
-  }
-  
-  .grid-item-content {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .avatar {
-    width: 30px;
-    height: 30px;
-    margin-bottom: 1rem;
-  }
-  
+/* Home.css */
+
+.page-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.link-container {
+  margin-top: 20px;
+}
+
+.link-container a {
+  text-decoration: none;
+  color: #1976d2;
+  padding: 10px 20px;
+  border: 1px solid #1976d2;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.link-container a:hover {
+  background-color: #1976d2;
+  color: #fff;
+}
+
+.link {
+  margin-right: 10px;
+}

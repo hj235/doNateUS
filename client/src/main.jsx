@@ -1,13 +1,34 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
-import { BrowserRouter as Router } from 'react-router-dom'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+// Create a MUI theme
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#003D7C', // Primary color
+    },
+    secondary: {
+      main: '#dc004e', // Secondary color
+    },
+  },
+  typography: {
+    fontFamily: 'Inter, system-ui, Avenir, Helvetica, Arial, sans-serif',
+  },
+});
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
+root.render(
   <React.StrictMode>
-    <Router>
-      <App />
-    </Router>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Router>
+        <App />
+      </Router>
+    </ThemeProvider>
   </React.StrictMode>,
-)
+);

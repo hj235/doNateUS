@@ -1,0 +1,11 @@
+.page-container {
+    background-color: rgb(255, 255, 255);
+}
+
+.search-bar {
+    min-width: 600px;
+}
+
+.listing {
+    color: black;
+}

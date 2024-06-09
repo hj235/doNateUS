@@ -5,7 +5,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    background-color: #003D7C;
+    background-color: #ffffff;
     z-index: 1000;
 }
 
@@ -14,7 +14,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: white;
+    background: rgb(216, 216, 216);
     padding: 10px;
 }
 

@@ -1,7 +1,7 @@
 // controller for register page at path '/register'
 
 const User = require('../models/user');
-const { hashPassword} = require('../helpers/auth');
+const { hashPassword, comparePassword } = require('../helpers/auth');
 const { createToken } = require('../helpers/token');
 
 // register user function
@@ -56,6 +56,34 @@ async function registerUser(req, res) {
     }
 }
 
+async function loginUser(req, res) {
+    try {
+        const { name, password } = req.body;
+
+        // check if user exists
+        const user = await User.findOne({ name });
+        if (!user) {
+            return res.json({
+                error: 'User not found'
+            })
+        }
+
+        // check if password match
+        const match = await comparePassword(password, user.password)
+        if (match) {
+            // Create a login token
+            const token = createToken(user._id);
+
+            // json the user for development purposes, but later should remove for confidentiality
+            return res.json({ user, token });
+        } else {
+            return res.json({ error: 'Incorrect password' })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 
 
 // Test: successfully creates entry in mongoDB collection
@@ -70,5 +98,6 @@ async function registerUser(req, res) {
 // }
 
 module.exports = {
-    registerUser
+    registerUser,
+    loginUser
 };
