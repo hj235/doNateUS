@@ -11,7 +11,7 @@ export default function Discover() {
     document.title = "Discover";
 
     //TODO: Figure out how to load listings from MongoDB
-    const [listings, setListings] = useState(null)
+    const [listings, setListings] = useState([])
 
     useEffect(() => {
         const fetchListings = async () => {
@@ -19,7 +19,7 @@ export default function Discover() {
             const response = await axios.get('/api/listings')
 
             if (response) {
-              setListings(response.json);
+              setListings(response.data);
               toast.success("Loaded Listings")
             } else {
               console.error('Response not okay:', response.status, json);
@@ -39,8 +39,8 @@ export default function Discover() {
         <div className="page-container">
             <TextField label='Search' className='search-bar'> Search bar </TextField>
             <div className="listings">
-                {listings && listings.map(listing => ( 
-                    <ListingDetails key={listing._id} listing = {listing} />
+                {listings.map(listing => ( 
+                    <ListingDetails listing = {listing} key={listing._id}  />
                 ))}
             </div>
             <h1>end</h1>
