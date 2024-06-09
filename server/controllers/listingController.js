@@ -72,19 +72,18 @@ async function createListing(req, res) {
     }
 }
 
+// get all listings function
+async function getListings(req ,res) {
+    try {
+        const listings = await Listing.find()
+        return res.json(listings)
+    } catch (error) {
+        res.status(400).json({error: error.message})
+    }
+}
 
-
-// Test: successfully creates entry in mongoDB collection
-// async function registerUser(req, res) {
-//     const user = await User.create({
-//         name: 'test',
-//         email: 'test',
-//         password: 'test'
-//     });
-
-//     return res.json(user);
-// }
 
 module.exports = {
-    createListing
+    createListing,
+    getListings
 };
