@@ -8,11 +8,18 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        <Link to="/" className="navbar-link"><img src={logo} alt="Logo" className="navbar-logo" /> {/* Logo added here */}</Link>
+        <div>
+          <Link to="/" className="navbar-link" ><img src={logo} alt="Logo" className="navbar-logo" /></Link>
+          <Link to="/discover" className="navbar-link" >Discover</Link>
+        </div>
         <div className="navbar-links">
           <Link to="/register" className="navbar-link">Register</Link>
           <Link to="/login" className="navbar-link">Login</Link>
+          <div className="button">
+            <Link to="/create" className="navbar-link">Create</Link>
+          </div>
         </div>
+
       </div>
     </nav>
   );

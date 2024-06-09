@@ -1,7 +1,7 @@
 /* LoginRegister.css */
 
 /* Page container */
-.page-container {
+.page-container-box{
     display: flex;
     flex-direction: column;
     align-items: center;

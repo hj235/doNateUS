@@ -3,9 +3,39 @@
 }
 
 .search-bar {
-    min-width: 600px;
+    min-width: 1000px;
+    margin-top: 64px;
+    margin-left: 300px;
+    margin-right: 500px;
 }
 
 .listing {
-    color: black;
-}
+    margin-left: 300px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .listing-item {
+    width: 200px; /* Adjust width as needed */
+    height: 250px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    background-color: #e7e7e7; /* Example background color */
+    border: 1px solid #d4d4d4; /* Example border */
+    border-radius: 10px; /* Example border radius */
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  
+  .listing-item:last-child {
+    margin-right: 0;
+  }
+  
+  .listing-item h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+  
+  .listing-item p {
+    margin: 0;
+  }

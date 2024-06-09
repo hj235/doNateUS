@@ -49,7 +49,7 @@ export default function Login() {
   document.title = "Login";
 
   return (
-    <div className="page-container">
+    <div className="page-container-box">
       <div className="wrapper">
         <div className="form-box">
           <form method="get" onSubmit={loginUser}>
