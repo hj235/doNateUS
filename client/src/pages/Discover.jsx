@@ -4,6 +4,7 @@ import ListingDetails from '../components/ListingDetails'
 import { TextField } from '@mui/material';
 import { useEffect, useState } from 'react'
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 export default function Discover() {
 
@@ -14,10 +15,12 @@ export default function Discover() {
     useEffect(() => {
         const fetchListings = async () => {
           try {
-            const response = await axios.get('/discover');
+            const response = await fetch('/discover');
             setListings(response.data);
+            toast.success()
           } catch (error) {
             console.error('Error fetching listings:', error);
+            toast.error()
           }
         };
     
@@ -32,6 +35,7 @@ export default function Discover() {
                     <ListingDetails key={listing._id} listing = {listing} />
                 ))}
             </div>
+            <h1>end</h1>
         </div>
     )
 }
