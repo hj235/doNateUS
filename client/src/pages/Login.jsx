@@ -12,7 +12,7 @@ export default function Login() {
     name: '',
     password: ''
   });
-  const { dispatch, setIsLoggedIn } = useUserContext();
+  const { dispatch } = useUserContext();
 
   //havent implement, this is wrong
   const [keepSignedIn, setKeepSignedIn] = useState(false);
@@ -38,7 +38,6 @@ export default function Login() {
 
         // update the user context
         dispatch({type: 'LOGIN', payload: data});
-        setIsLoggedIn(true);
 
         navigate('/');
       }

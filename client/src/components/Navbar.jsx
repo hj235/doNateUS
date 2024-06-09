@@ -2,11 +2,13 @@ import { Link } from "react-router-dom";
 import logo from '../assets/logo.png'; // Import the logo image
 import './Navbar.css'; // Import your CSS file for navbar styling
 import { useUserContext } from "../../hooks/useUserContext";
-
-// Todo Change Navbar based on login status
+import { useLogout } from '../../hooks/useLogout';
+import { Button } from '@mui/material';
 
 export default function Navbar() {
   const { user } = useUserContext();
+  const { logout } = useLogout();
+
   return (
     <nav className="navbar">
       <div className="navbar-container">
@@ -17,8 +19,9 @@ export default function Navbar() {
         <div className="navbar-links">
           <nav>
             {user && (
-              <div className="navbar-link">
-                <Link to="/logout" className="navbar-link">Logout</Link>
+              <div>
+                <button className="button" onClick={logout}>Logout</button>
+                <Button onClick={logout} variant="text" sx={{ color: 'darkgray', '&:hover': { color: "black", userSelect: "none" } }}> Logout </Button>
               </div>
             )}
             {!user &&(

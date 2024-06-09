@@ -17,21 +17,19 @@ export const UserContextProvider = ({children}) => {
     const [state, dispatch] = useReducer(userReducer, {
         user: null
     });
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('user'));
         if (user) {
             dispatch({type: 'LOGIN', payload: user});
-            setIsLoggedIn(true);
         }
     }, []);
 
     console.log('UserContext state: ', state);
-    console.log('Logged in: ', isLoggedIn);
+    console.log(state.user ? "Logged in as user: " + state.user.name : "Logged out");
 
     return (
-        <UserContext.Provider value={{...state, dispatch, isLoggedIn, setIsLoggedIn }}>
+        <UserContext.Provider value={{...state, dispatch }}>
             { children }
         </UserContext.Provider>
     )
