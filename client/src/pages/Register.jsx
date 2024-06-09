@@ -5,6 +5,7 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button, TextField, Typography } from '@mui/material'
 import toast from 'react-hot-toast';
+import { useUserContext } from '../../hooks/useUserContext';
 
 export default function Register() {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ export default function Register() {
     email: '',
     password: ''
   })
+  const { dispatch } = useUserContext();
 
   async function registerUser(e) {
     e.preventDefault();
@@ -34,6 +36,12 @@ export default function Register() {
         });
         //redirect doesn't work? idk why
         //redirect('/login'); // TODO: redirect to '/' homepage and store session info as cookies somehow
+
+        // save user data to local storage
+        localStorage.setItem('user', JSON.stringify(data));
+
+        // update the user context
+        dispatch({type: 'LOGIN', payload: data});
 
         toast.success('Registration success. Welcome!');
         navigate('/login');

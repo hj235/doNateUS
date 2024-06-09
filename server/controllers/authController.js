@@ -45,7 +45,7 @@ async function registerUser(req, res) {
         // Create a login token
         const token = createToken(user._id);
 
-        res.status(200).json({ user, token });
+        res.status(200).json({ ...user._doc, token });
 
         // IDK what to do LMAO
     } catch (err) {
@@ -75,7 +75,7 @@ async function loginUser(req, res) {
             const token = createToken(user._id);
 
             // json the user for development purposes, but later should remove for confidentiality
-            return res.json({ user, token });
+            return res.json({ ...user._doc, token });
         } else {
             return res.json({ error: 'Incorrect password' })
         }

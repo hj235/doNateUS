@@ -4,13 +4,15 @@ import axios from 'axios';
 import { Button, TextField, Typography, Checkbox, FormControlLabel } from '@mui/material';
 import {useNavigate} from 'react-router-dom'
 import toast from 'react-hot-toast'
+import { useUserContext } from '../../hooks/useUserContext';
 
 export default function Login() {
   const navigate = useNavigate()
   const [data, setData] = useState({
     name: '',
     password: ''
-  })
+  });
+  const { dispatch } = useUserContext();
 
   //havent implement, this is wrong
   const [keepSignedIn, setKeepSignedIn] = useState(false);
@@ -30,10 +32,17 @@ export default function Login() {
           name: '',
           password: ''
         });
+
+        // save user data to local storage
+        localStorage.setItem('user', JSON.stringify(data));
+
+        // update the user context
+        dispatch({type: 'LOGIN', payload: data});
+
         navigate('/discover');
       }
     } catch (error) {
-
+      console.log(error);
     }
   }
 
