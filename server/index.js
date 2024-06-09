@@ -22,12 +22,19 @@ mongoose.connection.on('error', err => {
 mongoose.connection.on('disconnected', () => console.log('Server disconnected from mongoDB'));
 
 // Middleware ---------------------------
+
+const corsOptions = {
+    credentials: true, // allows cookies on the server side
+    origin: process.env.CLIENT_URL // allows this client to communicate with the server
+};
+app.use(cors(corsOptions));
 // to parse incoming requests with JSON payloads and make the parsed JSON data available in the 'req.body' of the routes
 app.use(express.json());
 
 // sets up routing for application
 // TODO: split up into separate routes, example: https://stackoverflow.com/questions/28305120/differences-between-express-router-and-app-get
-app.use('/', require('./routes/routes'));
+app.use('/', require('./routes/authroutes'));
+app.use('/api/listings', require('./routes/listingroutes'));
 
 // sets up Express sever to listen for incoming requests on port defined in .env
 const port = process.env.PORT;

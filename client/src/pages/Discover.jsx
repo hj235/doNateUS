@@ -3,7 +3,6 @@ import './Discover.css';
 import ListingDetails from '../components/ListingDetails'
 import { TextField } from '@mui/material';
 import { useEffect, useState } from 'react'
-import axios from 'axios';
 import toast from 'react-hot-toast';
 
 export default function Discover() {
@@ -15,12 +14,20 @@ export default function Discover() {
     useEffect(() => {
         const fetchListings = async () => {
           try {
-            const response = await fetch('/discover');
-            setListings(response.data);
-            toast.success()
+            const response = await fetch('/api/listings');
+            const json = await response.json();
+
+            if (response.ok) {
+              setListings(json);
+              toast.success("Loaded Listings")
+            } else {
+              console.error('Response not okay:', response.status, json);
+              toast.error("Response not okay")
+            }
+    
           } catch (error) {
             console.error('Error fetching listings:', error);
-            toast.error()
+            toast.error('Error fetching listings')
           }
         };
     

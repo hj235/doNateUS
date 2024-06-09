@@ -68,7 +68,7 @@ async function createListing(req, res) {
 
     // IDK what to do LMAO
     } catch (err) {
-        return res.json('An error occurred in createListingController');
+        return res.json(err);
     }
 }
 
