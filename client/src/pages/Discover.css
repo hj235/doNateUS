@@ -3,14 +3,13 @@
 }
 
 .search-bar {
-    min-width: 1000px;
     margin-top: 64px;
-    margin-left: 300px;
-    margin-right: 500px;
+    margin-left: 600px;
+    margin-right: 600px;
 }
 
 .listing {
-    margin-left: 300px;
+    margin-left: 200px;
     display: flex;
     flex-wrap: wrap;
   }

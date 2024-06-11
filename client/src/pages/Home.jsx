@@ -19,9 +19,11 @@ export default function Home() {
           </div>
           <h2>Why you should create an account</h2>
           <ul className="benefits-list">
-            <li>Like projects and view them whenever</li>
-            <li>Add comments on projects</li>
-            <li>Receive updates and notifications from projects</li>
+            Like projects and view them whenever
+            <br/>
+            Add comments on projects
+            <br/>
+            Receive updates and notifications from projects
           </ul>
           <div className="link-container">
             <Link to="/discover">Browse without an account</Link>
