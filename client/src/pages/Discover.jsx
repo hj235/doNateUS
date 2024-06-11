@@ -1,15 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import './Discover.css';
 import ListingDetails from '../components/ListingDetails';
 import axios from 'axios';
-import { TextField } from '@mui/material';
+import { TextField, MenuItem, Button, Box } from '@mui/material';
 import toast from 'react-hot-toast';
+import { useSortedByKey } from '../../hooks/useSortedByKey';
 
 export default function Discover() {
   document.title = "Discover";
 
   const [listings, setListings] = useState([]);
   const [searchInput, setSearchInput] = useState("");
+  const [sortOption, setSortOption] = useState('');
+  const sortOptions = [
+    { label: 'Created Date', value: 'created_at' },
+    { label: 'Title', value: 'title' },
+  ];
+  const { sortedByKey } = useSortedByKey();
 
   useEffect(() => {
     const fetchListings = async () => {
@@ -32,6 +39,7 @@ export default function Discover() {
     fetchListings();
   }, []);
 
+  // Search Bar logic
   const handleSearchInputChange = (event) => {
     setSearchInput(event.target.value);
   };
@@ -40,6 +48,16 @@ export default function Discover() {
     listing.title.toLowerCase().includes(searchInput.toLowerCase())
   );
 
+  // Sorting Selection logic 
+  const handleOptionChange = (event) => {
+    setSortOption(event.target.value);
+  };
+
+  const handleSorting = () => {
+    setListings(sortedByKey(listings, sortOption));
+    console.log(listings);
+  };
+
   return (
     <div className="page-container">
       <div className='search-bar'>
@@ -47,9 +65,29 @@ export default function Discover() {
           label='Search' 
           fullWidth 
           value={searchInput} 
-          onChange={handleSearchInputChange} 
+          onChange={handleSearchInputChange}
         />
       </div>
+      <br/>
+
+      <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2, marginLeft: '600px', marginRight: '800px' }}>
+        <TextField
+          select
+          label="Sort by:"
+          value={sortOption}
+          onChange={handleOptionChange}
+          variant="outlined"
+          fullWidth
+          >
+          {sortOptions.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+        <Button sx={{ display: 'flex', height: 1, alignSelf: 'center' }} variant="contained" color="primary" onClick={handleSorting}>Apply</Button>
+      </Box>
+      
       <br/>
       <div className="listing">
         {filteredListings.map(listing => (
