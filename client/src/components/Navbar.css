@@ -14,6 +14,8 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px;
+    margin-left: 200px;
+    margin-right: 200px;
 }
 
 .navbar-logo {
@@ -36,7 +38,7 @@
 }
 
 .button {
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
     background-color: #0068cf;
     border-radius: 5px;
     padding: 10px 0px;

@@ -2,10 +2,11 @@
 
 .page-container {
   text-align: center;
+  margin-top: 64px;
 }
 
 .link-container {
-  margin-top: 20px;
+  margin-top: 0px;
 }
 
 .link-container a {
