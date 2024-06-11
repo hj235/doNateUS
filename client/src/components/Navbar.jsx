@@ -20,7 +20,6 @@ export default function Navbar() {
           <nav>
             {user && (
               <div>
-                <button className="button" onClick={logout}>Logout</button>
                 <Button onClick={logout} variant="text" sx={{ color: 'darkgray', '&:hover': { color: "black", userSelect: "none" } }}> Logout </Button>
               </div>
             )}
