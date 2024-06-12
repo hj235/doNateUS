@@ -17,19 +17,15 @@ export default function Navbar() {
           <Link to="/discover" className="navbar-link" >Discover</Link>
         </div>
         <div className="navbar-links">
-          <nav>
-            {user && (
-              <div>
-                <Button onClick={logout} variant="text" sx={{ color: 'darkgray', '&:hover': { color: "black", userSelect: "none" } }}> Logout </Button>
-              </div>
-            )}
-            {!user &&(
-              <div className="navbar-link">
-                <Link to="/register" className="navbar-link">Register</Link>
-                <Link to="/login" className="navbar-link">Login</Link>
-              </div>
-            )}
-          </nav>
+          <div>
+            {user
+              ? (<Button onClick={logout} variant="text" sx={{ color: 'darkgray', '&:hover': { color: "black", userSelect: "none" } }}> Logout </Button>)
+              : (<div className="navbar-link">
+                  <Link to="/register" className="navbar-link">Register</Link>
+                  <Link to="/login" className="navbar-link">Login</Link>
+                </div>)
+            }
+          </div>
           <div className="button">
             <Link to="/create" className="navbar-link">Create</Link>
           </div>
