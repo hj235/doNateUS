@@ -8,7 +8,6 @@ import { useUserContext } from '../../hooks/useUserContext';
 export default function CreateListing() {
   const { user } = useUserContext();
   const [data, setData] = useState({
-    status: '',
     title: '',
     description: '',
     media: null,
@@ -37,9 +36,8 @@ export default function CreateListing() {
   const createListing = async (e) => {
     e.preventDefault();
     try {
-      const { status, title, description, media, target_balance, owner } = data;
+      const { title, description, media, target_balance, owner } = data;
       const response = await axios.post('/api/listings/create', {
-        status,
         title,
         description,
         media,
@@ -50,7 +48,6 @@ export default function CreateListing() {
         toast.error('Error occurred while creating listing.');
       } else {
         setData({
-          status: '',
           title: '',
           description: '',
           media: null,
