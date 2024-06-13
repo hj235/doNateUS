@@ -21,7 +21,7 @@ export function ListingCard({ listing }) {
     return (
         <>
         <Card sx={{ maxWidth: 345 }}>
-            <CardMedia sx={{ height: 140 }} image={media_ph} alt="Listing Media"/>
+            <CardMedia sx={{ height: 140 }} image={listing.media || media_ph} alt="Listing Media"/>
             
             <CardContent>
             <Typography gutterBottom variant="h5" component="div">
