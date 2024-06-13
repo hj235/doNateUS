@@ -13,6 +13,7 @@ export default function Discover() {
   document.title = "Discover";
 
   const [listings, setListings] = useState([]);
+  const [filteredListings, setFilteredListings] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [isloading, setIsLoading] = useState(true);
   
@@ -46,9 +47,11 @@ export default function Discover() {
     setSearchInput(event.target.value);
   };
 
-  const filteredListings = listings.filter(listing =>
-    listing.title.toLowerCase().includes(searchInput.toLowerCase())
-  );
+  useEffect(() => {
+    setFilteredListings(listings.filter(listing =>
+      listing.title.toLowerCase().includes(searchInput.toLowerCase())
+    ))
+  }, [searchInput, listings]);
 
   return (
     <div className="page-container">
