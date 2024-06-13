@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './Discover.css';
 import ListingDetails from '../components/ListingDetails';
+import { ListingCard } from '../components/ListingCard';
 import axios from 'axios';
 import { TextField } from '@mui/material';
 import toast from 'react-hot-toast';
 import { FilterSelect } from '../components/FilterSelect';
 import spinner from '../assets/loading-spinner.gif';
+
 
 export default function Discover() {
   document.title = "Discover";
@@ -48,7 +50,6 @@ export default function Discover() {
     listing.title.toLowerCase().includes(searchInput.toLowerCase())
   );
 
-
   return (
     <div className="page-container">
       <div className='search-bar'>
@@ -74,6 +75,7 @@ export default function Discover() {
           ))
         }
       </div>
+      
       <h1>end</h1>
     </div>
   );
