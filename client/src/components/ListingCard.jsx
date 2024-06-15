@@ -1,6 +1,7 @@
 // experimenting with using cards for listings
 import React from 'react';
-import { Card, CardContent, CardMedia, CardActions, Button, Typography } from '@mui/material';
+import { Card, CardContent, CardMedia, CardActions, Button, Typography, CardActionArea } from '@mui/material';
+import { Link } from 'react-router-dom'
 import media_ph from '../assets/listing-media-placeholder.jpg';
 
 export function ListingCard({ listing }) {
@@ -20,22 +21,19 @@ export function ListingCard({ listing }) {
     // );
     return (
         <>
-        <Card sx={{ maxWidth: 345 }}>
-            <CardMedia sx={{ height: 140 }} image={listing.media || media_ph} alt="Listing Media"/>
-            
-            <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-                {listing.title}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-                {listing.description}
-            </Typography>
-            </CardContent>
-
-            <CardActions>
-                <Button size="small">Go to Listing Page</Button>
-            </CardActions>
-        </Card>
+            <Card sx={{ maxWidth: 345 }}>
+                <CardActionArea component={Link} to={`/listing/${listing._id}`} sx={{ height: 340 }}>
+                <CardMedia sx={{ height: 170 }} image={listing.media || media_ph} alt="Listing Media" />
+                    <CardContent>
+                        <Typography variant="h5" component="div" >
+                            {listing.title}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                            {listing.description}
+                        </Typography>
+                    </CardContent>
+                </CardActionArea>
+            </Card>
         </>
     )
 }

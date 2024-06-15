@@ -11,6 +11,11 @@ export const useSortedByKey = () => {
                     listing1 = listing1.created_at;
                     listing2 = listing2.created_at;
                     break;
+                case 'created_at_desc':
+                    const temp = listing1.created_at;
+                    listing1 = listing2.created_at;
+                    listing2 = temp;
+                    break;
                 default: // if it reaches here, means invalid option was used
                     return 0;
             }

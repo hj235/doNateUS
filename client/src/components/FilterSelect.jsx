@@ -1,48 +1,40 @@
-// Component for filter and sort options for discovery page(and maybe homepage?)
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSortedByKey } from '../../hooks/useSortedByKey';
-import { MenuItem, Button, InputLabel, Select, FormControl } from '@mui/material';
+import { FormControl, FormControlLabel, Radio, RadioGroup } from '@mui/material';
 
 export function FilterSelect({ listings, setListings }) {
-    // Sorting dependencies
-    const [sortOption, setSortOption] = useState('');
-    const sortOptions = [
-        { label: 'Created Date', value: 'created_at' },
-        { label: 'Title', value: 'title' },
-    ];
+    const [sortOption, setSortOption] = useState('created_at');
+
     const { sortedByKey } = useSortedByKey();
- 
+
+    useEffect(() => {
+        const handleSorting = () => {
+            const sortedListings = sortedByKey(listings, sortOption);
+            setListings(sortedListings);
+        };
+
+        handleSorting();
+    }, [sortOption]);
+
     const handleOptionChange = (event) => {
         setSortOption(event.target.value);
     };
-
-    const handleSorting = () => {
-        setListings(sortedByKey(listings, sortOption));
-        console.log(listings);
-    };
+    // TODO: Add sorting for likes
 
     return (
-        <>
-            <FormControl sx={{ display: 'flex', flexDirection: 'row', gap: 2, marginLeft: '600px', marginRight: '600px' }}>
-                <InputLabel id="sort-select-label">Sort by:</InputLabel>
-                <Select
-                id="sort-select"
-                labelId="sort-select-label"
-                label="Sort by:"
+        <FormControl sx={{ display: 'flex', flexDirection: 'column', gap: 1, alignItems: 'flex-start', textAlign: 'left' }}>
+            <h3>Sorts</h3>
+            <RadioGroup
+                aria-label="sort-options"
+                name="sort-options"
                 value={sortOption}
                 onChange={handleOptionChange}
-                variant="outlined"
-                fullWidth
-                >
-                {sortOptions.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                    </MenuItem>
-                ))}
-                </Select>
-                <Button sx={{ display: 'flex', height: 1, alignSelf: 'center' }} variant="contained" color="primary" onClick={handleSorting}>Apply</Button>
-            </FormControl>
-        </>
-    )
+                column
+            >
+                <FormControlLabel value="created_at" control={<Radio />} label="Earliest" />
+                <FormControlLabel value="created_at_desc" control={<Radio />} label="Latest" />
+                <FormControlLabel value="title" control={<Radio />} label="Title (A to Z)" />
+            </RadioGroup>
+        </FormControl>
+    );
 }

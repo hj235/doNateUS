@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './Discover.css';
-import ListingDetails from '../components/ListingDetails';
 import { ListingCard } from '../components/ListingCard';
 import axios from 'axios';
-import { TextField } from '@mui/material';
 import toast from 'react-hot-toast';
 import { FilterSelect } from '../components/FilterSelect';
+import { SearchBar } from '../components/SearchBar';
 import spinner from '../assets/loading-spinner.gif';
-
 
 export default function Discover() {
   document.title = "Discover";
@@ -16,7 +14,6 @@ export default function Discover() {
   const [filteredListings, setFilteredListings] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [isloading, setIsLoading] = useState(true);
-  
 
   useEffect(() => {
     const fetchListings = async () => {
@@ -24,8 +21,6 @@ export default function Discover() {
         const response = await axios.get('/api/listings');
 
         if (response.status === 200) {
-          // Uncomment to look at the spinner lmao
-          // await new Promise(r => setTimeout(r, 5000));
           setIsLoading(false);
           setListings(response.data);
         } else {
@@ -42,7 +37,6 @@ export default function Discover() {
     fetchListings();
   }, []);
 
-  // Search Bar logic
   const handleSearchInputChange = (event) => {
     setSearchInput(event.target.value);
   };
@@ -52,34 +46,26 @@ export default function Discover() {
       listing.title.toLowerCase().includes(searchInput.toLowerCase())
     ))
   }, [searchInput, listings]);
-
   return (
     <div className="page-container">
-      <div className='search-bar'>
-        <TextField 
-          label='Search' 
-          fullWidth 
-          value={searchInput} 
-          onChange={handleSearchInputChange}
-        />
-      </div>
-      <br/>
-      
-      <FilterSelect listings={listings} setListings={setListings} />
-      
-      <br/>
+      <SearchBar searchInput={searchInput} handleSearchInputChange={handleSearchInputChange} />
+      <br />
       <div className="listing">
-        {isloading
-          ? <div className="spinner-container"><img className="spinner" src={spinner} alt="Fetching listings... please wait"/></div>
-          : filteredListings.map(listing => (
-            <div className="listing-item" key={listing._id}>
-              <ListingDetails listing={listing} />
-            </div>
-          ))
-        }
+        <div className="filter-grid">
+          <h2>Filters:</h2>
+          <FilterSelect listings={listings} setListings={setListings} />
+        </div>
+        <div className="listing-grid">
+          {isloading
+            ? <div className="spinner-container"><img className="spinner" src={spinner} alt="Fetching listings... please wait" /></div>
+            : filteredListings.map(listing => (
+              <div className="listing-grid-item" key={listing._id}>
+                <ListingCard listing={listing} />
+              </div>
+            ))
+          }
+        </div>
       </div>
-      
-      <h1>end</h1>
     </div>
   );
 }
