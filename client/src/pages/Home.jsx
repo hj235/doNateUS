@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
 import { useUserContext } from '../../hooks/useUserContext';
+import { Box, Typography, Button } from '@mui/material';
 
 export default function Home() {
   document.title = "Welcome";
@@ -13,10 +14,17 @@ export default function Home() {
       {user
         ? (
           <div className="page-container">
-            <h1>Welcome back, {user.name}!</h1>
-            <div className="link-container">
-              <Link to="/discover">Browse</Link>
-            </div>
+            <Box>
+              <Typography variant="h2" marginBottom={2}>
+                Welcome back, {user.name}!
+              </Typography>
+              <Typography variant="h4" marginBottom={30}>
+                Latest Updates & Announcements
+              </Typography>
+            </Box>
+            <Button component={Link} to="/discover" variant="contained">
+              Browse
+            </Button>
           </div>
         )
         : (
@@ -29,9 +37,9 @@ export default function Home() {
             <h2>Why you should create an account</h2>
             <ul className="benefits-list">
               Like projects and view them whenever
-              <br/>
+              <br />
               Add comments on projects
-              <br/>
+              <br />
               Receive updates and notifications from projects
             </ul>
             <div className="link-container">

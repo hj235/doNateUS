@@ -3,7 +3,7 @@ import logo from '../assets/logo.png'; // Import the logo image
 import './Navbar.css'; // Import your CSS file for navbar styling
 import { useUserContext } from "../../hooks/useUserContext";
 import { useLogout } from '../../hooks/useLogout';
-import { Button } from '@mui/material';
+import { Button, Box } from '@mui/material';
 
 export default function Navbar() {
   const { user } = useUserContext();
@@ -12,23 +12,23 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        <div>
-          <Link to="/" className="navbar-link" ><img src={logo} alt="Logo" className="navbar-logo" /></Link>
-          <Link to="/discover" className="navbar-link" >Discover</Link>
-        </div>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2}}>
+          <Box component="img" src={logo} alt="Logo" sx={{ height: 20, width: 100 }} />
+          <Button component={Link} to="/discover" className="navbar-link" variant="text"> Discover </Button>
+        </Box>
         <div className="navbar-links">
           <div>
             {user
-              ? (<Button onClick={logout} variant="text" sx={{ color: 'darkgray', '&:hover': { color: "black", userSelect: "none" } }}> Logout </Button>)
-              : (<div className="navbar-link">
-                  <Link to="/register" className="navbar-link">Register</Link>
-                  <Link to="/login" className="navbar-link">Login</Link>
-                </div>)
+              ? (<Button onClick={logout} className="navbar-link" variant="text"> Logout </Button>)
+              : (<div>
+                <Button component={Link} to="/register" className="navbar-link" variant="text"> Register </Button>
+                <Button component={Link} to="/login" className="navbar-link" variant="text"> Login </Button>
+              </div>)
             }
           </div>
-          <div className="button">
-            <Link to="/create" className="navbar-link">Create</Link>
-          </div>
+          <Button component={Link} to="/create" className="navbar-link" variant="text"
+            sx = {{background: "#003D7C", color: "white", "&:hover": {background: "#00539C"}}}
+          > Create </Button>
         </div>
       </div>
     </nav>

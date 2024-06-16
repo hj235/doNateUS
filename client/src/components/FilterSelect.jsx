@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSortedByKey } from '../../hooks/useSortedByKey';
-import { FormControl, FormControlLabel, Radio, RadioGroup, Select, MenuItem } from '@mui/material';
+import { FormControl, FormControlLabel, Radio, RadioGroup, Select, MenuItem, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 
 export function FilterSelect({ listings, setListings}) {
@@ -40,16 +40,7 @@ export function FilterSelect({ listings, setListings}) {
 
     return (
         <FormControl sx={{ display: 'flex', flexDirection: 'column', gap: 1, alignItems: 'flex-start', textAlign: 'left' }}>
-            <h3> Sorts </h3>
-            <RadioGroup value={filters.sortOption} onChange={handleSortOptionChange}>
-                <FormControlLabel value="created_at" control={<Radio />} label="Earliest created" />
-                <FormControlLabel value="created_at_desc" control={<Radio />} label="Latest created" />
-                <FormControlLabel value="deadline_at" control={<Radio />} label="Earliest deadline" />
-                <FormControlLabel value="deadline_at_desc" control={<Radio />} label="Furthest deadline" />
-                <FormControlLabel value="title" control={<Radio />} label="Title (A to Z)" />
-            </RadioGroup>
-
-            <h3> Category </h3>
+            <Typography variant="h6">Category </Typography>
             <Select
                 value={filters.typeFilter}
                 onChange={handleTypeFilterChange}
@@ -60,12 +51,22 @@ export function FilterSelect({ listings, setListings}) {
                 <MenuItem value={'Recruitment'}> Recruitment </MenuItem>
                 <MenuItem value={'Other'}> Other </MenuItem>
             </Select>
-
-            <h3> Projects that ended </h3>
+            
+            <Typography variant="h6"> Sorts </Typography>
+            <RadioGroup value={filters.sortOption} onChange={handleSortOptionChange}>
+                <FormControlLabel value="created_at" control={<Radio />} label="Earliest created" />
+                <FormControlLabel value="created_at_desc" control={<Radio />} label="Latest created" />
+                <FormControlLabel value="deadline_at" control={<Radio />} label="Earliest deadline" />
+                <FormControlLabel value="deadline_at_desc" control={<Radio />} label="Furthest deadline" />
+                <FormControlLabel value="title" control={<Radio />} label="Title (A to Z)" />
+            </RadioGroup>
+            
+            <Typography variant="h6"> Projects that ended </Typography>
             <RadioGroup value={filters.deadlinepassed} onChange={handleDeadlineChange}>
                 <FormControlLabel value="hide" control={<Radio />} label="Hide" />
                 <FormControlLabel value="show" control={<Radio />} label="Show" />
             </RadioGroup>
+
         </FormControl>
     );
 }

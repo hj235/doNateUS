@@ -37,10 +37,12 @@
 }
 
 .filter-grid {
-  background-color: #e7e7e7;
+  background-color: #ffffff;
   width: 300px;
   padding: 10px;
   margin: 5px;
+  border: 2px solid #d4d4d4;
+  border-radius: 10px;
 }
 
 .spinner-container {
