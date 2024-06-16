@@ -31,8 +31,19 @@ async function getListings(req ,res) {
     }
 }
 
+async function getSingleListing(req ,res) {
+    const { id } = req.params;
+    try {
+        const listing = await Listing.findById(id).populate('owner')
+        return res.json(listing)
+    } catch (error) {
+        res.status(400).json({error: error.message})
+    }
+}
+
 
 module.exports = {
     createListing,
-    getListings
+    getListings,
+    getSingleListing
 };

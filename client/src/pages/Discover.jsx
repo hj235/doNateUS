@@ -15,6 +15,7 @@ export default function Discover() {
   const [searchInput, setSearchInput] = useState("");
   const [isloading, setIsLoading] = useState(true);
 
+  //Fetch listings from database
   useEffect(() => {
     const fetchListings = async () => {
       try {
@@ -37,17 +38,18 @@ export default function Discover() {
     fetchListings();
   }, []);
 
-  const handleSearchInputChange = (event) => {
-    setSearchInput(event.target.value);
-  };
-
+  // Apply search input
   useEffect(() => {
-    setFilteredListings(listings.filter(listing =>
+    setFilteredListings(filteredListings.filter(listing =>
       listing.title.toLowerCase().includes(searchInput.toLowerCase())
     ))
   }, [searchInput, listings]);
 
+  const handleSearchInputChange = (event) => {
+    setSearchInput(event.target.value);
+  };
   
+  // page
   return (
     <div className="page-container">
       <SearchBar searchInput={searchInput} handleSearchInputChange={handleSearchInputChange} />

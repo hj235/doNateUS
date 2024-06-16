@@ -49,9 +49,7 @@ const upload = multer({
 // TODO: split up into separate routes, example: https://stackoverflow.com/questions/28305120/differences-between-express-router-and-app-get
 app.use('/', require('./routes/authroutes'));
 app.use('/api/listings', require('./routes/listingroutes'));
-app.post('/upload', upload.single('file'), (req, res) => {
-    console.log(req.file)
-})
+app.use('/listing', require('./routes/listingroutes'));
 
 // sets up Express sever to listen for incoming requests on port defined in .env
 const port = process.env.PORT;

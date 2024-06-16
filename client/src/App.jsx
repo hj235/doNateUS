@@ -11,6 +11,7 @@ import Login from './pages/Login';
 import Create from './pages/CreateListing';
 import Discover from './pages/Discover';
 import Test from './pages/Test';
+import Listing from './pages/Listing'
 
 
 // components
@@ -36,6 +37,7 @@ function App() {
         <Route path='/create' element={<Create/>} />
         <Route path='/discover' element={<Discover/>} />
         <Route path='/test' element={<Test />} />
+        <Route path='/listing/:id' element={<Listing/>}/>
       </Routes>
       </div>
     </>
