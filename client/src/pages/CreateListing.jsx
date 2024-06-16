@@ -8,6 +8,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import dayjs from 'dayjs';
 import toast from 'react-hot-toast';
 import { useUserContext } from '../../hooks/useUserContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function CreateListing() {
   const { user } = useUserContext();
@@ -47,7 +48,9 @@ export default function CreateListing() {
           owner: user ? user._id : '',
         });
         toast.success('Listing created successfully!');
-        // TODO: Navigate to the newly created listing page
+        setTimeout(() => {
+          navigate(`/listing/${response.data._id}`);
+        }, 3000);
       }
     } catch (error) {
       toast.error('Error occurred while creating listing.');
@@ -98,16 +101,16 @@ export default function CreateListing() {
                   <br />
                   {data.type === 'Fundraiser' && (
                     <>
-                    <InputLabel>Goal ($)</InputLabel>
-                    <TextField variant="outlined" id="target_balance" className="textfield" type="text"
-                      value={data.target_balance} onChange={(e) => setData({ ...data, target_balance: e.target.value })} sx={{ background: 'white', userSelect: "none" }} />
+                      <InputLabel>Goal ($)</InputLabel>
+                      <TextField variant="outlined" id="target_balance" className="textfield" type="text"
+                        value={data.target_balance} onChange={(e) => setData({ ...data, target_balance: e.target.value })} sx={{ background: 'white', userSelect: "none" }} />
                     </>
                   )}
                   {data.type === 'Recruitment' && (
                     <>
-                    <InputLabel>Slots</InputLabel>
-                    <TextField variant="outlined" id="target_balance" className="textfield" type="text"
-                      value={data.target_balance} onChange={(e) => setData({ ...data, target_balance: e.target.value })} sx={{ background: 'white', userSelect: "none" }} />
+                      <InputLabel>Slots</InputLabel>
+                      <TextField variant="outlined" id="target_balance" className="textfield" type="text"
+                        value={data.target_balance} onChange={(e) => setData({ ...data, target_balance: e.target.value })} sx={{ background: 'white', userSelect: "none" }} />
                     </>
                   )}
                 </div>

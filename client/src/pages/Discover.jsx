@@ -46,6 +46,8 @@ export default function Discover() {
       listing.title.toLowerCase().includes(searchInput.toLowerCase())
     ))
   }, [searchInput, listings]);
+
+  
   return (
     <div className="page-container">
       <SearchBar searchInput={searchInput} handleSearchInputChange={handleSearchInputChange} />
@@ -53,7 +55,7 @@ export default function Discover() {
       <div className="listing">
         <div className="filter-grid">
           <h2>Filters:</h2>
-          <FilterSelect listings={listings} setListings={setListings} />
+          <FilterSelect listings={listings} setListings={setFilteredListings} />
         </div>
         <div className="listing-grid">
           {isloading

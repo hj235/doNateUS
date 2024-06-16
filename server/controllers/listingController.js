@@ -10,7 +10,7 @@ async function createListing(req, res) {
 
         // Checks all passed, register user into database
         const listing = await Listing.create({
-            title, description, media, target_balance, owner
+            title, description, type, deadline, media, target_balance, owner
         });
 
         return res.json(listing);

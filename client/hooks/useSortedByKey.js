@@ -1,8 +1,8 @@
-export const useSortedByKey = () => { 
+export const useSortedByKey = () => {
     const sortedByKey = (arr, option) => {
         if (option == '') return arr;
         const comparator = (listing1, listing2) => {
-            switch(option) {
+            switch (option) {
                 case 'title':
                     listing1 = listing1.title;
                     listing2 = listing2.title;
@@ -15,6 +15,15 @@ export const useSortedByKey = () => {
                     const temp = listing1.created_at;
                     listing1 = listing2.created_at;
                     listing2 = temp;
+                    break;
+                case 'deadline_at':
+                    listing1 = listing1.deadline;
+                    listing2 = listing2.deadline;
+                    break;
+                case 'deadline_at_desc':
+                    const temp2 = listing1.deadline;
+                    listing1 = listing2.deadline;
+                    listing2 = temp2;
                     break;
                 default: // if it reaches here, means invalid option was used
                     return 0;
@@ -29,7 +38,7 @@ export const useSortedByKey = () => {
                 return listing1.localeCompare(listing2);
             }
         }
-        
+
         return arr.toSorted(comparator);
     }
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { ListingCard } from '../components/ListingCard';
+import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
 
 export default function Test() {
     const listing = {
@@ -26,6 +27,7 @@ export default function Test() {
         <div>
             <h1>Test page</h1>
             <ListingCard listing={listing} />
+            <LinearProgress variant="determinate" value={50} />
         </div>
     )
 }
