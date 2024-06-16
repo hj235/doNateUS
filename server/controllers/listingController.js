@@ -5,7 +5,7 @@ const Listing = require('../models/listing');
 // create listing function
 async function createListing(req, res) {
     try {
-        const {  title, description, media, target_balance, owner} = req.body;
+        const {  title, description, type, deadline, media, target_balance, owner} = req.body;
         // Check if fields are present? not sure
 
         // Checks all passed, register user into database

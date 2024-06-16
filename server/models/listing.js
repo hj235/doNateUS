@@ -13,6 +13,8 @@ const listingSchema = new mongoose.Schema({
   status: { type: String, default: "Open"},
   title: { type: String, required: true},
   description: { type: String, required: true},
+  type: {type: String},
+  deadline: {type: String, required: true},
   media: [{ type: String }],
   comments: [commentSchema],
   current_balance: { type: Number, default: 0},
