@@ -3,30 +3,37 @@ import { useSortedByKey } from '../../hooks/useSortedByKey';
 import { FormControl, FormControlLabel, Radio, RadioGroup, Select, MenuItem, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 
-export function FilterSelect({ listings, setListings}) {
+export function FilterSelect({ searchedListings, setFilteredListings}) {
     const [filters, setFilters] = useState({
         sortOption: 'created_at',
         typeFilter: 'All',
         deadlinepassed: 'hide'
     });
 
+    const [deadlineListings, setDeadLineListings] = useState(searchedListings);
+    const [typeListings, setTypeListings] = useState(deadlineListings);
+
     const { sortedByKey } = useSortedByKey();
 
     useEffect(() => {
-        const now = dayjs();
-        const handleFilters = () => {
-            if (filters.deadlinepassed === 'hide') {
-                listings = listings.filter(listing => dayjs(listing.deadline).isAfter(now));
-            }
-            if (filters.typeFilter !== 'All') {
-                setListings(sortedByKey(listings.filter(listing => listing.type === filters.typeFilter)), filters.sortOption);
-            } else {
-                setListings(sortedByKey(listings, filters.sortOption));
-            }
-        };
+        if (filters.deadlinepassed === 'hide') {
+            setDeadLineListings(searchedListings.filter(listing => dayjs(listing.deadline).isAfter(dayjs())));
+        } else {
+            setDeadLineListings(searchedListings);
+        }
+    }, [searchedListings, filters]);
 
-        handleFilters();
-    }, [filters, listings, sortedByKey]);
+    useEffect(() => {
+        if (filters.typeFilter !== 'All') {
+            setTypeListings(deadlineListings.filter(listing => listing.type === filters.typeFilter));
+        } else {
+            setTypeListings(deadlineListings, filters.sortOption);
+        }
+    }, [deadlineListings, filters]);
+
+    useEffect(() => {
+        setFilteredListings(sortedByKey(typeListings, filters.sortOption));
+    }, [typeListings, filters]);
 
     const handleSortOptionChange = (event) => {
         setFilters({ ...filters, sortOption: event.target.value });
