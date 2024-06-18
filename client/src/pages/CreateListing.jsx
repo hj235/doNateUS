@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function CreateListing() {
   const { user } = useUserContext();
+  const navigate = useNavigate();
   const [data, setData] = useState({
     title: '',
     description: '',
@@ -19,7 +20,7 @@ export default function CreateListing() {
     type: '',
     deadline: dayjs(),
     target_balance: '',
-    owner: user ? user._id : '',
+    owner: user ? user._id : ''
   });
 
   const createListing = async (e) => {
