@@ -41,7 +41,6 @@ async function getSingleListing(req ,res) {
     }
 }
 
-
 module.exports = {
     createListing,
     getListings,

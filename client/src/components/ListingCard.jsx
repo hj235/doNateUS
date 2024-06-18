@@ -1,19 +1,51 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardMedia, Typography, IconButton, CardActions, Button, LinearProgress, CardActionArea, Menu, MenuItem } from '@mui/material';
 import { Favorite, Comment, MoreVert } from '@mui/icons-material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import media_ph from '../assets/listing-media-placeholder.jpg';
 import profile_ph from '../assets/profile-placeholder.jpg';
 import dayjs from 'dayjs';
+import axios from 'axios';
+import { useUserContext } from '../../hooks/useUserContext';
 
 export function ListingCard({ listing }) {
+    const navigate = useNavigate();
+    const { user } = useUserContext();
     const isFundraiserOrRecruitment = listing.type === 'Fundraiser' || listing.type === 'Recruitment';
+
     const calculateDaysRemaining = (deadline) => {
         const now = dayjs();
         const end = dayjs(deadline);
         return end.diff(now, 'day');
     };
+
     const daysRemaining = calculateDaysRemaining(listing.deadline);
+
+    const likeListing = async () => {
+        try {
+            const response = await axios.post('api/listings/like', {
+                userID: user._id,
+                listingID: listing._id
+            });
+            setIsLiked(!isLiked);
+        } catch (error) {
+            console.error('Error liking listing:', error);
+        }
+    }
+
+    const [isLiked, setIsLiked] = useState(false);
+
+    useEffect(() => {
+        if (user && user.liked_listings) {
+            setIsLiked(user.liked_listings.includes(listing._id));
+        } else {
+            setIsLiked(false);
+        }
+    }, [user, listing._id]);
+
+    const handleListingRedirect = () => {
+        navigate(`/listing/${listing._id}`);
+    }
 
     const [anchorEl, setAnchorEl] = useState(null);
     const handleMenuOpen = (event) => {
@@ -50,10 +82,9 @@ export function ListingCard({ listing }) {
                 </CardContent>
             </CardActionArea>
 
-
             <CardContent sx={{ position: 'absolute', bottom: 40, width: '100%', textAlign: 'center', gap: 1 }}>
-                <IconButton sx={{ margin: '0 10px' }}> <Favorite /> </IconButton>
-                <IconButton sx={{ margin: '0 10px' }}> <Comment /> </IconButton>
+            <IconButton sx={{ margin: '0 10px' }} onClick={likeListing}> <Favorite sx={{ color: isLiked ? 'red' : 'inherit' }} /> </IconButton>
+                <IconButton sx={{ margin: '0 10px' }} onClick={handleListingRedirect}> <Comment /> </IconButton>
                 <IconButton sx={{ margin: '0 10px' }} onClick={handleMenuOpen} > <MoreVert /> </IconButton>
             </CardContent>
 
@@ -67,8 +98,6 @@ export function ListingCard({ listing }) {
                     {daysRemaining > 0 ? `${daysRemaining} days remaining` : 'Project has ended'}
                 </Typography>
             </CardContent>
-
-
         </Card>
     );
 }

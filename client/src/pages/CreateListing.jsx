@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function CreateListing() {
   const { user } = useUserContext();
+  console.log(user)
   const navigate = useNavigate();
   const [data, setData] = useState({
     title: '',
