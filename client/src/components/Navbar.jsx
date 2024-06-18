@@ -12,8 +12,8 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2}}>
-          <Box component="img" src={logo} alt="Logo" sx={{ height: 20, width: 100 }} />
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+          <Link to='/'> <Box component="img" src={logo} alt="Logo" sx={{ height: 20, width: 100 }} /> </Link>
           <Button component={Link} to="/discover" className="navbar-link" variant="text"> Discover </Button>
         </Box>
         <div className="navbar-links">
@@ -27,7 +27,7 @@ export default function Navbar() {
             }
           </div>
           <Button component={Link} to="/create" className="navbar-link" variant="text"
-            sx = {{background: "#003D7C", color: "white", "&:hover": {background: "#00539C"}}}
+            sx={{ background: "#003D7C", color: "white", "&:hover": { background: "#00539C" } }}
           > Create </Button>
         </div>
       </div>

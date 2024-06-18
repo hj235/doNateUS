@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function CreateListing() {
   const { user } = useUserContext();
+  const navigate = useNavigate();
   const [data, setData] = useState({
     title: '',
     description: '',
@@ -48,7 +49,9 @@ export default function CreateListing() {
           owner: user ? user._id : '',
         });
         toast.success('Listing created successfully!');
+        const loading = toast.loading('Redirecting to listing page');
         setTimeout(() => {
+          toast.dismiss(loading);
           navigate(`/listing/${response.data._id}`);
         }, 3000);
       }
