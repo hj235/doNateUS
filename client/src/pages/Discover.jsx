@@ -11,7 +11,9 @@ export default function Discover() {
   document.title = "Discover";
 
   const [listings, setListings] = useState([]);
+  const [searchedListings, setSearchedListings] = useState([]);
   const [filteredListings, setFilteredListings] = useState([]);
+  // const [unfilteredListings, setUnfilteredListings] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [isloading, setIsLoading] = useState(true);
 
@@ -40,7 +42,7 @@ export default function Discover() {
 
   // Apply search input
   useEffect(() => {
-    setFilteredListings(filteredListings.filter(listing =>
+    setSearchedListings(listings.filter(listing =>
       listing.title.toLowerCase().includes(searchInput.toLowerCase())
     ))
   }, [searchInput, listings]);
@@ -48,7 +50,12 @@ export default function Discover() {
   const handleSearchInputChange = (event) => {
     setSearchInput(event.target.value);
   };
-  
+
+  // // Monitor changes to searchedListings and reflect on UnfilteredListings
+  // useEffect(() => {
+  //   setUnfilteredListings(searchedListings)
+  // }, [searchedListings]);
+
   // page
   return (
     <div className="page-container">
@@ -57,7 +64,7 @@ export default function Discover() {
       <div className="listing">
         <div className="filter-grid">
           <h2>Filters:</h2>
-          <FilterSelect listings={listings} setListings={setFilteredListings} />
+          <FilterSelect searchedListings={searchedListings} setFilteredListings={setFilteredListings} />
         </div>
         <div className="listing-grid">
           {isloading

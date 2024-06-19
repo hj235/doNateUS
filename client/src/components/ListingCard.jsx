@@ -44,6 +44,9 @@ export function ListingCard({ listing }) {
                     <Typography variant="body2"> {listing.description} </Typography>
                 </CardContent>
                 <CardContent sx={{ position: 'absolute', bottom: 8, width: '100%', textAlign: 'center' }}>
+                    <Typography variant="body2" sx={{ color: 'gray' }}>
+                        {`Category: ${listing.type}`}
+                    </Typography>
                     <Typography variant="body2" sx={{ color: daysRemaining > 0 ? 'gray' : 'red' }}>
                         {daysRemaining > 0 ? `${daysRemaining} days remaining` : 'Project has ended'}
                     </Typography>
