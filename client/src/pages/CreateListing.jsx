@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './CreateListing.css';
 import axios from 'axios';
 import { Button, TextField, InputLabel, Radio, RadioGroup, FormControlLabel, Checkbox, Select, MenuItem } from '@mui/material';
@@ -13,6 +13,13 @@ import { useNavigate } from 'react-router-dom';
 export default function CreateListing() {
   const { user } = useUserContext();
   const navigate = useNavigate();
+  useEffect(() => {
+    if (!user) {
+      toast('Please sign in to create a listing.');
+      navigate('/login');
+    }
+  });
+  
   const [data, setData] = useState({
     title: '',
     description: '',
