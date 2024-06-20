@@ -3,10 +3,18 @@ import axios from 'axios';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useParams } from 'react-router-dom';
+import { Card, CardMedia, Typography, Button, IconButton } from '@mui/material';
+import { Favorite, Share } from '@mui/icons-material';
+import media_ph from '../assets/listing-media-placeholder.jpg';
+import profile_ph from '../assets/profile-placeholder.jpg';
+import { useUserContext } from '../../hooks/useUserContext';
+import { EditDialog } from '../components/EditDialog';
 
 function Listing() {
+    const { user } = useUserContext();
     const { id } = useParams();
     const [listing, setListing] = useState(null);
+    const [editDialogOpen, setEditDialogOpen] = useState(false);
 
     useEffect(() => {
         const fetchListing = async () => {
@@ -21,36 +29,58 @@ function Listing() {
         fetchListing();
     }, [id]);
 
+    const handleEditClick = () => {
+        setEditDialogOpen(true);
+    };
+
+    const handleEditDialogClose = () => {
+        setEditDialogOpen(false);
+    };
+
     if (!listing) {
-        return <Box sx={{ display: 'flex' }}>
+        return <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 8 }}>
             <CircularProgress />
-        </Box>; // or a loading spinner
+        </Box>;
     }
 
+    const isOwner = user && listing.owner._id === user._id;
+
     return (
-        <Box sx={{ maxWidth: 800, margin: 'auto', padding: '20px' }}>
-            <h1 style={{ marginBottom: '10px' }}>{listing.title}</h1>
-            <p style={{ marginBottom: '20px' }}>{listing.description}</p>
+        <Box marginTop={8} marginLeft={30} marginRight={30} display={'flex'} flexDirection={'column'}>
+            <Box>
+                <Card>
+                    <CardMedia component="img" height="500" image={media_ph} alt="Listing Image" />
+                </Card>
+            </Box>
 
-            <div style={{ marginBottom: '20px' }}>
-                <strong>Created At:</strong> {new Date(listing.created_at).toLocaleDateString()}
-            </div>
+            <Box display="flex" flexDirection="row" width="100%">
+                <Box flex={7} padding={2}>
+                    <Box>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'left', marginTop: 8 }}>
+                            <CardMedia component="img" sx={{ borderRadius: '50%', width: 60, height: 60, marginRight: 1 }}
+                                image={listing.owner.profilePicture || profile_ph}
+                            />
+                            <Typography variant="h6"> {listing.owner.name} </Typography>
+                        </div>
+                    </Box>
 
-            <div style={{ marginBottom: '20px' }}>
-                <strong>Owner:</strong> {listing.owner.name}
-            </div>
+                    <Typography variant={'h2'} marginTop={2}> {listing.title} </Typography>
+                    <Typography variant="h6" marginTop={2}>{listing.description}</Typography>
+                </Box>
 
-            <div style={{ marginBottom: '20px' }}>
-                <strong>Status:</strong> {listing.status}
-            </div>
+                <Box flex={3} padding={2} display="flex" flexDirection="column" alignItems="flex-end">
+                    <IconButton> <Favorite color="primary" /> </IconButton>
+                    <IconButton> <Share color="primary" /> </IconButton>
+                    {isOwner && (
+                        <Box>
+                            <Button variant="contained" color="primary" sx={{ maxWidth: '100%', width: '100%', marginBottom: 1 }} onClick={handleEditClick}> Edit </Button>
+                            <Button variant="contained" color="secondary" sx={{ maxWidth: '100%', width: '100%' }}> Delete </Button>
+                        </Box>
+                    )}
+                </Box>
+            </Box>
 
-            <div style={{ marginBottom: '20px' }}>
-                <strong>Type:</strong> {listing.type}
-            </div>
-
-            <div style={{ marginBottom: '20px' }}>
-                <strong>Deadline:</strong> {listing.deadline}
-            </div>
+            <EditDialog open={editDialogOpen} onClose={handleEditDialogClose} user={user} listing={listing} />
         </Box>
     );
 }
