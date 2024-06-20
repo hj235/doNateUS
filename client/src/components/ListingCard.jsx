@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardMedia, Typography, IconButton, CardActions, Button, LinearProgress, CardActionArea, Menu, MenuItem } from '@mui/material';
+import React from 'react';
+import { Card, CardContent, CardMedia, Typography,LinearProgress, CardActionArea } from '@mui/material';
 import { ListingCardButtons } from './ListingCardButtons';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import media_ph from '../assets/listing-media-placeholder.jpg';
 import profile_ph from '../assets/profile-placeholder.jpg';
 import dayjs from 'dayjs';
-import axios from 'axios';
-import { useUserContext } from '../../hooks/useUserContext';
+
 
 export function ListingCard({ listing }) {
     

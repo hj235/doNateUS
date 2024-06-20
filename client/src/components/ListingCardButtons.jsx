@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardMedia, Typography, IconButton, CardActions, Button, LinearProgress, CardActionArea, Menu, MenuItem } from '@mui/material';
+import { CardContent, Typography, IconButton, Menu, MenuItem } from '@mui/material';
 import { Favorite, Comment, MoreVert } from '@mui/icons-material';
-import { Link, useNavigate } from 'react-router-dom';
-import media_ph from '../assets/listing-media-placeholder.jpg';
-import profile_ph from '../assets/profile-placeholder.jpg';
-import dayjs from 'dayjs';
+import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import axios from 'axios';
 import { useUserContext } from '../../hooks/useUserContext';
 
@@ -15,11 +13,13 @@ export function ListingCardButtons({ listing }) {
     const { user } = useUserContext();
     const [isLiked, setIsLiked] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
+    const [likeCount, setLikeCount] = useState(listing.likes);
 
     // Like Button
     useEffect(() => {
         if (user && user.liked_listings) {
             setIsLiked(user.liked_listings.includes(listing._id));
+            
         } else {
             setIsLiked(false);
         }
@@ -32,12 +32,14 @@ export function ListingCardButtons({ listing }) {
                 listingID: listing._id
             });
             setIsLiked(!isLiked);
+            setLikeCount(prevCount => isLiked ? prevCount - 1 : prevCount + 1);
         } catch (error) {
+            toast.error("Not Logged In")
             console.error('Error liking listing:', error);
         }
     }
 
-    // Comment Button
+    // Comment Button (to Link)
     const handleListingRedirect = () => {
         navigate(`/listing/${listing._id}`);
     }
@@ -50,9 +52,9 @@ export function ListingCardButtons({ listing }) {
         setAnchorEl(null);
     };
 
-    // Edit Button
+    // Edit Button (to Link)
 
-    // Delete Button
+    // Delete Button (to Link)
 
     // Report Button (maybe?)
 
@@ -60,7 +62,7 @@ export function ListingCardButtons({ listing }) {
         <div>
             <CardContent sx={{ position: 'absolute', bottom: 40, width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
                 <IconButton onClick={likeListing}> <Favorite sx={{ color: isLiked ? 'red' : 'inherit' }} /> </IconButton>
-                <Typography> {listing.likes} </Typography>
+                <Typography> {likeCount} </Typography>
                 <IconButton onClick={handleListingRedirect}> <Comment /> </IconButton>
                 <IconButton onClick={handleMenuOpen} > <MoreVert /> </IconButton>
             </CardContent>
