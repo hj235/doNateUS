@@ -10,7 +10,7 @@ export default function Navbar() {
   const { logout } = useLogout();
 
   return (
-    <nav className="navbar">
+    <div className="navbar">
       <div className="navbar-container">
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           <Link to='/'> <Box component="img" src={logo} alt="Logo" sx={{ height: 20, width: 100 }} /> </Link>
@@ -31,6 +31,6 @@ export default function Navbar() {
           > Create </Button>
         </div>
       </div>
-    </nav>
+    </div>
   );
 }
