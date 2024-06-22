@@ -27,7 +27,7 @@ export default function CreateListing() {
     type: '',
     deadline: dayjs(),
     target_balance: '',
-    owner: user ? user._id : '',
+    owner: user ? user._id : ''
   });
 
   const createListing = async (e) => {
