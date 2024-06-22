@@ -30,7 +30,7 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 // to parse incoming requests with JSON payloads and make the parsed JSON data available in the 'req.body' of the routes
-app.use(express.json());
+app.use(express.json({limit: '200mb'}));
 
 const storage = multer.diskStorage({
     destination: (res, file, cb) => {
