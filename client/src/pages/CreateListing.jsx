@@ -9,7 +9,7 @@ import dayjs from 'dayjs';
 import toast from 'react-hot-toast';
 import { useUserContext } from '../../hooks/useUserContext';
 import { useFirebaseContext } from '../../hooks/useFirebaseContext';
-import { uploadBytes, ref, listAll, list, getDownloadURL } from 'firebase/storage';
+import { uploadBytes, ref, getDownloadURL } from 'firebase/storage';
 import { useNavigate } from 'react-router-dom';
 
 export default function CreateListing() {
@@ -38,15 +38,15 @@ export default function CreateListing() {
     e.preventDefault();
     try {
       if (file) {
-        const fileRef = ref(mediaRef, `${response.data._id}` + '/' + `${file.name}`);
+        const fileRef = ref(mediaRef, `${data.title}/${file.name}`);
         await uploadBytes(fileRef, file);
-        await getDownloadURL(file).then(url => {
+        await getDownloadURL(fileRef).then(url => {
           console.log(`File uploaded to firebase storage at: ${url}`);
           setData({ ...data, media: url });
         });
       }
-  
-      const { title, description, type, deadline, media, target_balance, owner } = data;
+
+      const { title, description, media, type, deadline, target_balance, owner } = data;
       const response = await axios.post('/api/listings/create', {
         title,
         description,
@@ -77,7 +77,7 @@ export default function CreateListing() {
       }
     } catch (error) {
       toast.error('Error occurred while creating listing.');
-      console.error(error);
+      console.log(error);
     }
   };
 

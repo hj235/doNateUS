@@ -34,7 +34,7 @@ export function ListingCard({ listing }) {
                         </Typography>
                     </React.Fragment>
                 )}
-                <CardMedia component="img" height="170" image={listing.media || media_ph} />
+                <CardMedia component="img" height="170" image={listing.media ? listing.media[0] : media_ph} />
                 <CardContent>
                     <Typography variant="h5" marginTop={-1}> {listing.title} </Typography>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 8 }}>
