@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './LoginRegister.css';
 import axios from 'axios';
 import { Button, TextField, Typography, Checkbox, FormControlLabel } from '@mui/material';
@@ -9,7 +9,10 @@ import { useUserContext } from '../../hooks/useUserContext';
 export default function Login() {
   const navigate = useNavigate();
   const { user, dispatch } = useUserContext();
-  if (user) navigate('/');
+  useEffect(() => {
+    if (user) navigate('/');
+  }, [user]);
+  
   const [data, setData] = useState({
     name: '',
     password: ''

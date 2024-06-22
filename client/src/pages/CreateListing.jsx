@@ -18,10 +18,10 @@ export default function CreateListing() {
   const navigate = useNavigate();
   useEffect(() => {
     if (!user) {
-      toast('Please sign in to create a listing.');
+      toast.error('Please sign in to create a listing.');
       navigate('/login');
     }
-  });
+  }, [user]);
   
   const [data, setData] = useState({
     title: '',
@@ -36,23 +36,24 @@ export default function CreateListing() {
 
   const createListing = async (e) => {
     e.preventDefault();
+    let mediaURL = null
     try {
       if (file) {
-        const fileRef = ref(mediaRef, `${data.title}/${file.name}`);
+        const fileRef = ref(mediaRef, `${data.title}+${file.name}+${dayjs()}`);
         await uploadBytes(fileRef, file);
         await getDownloadURL(fileRef).then(url => {
           console.log(`File uploaded to firebase storage at: ${url}`);
-          setData({ ...data, media: url });
+          mediaURL = url;
         });
       }
-
-      const { title, description, media, type, deadline, target_balance, owner } = data;
+      
+      const { title, description, type, deadline, target_balance, owner } = data;
       const response = await axios.post('/api/listings/create', {
         title,
         description,
         type,
         deadline,
-        media,
+        media: mediaURL,
         target_balance,
         owner,
       });
@@ -139,6 +140,8 @@ export default function CreateListing() {
 
                   <div>
                     <input type='file' onChange={(e) => setFile(e.target.files[0] )} />
+                    <button type='button' onClick={() => setFile(null)}>Clear files</button>
+                    <img src={file} alt='file'/>
                   </div>
 
                 </div>
