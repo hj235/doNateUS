@@ -9,6 +9,8 @@ import media_ph from '../assets/listing-media-placeholder.jpg';
 import profile_ph from '../assets/profile-placeholder.jpg';
 import { useUserContext } from '../../hooks/useUserContext';
 import { EditDialog } from '../components/EditDialog';
+import { LikeButton } from '../components/LikeButton';
+import DeleteButton from '../components/DeleteButton';
 
 function Listing() {
     const { user } = useUserContext();
@@ -69,18 +71,17 @@ function Listing() {
                 </Box>
 
                 <Box flex={3} padding={2} display="flex" flexDirection="column" alignItems="flex-end">
-                    <IconButton> <Favorite color="primary" /> </IconButton>
+                    <LikeButton listing={listing} />
                     <IconButton> <Share color="primary" /> </IconButton>
                     {isOwner && (
                         <Box>
                             <Button variant="contained" color="primary" sx={{ maxWidth: '100%', width: '100%', marginBottom: 1 }} onClick={handleEditClick}> Edit </Button>
-                            <Button variant="contained" color="secondary" sx={{ maxWidth: '100%', width: '100%' }}> Delete </Button>
+                            <DeleteButton listingId={id} />
                         </Box>
                     )}
                 </Box>
             </Box>
-
-            <EditDialog open={editDialogOpen} onClose={handleEditDialogClose} user={user} listing={listing} />
+            <EditDialog open={editDialogOpen} onClose={handleEditDialogClose} user={user} listing={listing} setListing={setListing} />
         </Box>
     );
 }

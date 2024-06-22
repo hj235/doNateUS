@@ -1,7 +1,6 @@
 import React from 'react';
 import { Container, Grid, Typography, Box } from '@mui/material';
 import logo from '../assets/logo50.png'; // Import the logo image
-import './Footer.css'; // Import the CSS file
 
 function Footer() {
   return (

@@ -23,11 +23,11 @@ export function EditDialog({ open, onClose, user, listing }) {
         <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
             <DialogTitle>Edit Listing</DialogTitle>
             <DialogContent>
-                <TextField autoFocus margin="dense" id="title" name="title" label="Title" fullWidth value={formData.title} onChange={handleChange} />
-                <TextField margin="dense" id="description" name="description" label="Description" fullWidth multiline rows={4} value={formData.description} onChange={handleChange} />
-                <TextField margin="dense" id="deadline" name="deadline" label="Deadline" type="datetime-local" fullWidth value={formData.deadline} onChange={handleChange} />
+                <TextField autoFocus margin="dense" variant="standard" id="title" name="title" label="Title" fullWidth value={formData.title} onChange={handleChange} />
+                <TextField margin="dense" variant="standard" id="description" name="description" label="Description" fullWidth multiline rows={8} value={formData.description} onChange={handleChange} />
+                <TextField margin="dense" variant="standard" id="deadline" name="deadline" label="Deadline" type="datetime-local" fullWidth value={formData.deadline} onChange={handleChange} />
 
-                <FormControl fullWidth margin="dense">
+                <FormControl fullWidth margin="dense" variant="standard">
                     <InputLabel id="type-label">Type</InputLabel>
                     <Select labelId="type-label" id="type" name="type" value={formData.type} onChange={handleChange}
                     >
@@ -37,7 +37,7 @@ export function EditDialog({ open, onClose, user, listing }) {
                     </Select>
                 </FormControl>
 
-                <FormControl fullWidth margin="dense">
+                <FormControl fullWidth margin="dense" variant="standard" >
                     <InputLabel labelId="status-label" >Status</InputLabel>
                     <Select labelId="status-label" id="status" name="status" value={formData.status} onChange={handleChange}
                     >
@@ -47,9 +47,8 @@ export function EditDialog({ open, onClose, user, listing }) {
                     </Select>
                 </FormControl>
 
-                <TextField margin="dense" id="current_balance" name="current_balance" label="Current Balance" type="Number" fullWidth value={formData.current_balance} onChange={handleChange} />
-                <TextField margin="dense" id="target_balance" name="target_balance" label="Target Balance" type="Number" fullWidth value={formData.target_balance} onChange={handleChange} />
-
+                <TextField margin="dense" variant="standard" id="current_balance" name="current_balance" label="Current Balance" type="Number" fullWidth value={formData.current_balance} onChange={handleChange} />
+                <TextField margin="dense" variant="standard" id="target_balance" name="target_balance" label="Target Balance" type="Number" fullWidth value={formData.target_balance} onChange={handleChange} />
 
             </DialogContent>
             <DialogActions>
