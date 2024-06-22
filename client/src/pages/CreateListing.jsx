@@ -8,10 +8,13 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import dayjs from 'dayjs';
 import toast from 'react-hot-toast';
 import { useUserContext } from '../../hooks/useUserContext';
+import { useFirebaseContext } from '../../hooks/useFirebaseContext';
+import { uploadBytes, ref, getDownloadURL } from 'firebase/storage';
 import { useNavigate } from 'react-router-dom';
 
 export default function CreateListing() {
   const { user } = useUserContext();
+  const { mediaRef } = useFirebaseContext();
   const navigate = useNavigate();
   useEffect(() => {
     if (!user) {
@@ -29,11 +32,21 @@ export default function CreateListing() {
     target_balance: '',
     owner: user ? user._id : ''
   });
+  const [file, setFile] = useState(null);
 
   const createListing = async (e) => {
     e.preventDefault();
     try {
-      const { title, description, type, deadline, media, target_balance, owner } = data;
+      if (file) {
+        const fileRef = ref(mediaRef, `${data.title}/${file.name}`);
+        await uploadBytes(fileRef, file);
+        await getDownloadURL(fileRef).then(url => {
+          console.log(`File uploaded to firebase storage at: ${url}`);
+          setData({ ...data, media: url });
+        });
+      }
+
+      const { title, description, media, type, deadline, target_balance, owner } = data;
       const response = await axios.post('/api/listings/create', {
         title,
         description,
@@ -64,7 +77,7 @@ export default function CreateListing() {
       }
     } catch (error) {
       toast.error('Error occurred while creating listing.');
-      console.error(error);
+      console.log(error);
     }
   };
 
@@ -123,6 +136,11 @@ export default function CreateListing() {
                         value={data.target_balance} onChange={(e) => setData({ ...data, target_balance: e.target.value })} sx={{ background: 'white', userSelect: "none" }} />
                     </>
                   )}
+
+                  <div>
+                    <input type='file' onChange={(e) => setFile(e.target.files[0] )} />
+                  </div>
+
                 </div>
               </div>
               <Button type="submit" variant="text" sx={{ color: 'darkgray', '&:hover': { color: "black", userSelect: "none" } }}> Create</Button>

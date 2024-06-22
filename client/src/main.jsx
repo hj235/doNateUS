@@ -4,6 +4,7 @@ import App from './App';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { UserContextProvider } from '../context/UserContext';
+import { FirebaseContextProvider } from '../context/FirebaseContext';
 import CssBaseline from '@mui/material/CssBaseline';
 
 // Create a MUI theme
@@ -25,13 +26,15 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <React.StrictMode>
-    <UserContextProvider>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Router>
-          <App />
-        </Router>
-      </ThemeProvider>
-    </UserContextProvider>
+    <FirebaseContextProvider>
+      <UserContextProvider>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Router>
+            <App />
+          </Router>
+        </ThemeProvider>
+      </UserContextProvider>
+    </FirebaseContextProvider>
   </React.StrictMode>,
 );
