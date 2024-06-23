@@ -56,7 +56,6 @@ async function updateListing(req, res) {
     }
 }
 
-
 async function deleteListing(req, res) {
     const { id } = req.params;
     try {

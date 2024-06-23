@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import toast from 'react-hot-toast';
 
-function DeleteButton({ listingId }) {
+export function DeleteButton({ listingId }) {
     const navigate = useNavigate();
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
@@ -29,7 +29,7 @@ function DeleteButton({ listingId }) {
 
     return (
         <>
-            <Button variant="contained" color="secondary" sx={{ maxWidth: '100%', width: '100%' }} onClick={handleDeleteClick}>
+            <Button variant="contained" color="secondary" sx={{ maxWidth: '100%', width: '100%', marginBottom: 1 }} onClick={handleDeleteClick}>
                 Delete
             </Button>
 
@@ -46,5 +46,3 @@ function DeleteButton({ listingId }) {
         </>
     );
 }
-
-export default DeleteButton;
