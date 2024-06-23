@@ -10,7 +10,7 @@ export default function Navbar() {
   const { logout } = useLogout();
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: '#ffffff' }}>
+    <AppBar position="static" sx={{ backgroundColor: '#ffffff', boxShadow: 'none' }}>
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           <IconButton component={Link} to="/">
@@ -35,16 +35,7 @@ export default function Navbar() {
               </Button>
             </>
           )}
-          <Button
-            component={Link}
-            to="/create"
-            variant="contained"
-            sx={{
-              backgroundColor: "#003D7C",
-              color: "white",
-              "&:hover": { backgroundColor: "#00539C" },
-            }}
-          >
+          <Button component={Link} to="/create" variant="contained" sx={{ backgroundColor: "#003D7C", color: "white","&:hover": { backgroundColor: "#00539C" }}}>
             Create
           </Button>
         </Box>
