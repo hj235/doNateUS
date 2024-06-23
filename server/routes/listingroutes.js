@@ -8,11 +8,7 @@ router.post('/create', createListing)
 router.get('/discover', getListings)
 router.get('/:id', getSingleListing)
 router.post('/like', likeListing)
-
-// testing
-// router.delete('/listing/:id', deleteListing)
-// router.patch('/listing/:id', updateListing)
-
-
+router.delete('/delete/:id', deleteListing);
+router.patch('/update/:id', updateListing);
 
 module.exports = router;

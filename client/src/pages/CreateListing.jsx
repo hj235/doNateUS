@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './CreateListing.css';
 import axios from 'axios';
-import { Button, TextField, InputLabel, Radio, RadioGroup, FormControlLabel, Checkbox, Select, MenuItem } from '@mui/material';
-import { DatePicker } from '@mui/x-date-pickers'
+import { Button, TextField, InputLabel, FormControlLabel, Checkbox, Select, MenuItem } from '@mui/material';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import dayjs from 'dayjs';
@@ -21,7 +21,7 @@ export default function CreateListing() {
       toast('Please sign in to create a listing.');
       navigate('/login');
     }
-  });
+  }, [user, navigate]);
   
   const [data, setData] = useState({
     title: '',
@@ -102,7 +102,7 @@ export default function CreateListing() {
                     value={data.description} onChange={(e) => setData({ ...data, description: e.target.value })} sx={{ background: 'white', userSelect: "none" }} />
                   <br />
                   <InputLabel>Deadline</InputLabel>
-                  <DatePicker className="textfield" value={data.deadline} onChange={(e) => setData({ ...data, deadline: e })} inputFormat="DD/MM/YYYY" />
+                  <DateTimePicker className="textfield" value={data.deadline} onChange={(newValue) => setData({ ...data, deadline: newValue })} />
                   <br />
                   <InputLabel>Category</InputLabel>
                   <Select className='textfield' value={data.type} onChange={(e) => setData({ ...data, type: e.target.value })}>
@@ -110,12 +110,9 @@ export default function CreateListing() {
                     <MenuItem value={'Recruitment'}> Recruitment </MenuItem>
                     <MenuItem value={'Other'}> Other </MenuItem>
                   </Select>
-
-
                 </div>
 
                 <div className='sub-box'>
-
                   <h3>Others</h3>
                   <InputLabel sx={{ width: 300 }} >Tags</InputLabel>
                   <FormControlLabel control={<Checkbox />} label="Orientation" />
