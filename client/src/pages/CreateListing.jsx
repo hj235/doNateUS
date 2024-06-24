@@ -22,7 +22,6 @@ export default function CreateListing() {
       navigate('/login');
     }
   }, [user]);
-  }, [user, navigate]);
   
   const [data, setData] = useState({
     title: '',
