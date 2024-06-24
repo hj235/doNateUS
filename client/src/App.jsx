@@ -18,9 +18,8 @@ import Listing from './pages/Listing'
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
-
 // axios stuff to make life easier
-axios.defaults.baseURL = 'http://localhost:8000'; // simplifies having to type out the server url multiple times
+axios.defaults.baseURL = import.meta.env.VITE_SERVER_URL; // simplifies having to type out the server url multiple times
 axios.defaults.withCredentials = true; // allows cookies on client side
 
 function App() {
