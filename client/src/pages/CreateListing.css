@@ -3,7 +3,6 @@
 /* Page container */
 .page-container-box {
     width: auto;
-    margin-top: 100px;
     display: flex;
     flex-direction: column;
     align-items: center;

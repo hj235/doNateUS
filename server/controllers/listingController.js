@@ -21,7 +21,7 @@ async function createListing(req, res) {
     }
 }
 
-// get all listings function
+// get all listings
 async function getListings(req ,res) {
     try {
         const listings = await Listing.find().populate('owner')
@@ -31,6 +31,7 @@ async function getListings(req ,res) {
     }
 }
 
+// get single listing
 async function getSingleListing(req ,res) {
     const { id } = req.params;
     try {
@@ -41,8 +42,37 @@ async function getSingleListing(req ,res) {
     }
 }
 
+async function updateListing(req, res) {
+    const { id } = req.params;
+    const updates = req.body;
+    try {
+        const listing = await Listing.findByIdAndUpdate(id, updates, { new: true }).populate('owner');
+        if (!listing) {
+            return res.status(404).json({ error: 'Listing not found' });
+        }
+        return res.json(listing);
+    } catch (error) {
+        return res.status(400).json({ error: error.message });
+    }
+}
+
+async function deleteListing(req, res) {
+    const { id } = req.params;
+    try {
+        const listing = await Listing.findByIdAndDelete(id);
+        if (!listing) {
+            return res.status(404).json({ error: 'Listing not found' });
+        }
+        return res.json({ message: 'Listing deleted successfully' });
+    } catch (error) {
+        return res.status(400).json({ error: error.message });
+    }
+}
+
 module.exports = {
     createListing,
     getListings,
-    getSingleListing
+    getSingleListing,
+    updateListing,
+    deleteListing
 };
