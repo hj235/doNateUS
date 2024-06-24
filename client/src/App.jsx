@@ -19,6 +19,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
 // axios stuff to make life easier
+console.log('Server hosted at: ' + import.meta.env.VITE_SERVER_URL);
 axios.defaults.baseURL = import.meta.env.VITE_SERVER_URL; // simplifies having to type out the server url multiple times
 axios.defaults.withCredentials = true; // allows cookies on client side
 
