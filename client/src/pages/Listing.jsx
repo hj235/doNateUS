@@ -50,7 +50,7 @@ function Listing() {
     return (
         <Box marginTop={8} marginLeft={30} marginRight={30} display={'flex'} flexDirection={'column'}>
             <Card>
-                <CardMedia component="img" height="500" image={listing.media || media_ph} sx={{ background: 'grey', objectFit: 'contain' }} alt="Listing Image" />
+                <CardMedia component="img" height="500" image={listing.media ? listing.media[0] : media_ph} sx={{ background: 'grey', objectFit: 'contain' }} alt="Listing Image" />
             </Card>
 
             <Box display="flex" flexDirection="row" width="100%">

@@ -49,7 +49,7 @@ export function SimilarListings({ listing }) {
         return (
             <Box style={{ display: 'flex', flexWrap: 'wrap', gap: 20 }}>
                 {displayedListings.map((listing) => (
-                    <Box key={listing.id} padding={2}>
+                    <Box key={listing._id} padding={2}>
                         <ListingCard listing={listing} />
                     </Box>
                 ))}
