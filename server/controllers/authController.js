@@ -113,6 +113,26 @@ async function logoutUser(req, res) {
     }
 }
 
+async function editUser(req, res) {
+    try {
+        const update = req.body;
+        const name = update.name;
+
+        // check if user exists
+        const user = await User.findOne({ name });
+        if (!user) {
+            return res.json({
+                error: 'User could not be found. Please log in again.'
+            });
+        } else {
+            await User.findByIdAndUpdate(user._id, { ...update });
+            let newUser = await User.findOne({ name });
+            res.json({newUser});
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 // Test: successfully creates entry in mongoDB collection
 // async function registerUser(req, res) {
@@ -128,5 +148,6 @@ async function logoutUser(req, res) {
 module.exports = {
     registerUser,
     loginUser,
-    logoutUser
+    logoutUser,
+    editUser,
 };
