@@ -126,7 +126,7 @@ async function editUser(req, res) {
             });
         } else {
             await User.findByIdAndUpdate(user._id, { ...update });
-            let newUser = await User.findOne({ name });
+            const newUser = await User.findOne({ name });
             res.json({newUser});
         }
     } catch (error) {
