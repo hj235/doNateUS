@@ -63,4 +63,12 @@
     margin: 10px;
 }
 
+.listingbanner {
+    display:flex;
+    max-width: 100%;
+    height: auto;
+}
 
+.clearbutton {
+    margin: 10px;
+}

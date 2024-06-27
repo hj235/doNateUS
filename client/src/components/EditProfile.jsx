@@ -14,7 +14,6 @@ export function EditProfile() {
     const { mediaRef } = useFirebaseContext();
     const [file, setFile] = useState(null);
     const [fileURL, setFileURL] = useState(null);
-    console.log(user);
     const [formData, setFormData] = useState({
         // In case we ever want to allow users to edit something other than profilePicture
     });
@@ -26,6 +25,8 @@ export function EditProfile() {
             setFileURL(reader.result);
         }
         reader.readAsDataURL(file);
+        } else {
+            setFileURL(null);
         }
     }, [file]);
 
@@ -73,15 +74,19 @@ export function EditProfile() {
             <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
                 <DialogTitle>Edit Profile</DialogTitle>
                 <DialogContent>
-                    <Box>
+                    <Box sx={{display:'flex', flexDirection:'column'}}>
                         <label htmlFor="file-input">
-                            <Icon color="primary" aria-label="upload picture" component="span">
+                            
+                            <h3>Upload a profile picture:</h3>
+                        </label>
+                        <input className='fileinput' accept='image/*' type='file' key={file ? file.name : ''} onChange={(e) => setFile(e.target.files[0] )} />
+                        {fileURL
+                            ? <img className='profilepic' src={fileURL} alt='file' style={{display:'flex', maxWidth:'100%', height:'auto'}} />
+                            : <Icon color="primary" aria-label="upload picture" component="span">
                                 <PhotoCamera />
                             </Icon>
-                            Upload a profile picture:
-                        </label>
-                        <input accept='image/*' type='file' onChange={(e) => setFile(e.target.files[0] )} />
-                        {fileURL && <img src={fileURL} alt='file'/>}
+                        }
+                        <button className='clearbutton' type='button' onClick={() => setFile(null)} style={{width:'fit-content'}}>Clear file</button>
                     </Box>
                 </DialogContent>
                 <DialogActions>

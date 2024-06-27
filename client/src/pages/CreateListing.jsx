@@ -16,13 +16,6 @@ export default function CreateListing() {
   const { user } = useUserContext();
   const { mediaRef } = useFirebaseContext();
   const navigate = useNavigate();
-  useEffect(() => {
-    if (!user) {
-      toast.error('Please sign in to create a listing.');
-      navigate('/login');
-    }
-  }, [user]);
-  
   const [data, setData] = useState({
     title: '',
     description: '',
@@ -33,6 +26,26 @@ export default function CreateListing() {
     owner: user ? user._id : ''
   });
   const [file, setFile] = useState(null);
+  const [fileURL, setFileURL] = useState(null);
+
+  useEffect(() => {
+    if (!user) {
+      toast.error('Please sign in to create a listing.');
+      navigate('/login');
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+          setFileURL(reader.result);
+      }
+      reader.readAsDataURL(file);
+    } else {
+      setFileURL(null);
+    }
+  }, [file]);
 
   const createListing = async (e) => {
     e.preventDefault();
@@ -135,11 +148,10 @@ export default function CreateListing() {
                     </>
                   )}
 
-                  <div>
-                    <input type='file' onChange={(e) => setFile(e.target.files[0] )} />
-                    <button type='button' onClick={() => setFile(null)}>Clear files</button>
-                    <img src={file} alt='file'/>
-                  </div>
+                  <label for='fileinput'>Upload a banner</label>
+                  <input id='fileinput' type='file' key={file ? file.name : ''} onChange={(e) => setFile(e.target.files[0] )} />
+                  {fileURL && <img src={fileURL} alt='uploaded-file' className='listingbanner' />}
+                  <button className='clearbutton' type='button' onClick={() => setFile(null)}>Clear file</button>
 
                 </div>
               </div>
