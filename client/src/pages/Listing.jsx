@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { Card, CardMedia, Typography, Box, CircularProgress } from '@mui/material';
@@ -13,6 +14,7 @@ import media_ph from '../assets/listing-media-placeholder.jpg';
 import profile_ph from '../assets/profile-placeholder.jpg';
 
 function Listing() {
+    dayjs.extend(relativeTime);
     const { user } = useUserContext();
     const { id } = useParams();
     const [listing, setListing] = useState(null);
@@ -36,14 +38,10 @@ function Listing() {
         </Box>;
     }
 
-    const calculateDaysDifference = (day) => {
-        const now = dayjs();
-        const end = dayjs(day);
-        return end.diff(now, 'day');
+    const calculateTimeDifference = (day) => {
+        day = dayjs(day);
+        return day.fromNow();
     };
-
-    const daysRemaining = calculateDaysDifference(listing.deadline);
-    const daysAgo = calculateDaysDifference(listing.created_at);
 
     const isOwner = user && listing.owner._id === user._id;
 
@@ -81,15 +79,15 @@ function Listing() {
                     )}
                     <Box display={'flex'} flexDirection={'column'} marginTop={5}>
                         <Typography variant="h6" style={{ fontWeight: 'bold' }}>Details</Typography>
-                        <Typography variant="body1" marginTop={2}>Listed</Typography>
+                        <Typography variant="body1" marginTop={2}>Listed:</Typography>
                         <Typography variant="body1">
-                            {daysAgo === 1 ? '1 day remaining' : `${daysAgo} days ago`}
+                            {calculateTimeDifference(listing.created_at)}
                         </Typography>
-                        <Typography variant="body1" marginTop={2}>Category</Typography>
+                        <Typography variant="body1" marginTop={2}>Category:</Typography>
                         <Typography variant="body1">{listing.type}</Typography>
-                        <Typography variant="body1" marginTop={2}>Deadline</Typography>
+                        <Typography variant="body1" marginTop={2}>Deadline:</Typography>
                         <Typography variant="body1">
-                            {daysRemaining === 1 ? '1 day remaining' : `${daysRemaining} days remaining`}
+                            {calculateTimeDifference(listing.deadline)}
                         </Typography>
                         <Typography variant="h6" marginTop={4} style={{ fontWeight: 'bold' }}> Latest Updates </Typography>
                     </Box>
