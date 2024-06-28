@@ -5,6 +5,7 @@ import { useUserContext } from '../../hooks/useUserContext';
 import { Box, Typography, Button } from '@mui/material';
 import { EditProfile } from '../components/EditProfile';
 import { LikedListings } from '../components/LikedListings';
+import { ProfileCard } from '../components/ProfileCard';
 
 export default function Home() {
   document.title = "Welcome";
@@ -20,37 +21,19 @@ export default function Home() {
               <Typography variant="h2" marginBottom={2}>
                 Welcome back, {user.name}!
               </Typography>
-              {user.profilePicture && <Box
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  width: '100%',
-                  height: 'auto',
-                  padding: 2,
-                  backgroundColor: '#f5f5f5',
-                  borderRadius: 2,
-                  boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-                }}
-              >
-                <img
-                  src={user.profilePicture}
-                  alt='profilePicture'
-                  style={{
-                    maxWidth: '100%',
-                    height: 'auto',
-                    borderRadius: '8px',
-                  }}
-                />
-              </Box>}
+
+              <ProfileCard user={user} />
+              
               <Typography variant="h4" marginBottom={30}>
                 Latest Updates & Announcements
               </Typography>
             </Box>
+
             <EditProfile />
             <Button component={Link} to="/discover" variant="contained">
               Browse
             </Button>
+            
             <h2>Liked Listings</h2>
             <LikedListings />
           </div>
