@@ -4,6 +4,7 @@ import './Home.css';
 import { useUserContext } from '../../hooks/useUserContext';
 import { Box, Typography, Button } from '@mui/material';
 import { EditProfile } from '../components/EditProfile';
+import { LikedListings } from '../components/LikedListings';
 
 export default function Home() {
   document.title = "Welcome";
@@ -50,6 +51,8 @@ export default function Home() {
             <Button component={Link} to="/discover" variant="contained">
               Browse
             </Button>
+            <h2>Liked Listings</h2>
+            <LikedListings />
           </div>
         )
         : (

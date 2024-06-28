@@ -1,6 +1,7 @@
 // controller for register page at path '/register'
 
 const Listing = require('../models/listing');
+const User = require('../models/user');
 
 // create listing function
 async function createListing(req, res) {
@@ -42,6 +43,16 @@ async function getSingleListing(req ,res) {
     }
 }
 
+async function getLikedListings(req ,res) {
+    const { id } = req.params;
+    try {
+        const user = await User.findById(id).populate('liked_listings')
+        return res.json(user.liked_listings);
+    } catch (error) {
+        res.status(400).json({error: error.message})
+    }
+}
+
 async function updateListing(req, res) {
     const { id } = req.params;
     const updates = req.body;
@@ -73,6 +84,7 @@ module.exports = {
     createListing,
     getListings,
     getSingleListing,
+    getLikedListings,
     updateListing,
     deleteListing
 };
