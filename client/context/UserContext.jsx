@@ -5,9 +5,9 @@ export const UserContext = createContext(null);
 export const userReducer = (state, action) => {
     switch(action.type) {
         case 'LOGIN':
-            return { user: action.payload }
+            return { user: action.payload, userLoaded: true }
         case 'LOGOUT':
-            return { user: null }
+            return { user: null, userLoaded: true }
         default:
             return state
     }
@@ -15,7 +15,8 @@ export const userReducer = (state, action) => {
 
 export const UserContextProvider = ({children}) => {
     const [state, dispatch] = useReducer(userReducer, {
-        user: null
+        user: null,
+        userLoaded: false,
     });
 
     useEffect(() => {

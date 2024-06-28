@@ -13,7 +13,7 @@ import { uploadBytes, ref, getDownloadURL } from 'firebase/storage';
 import { useNavigate } from 'react-router-dom';
 
 export default function CreateListing() {
-  const { user } = useUserContext();
+  const { user, userLoaded } = useUserContext();
   const { mediaRef } = useFirebaseContext();
   const navigate = useNavigate();
   const [data, setData] = useState({
@@ -29,7 +29,7 @@ export default function CreateListing() {
   const [fileURL, setFileURL] = useState(null);
 
   useEffect(() => {
-    if (!user) {
+    if (userLoaded && !user) {
       toast.error('Please sign in to create a listing.');
       navigate('/login');
     }
@@ -148,7 +148,7 @@ export default function CreateListing() {
                     </>
                   )}
 
-                  <label for='fileinput'>Upload a banner</label>
+                  <label htmlFor='fileinput'>Upload a banner</label>
                   <input id='fileinput' type='file' key={file ? file.name : ''} onChange={(e) => setFile(e.target.files[0] )} />
                   {fileURL && <img src={fileURL} alt='uploaded-file' className='listingbanner' />}
                   <button className='clearbutton' type='button' onClick={() => setFile(null)}>Clear file</button>
