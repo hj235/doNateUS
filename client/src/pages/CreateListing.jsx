@@ -49,46 +49,53 @@ export default function CreateListing() {
 
   const createListing = async (e) => {
     e.preventDefault();
-    let mediaURL = null
     try {
-      if (file) {
-        const fileRef = ref(mediaRef, `${data.title}+${file.name}+${dayjs()}`);
-        await uploadBytes(fileRef, file);
-        await getDownloadURL(fileRef).then(url => {
-          console.log(`File uploaded to firebase storage at: ${url}`);
-          mediaURL = url;
-        });
-      }
-      
+      const toastie = toast.loading('Creating listing...');
       const { title, description, type, deadline, target_balance, owner } = data;
       const response = await axios.post('/api/listings/create', {
         title,
         description,
         type,
         deadline,
-        media: mediaURL,
         target_balance,
         owner,
       });
       if (response.data.error) {
-        toast.error('Error occurred while creating listing.');
-      } else {
-        setData({
-          title: '',
-          description: '',
-          type: '',
-          deadline: dayjs(),
-          media: null,
-          target_balance: '',
-          owner: user ? user._id : '',
-        });
-        toast.success('Listing created successfully!');
-        const loading = toast.loading('Redirecting to listing page');
-        setTimeout(() => {
-          toast.dismiss(loading);
-          navigate(`/listing/${response.data._id}`);
-        }, 3000);
+        toast.error('Error occurred while creating listing.', { id: toastie });
       }
+
+      let mediaURL = null
+      if (file) {
+        const fileRef = ref(mediaRef, `/listing/${response.data._id}/banner`);
+        await uploadBytes(fileRef, file);
+        await getDownloadURL(fileRef).then(url => {
+          console.log(`File uploaded to firebase storage at: ${url}`);
+          mediaURL = url;
+        });
+        const fbResponse = await axios.patch(`/api/listings/update/${response.data._id}`, { media: mediaURL });
+        if (fbResponse.data.error) {
+          toast.error('Error occurred while uploading banner. Please try again later.');
+        } else {
+          console.log('Retrieved new listing successfully');
+        }
+      }
+      
+      setData({
+        title: '',
+        description: '',
+        type: '',
+        deadline: dayjs(),
+        media: null,
+        target_balance: '',
+        owner: user ? user._id : '',
+      });
+      toast.success('Listing created successfully!', { id: toastie });
+      const loading = toast.loading('Redirecting to listing page');
+      setTimeout(() => {
+        toast.dismiss(loading);
+        navigate(`/listing/${response.data._id}`);
+      }, 3000);
+      
     } catch (error) {
       toast.error('Error occurred while creating listing.');
       console.log(error);

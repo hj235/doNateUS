@@ -3,7 +3,6 @@ import { Dialog, Button, DialogActions, DialogTitle, DialogContent, Icon, Box, T
 import { PhotoCamera } from '@mui/icons-material';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import dayjs from 'dayjs';
 import { uploadBytes, ref, getDownloadURL } from 'firebase/storage';
 import { useUserContext } from '../../hooks/useUserContext';
 import { useFirebaseContext } from '../../hooks/useFirebaseContext';
@@ -34,9 +33,9 @@ export function EditProfile() {
 
     const handleSaveChanges = async () => {
         try {
-            let mediaURL = null
+            let mediaURL = null;
             if (file) {
-                const fileRef = ref(mediaRef, `${user.name}+${file.name}+${dayjs()}`);
+                const fileRef = ref(mediaRef, `/user/${user._id}/profilePicture`);
                 await uploadBytes(fileRef, file);
                 await getDownloadURL(fileRef).then(url => {
                   console.log(`File uploaded to firebase storage at: ${url}`);
@@ -47,7 +46,8 @@ export function EditProfile() {
             const newUser = { ...user, profilePicture: mediaURL, ...formData,  };
             const response = await axios.patch(`/api/user/edit/${user._id}`, newUser);
             const localUser = localStorage.getItem('user');
-            localUser && localStorage.setItem('user', newUser);
+            
+            localUser && localStorage.setItem('user', JSON.stringify(newUser));
             dispatch({ type: 'LOGIN', payload: newUser });
             toast.success('Profile has been updated!');
             handleClose();
@@ -77,15 +77,17 @@ export function EditProfile() {
                     <Box sx={{display:'flex', flexDirection:'column'}}>
                         <label htmlFor="file-input">
                             
-                            <h3>Upload a profile picture:</h3>
+                            <h3>Change profile picture:</h3>
                         </label>
                         <input className='fileinput' accept='image/*' type='file' key={file ? file.name : ''} onChange={(e) => setFile(e.target.files[0] )} />
+                        <div className='file-preview' style={{ alignContent:'center' }}>
                         {fileURL
                             ? <img className='profilepic' src={fileURL} alt='file' style={{display:'flex', maxWidth:'100%', height:'auto'}} />
                             : <Icon color="primary" aria-label="upload picture" component="span">
                                 <PhotoCamera />
                             </Icon>
                         }
+                        </div>
                         <button className='clearbutton' type='button' onClick={() => setFile(null)} style={{width:'fit-content'}}>Clear file</button>
                     </Box>
                 </DialogContent>
