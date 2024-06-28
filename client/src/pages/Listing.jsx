@@ -79,16 +79,20 @@ function Listing() {
                     )}
                     <Box display={'flex'} flexDirection={'column'} marginTop={5}>
                         <Typography variant="h6" style={{ fontWeight: 'bold' }}>Details</Typography>
-                        <Typography variant="body1" marginTop={2}>Listed:</Typography>
-                        <Typography variant="body1">
-                            {calculateTimeDifference(listing.created_at)}
-                        </Typography>
+                        
                         <Typography variant="body1" marginTop={2}>Category:</Typography>
                         <Typography variant="body1">{listing.type}</Typography>
-                        <Typography variant="body1" marginTop={2}>Deadline:</Typography>
+
+                        <Typography variant="body1" marginTop={2}>Listed {calculateTimeDifference(listing.created_at)},</Typography>
                         <Typography variant="body1">
-                            {calculateTimeDifference(listing.deadline)}
+                            {dayjs(listing.created_at).format('D MMMM YYYY')}
                         </Typography>
+
+                        <Typography variant="body1" marginTop={2}>Deadline {calculateTimeDifference(listing.deadline)},</Typography>
+                        <Typography variant="body1">
+                            {dayjs(listing.deadline).format('D MMMM YYYY, HHmm')}H
+                        </Typography>
+                        
                         <Typography variant="h6" marginTop={4} style={{ fontWeight: 'bold' }}> Latest Updates </Typography>
                     </Box>
                 </Box>

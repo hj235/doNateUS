@@ -17,7 +17,7 @@ export function ProfileCard({ user }) {
                 <Typography variant="h5"> {user.name} </Typography>
                 <Typography variant="h5" sx={{ color: 'gray' }}> {user.email} </Typography>
                 <Typography variant="body2" sx={{ color: 'gray' }}>
-                        Joined: {dayjs(user.created_at).format('DD/MMMM/YYYY')}
+                        Joined: {dayjs(user.created_at).format('D MMMM YYYY')}
                 </Typography>
                 {currentUser._id == user._id && <EditProfile />}
             </CardContent>
