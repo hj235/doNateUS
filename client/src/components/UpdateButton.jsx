@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Dialog, Button, DialogActions, DialogTitle, DialogContent, TextField } from '@mui/material';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 export function UpdateButton({ listingId }) {
     const [open, setOpen] = useState(false);
@@ -17,6 +18,7 @@ export function UpdateButton({ listingId }) {
             const response = await axios.post('/api/updates/create', formData);
             console.log('New Update:', response.data);
             handleClose();
+            toast.success("Update posted")
         } catch (error) {
             console.error('Error creating update:', error);
         }

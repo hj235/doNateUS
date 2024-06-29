@@ -4,6 +4,7 @@ import { useUserContext } from '../../hooks/useUserContext';
 import { Box, Typography, Button } from '@mui/material';
 import axios from 'axios';
 import { Updates } from '../components/Updates';
+import background from '../assets/giving-right-reasons.png'; // Import your background image
 
 export default function Home() {
   document.title = "Welcome";
@@ -14,6 +15,10 @@ export default function Home() {
   useEffect(() => {
     const fetchLikedListingsUpdates = async () => {
       try {
+        if (!user || !user.liked_listings) {
+          return; // Exit early if user or liked_listings is undefined
+        }
+
         const likedListingUpdates = [];
 
         // Fetch updates for each liked listing
@@ -21,7 +26,7 @@ export default function Home() {
           const response = await axios.get(`/api/listings/${listingId}`);
           const listing = response.data;
 
-          if (listing.updates && Array.isArray(listing.updates)) {
+          if (listing.updates) {
             for (const updateId of listing.updates) {
               const updateResponse = await axios.get(`/api/updates/${updateId}`);
               likedListingUpdates.push(updateResponse.data);
@@ -51,9 +56,18 @@ export default function Home() {
   };
 
   return (
-    <Box textAlign="center">
+    <Box
+      textAlign="center"
+      style={{
+        backgroundImage: `url(${background})`, // Set the background image
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        minHeight: '90vh', // Ensure the background covers the entire viewport
+        padding: '20px' // Example padding
+      }}
+    >
       {user ? (
-        <Box maxWidth={600} margin="auto" padding={4}>
+        <Box maxWidth={600} margin="auto" padding={4} bgcolor="rgba(255, 255, 255, 0.8)" borderRadius={8}>
           <Typography variant="h2" marginBottom={2}>
             Welcome back, {user.name}!
           </Typography>
@@ -79,17 +93,9 @@ export default function Home() {
           )}
         </Box>
       ) : (
-        <Box maxWidth={600} margin="auto" padding={4}>
+        <Box maxWidth={600} margin="auto" padding={4} bgcolor="rgba(255, 255, 255, 0.8)" borderRadius={8}>
           <Typography variant="h2" marginBottom={2}>
             Welcome to doNateUS!
-          </Typography>
-          <Typography variant="body1" marginBottom={4}>
-            Why you should create an account:
-          </Typography>
-          <Typography>
-            Like projects and view them whenever
-            Add comments on projects
-            Receive updates and notifications from projects
           </Typography>
           <Button component={Link} to="/login" variant="contained" sx={{ marginRight: 2 }}>
             Login

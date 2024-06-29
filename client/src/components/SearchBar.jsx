@@ -7,11 +7,11 @@ export function SearchBar({ searchInput, handleSearchInputChange }) {
   return (
     <div className='search-bar'>
       <TextField 
-        label='Search' 
-        fullWidth 
+        label='Search'
+        fullWidth
         value={searchInput} 
         onChange={handleSearchInputChange}
-        style={{ width: '500px', marginBottom: '10px'}}
+        style={{marginBottom: '10px'}}
         
       />
     </div>

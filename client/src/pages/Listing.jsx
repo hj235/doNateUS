@@ -65,7 +65,7 @@ function Listing() {
                     </Box>
                     <Typography variant="h6" marginTop={2} style={{ fontWeight: 'bold' }}>Description</Typography>
                     <Typography variant="body1" marginTop={2} style={{ whiteSpace: 'pre-line' }}>{listing.description}</Typography>
-                    <Typography variant="h6" marginTop={20} marginBottom={5} style={{ fontWeight: 'bold' }}> Similar Listings </Typography>
+                    
 
                 </Box>
 
@@ -97,6 +97,7 @@ function Listing() {
                     </Box>
                 </Box>
             </Box>
+            <Typography variant="h6" marginTop={20} marginBottom={5} style={{ fontWeight: 'bold' }}> Similar Listings </Typography>
             <SimilarListings listing={listing} />
 
 

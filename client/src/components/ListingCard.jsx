@@ -20,7 +20,7 @@ export function ListingCard({ listing }) {
     const daysRemaining = calculateDaysRemaining(listing.deadline);
 
     return (
-        <Card sx={{ width: 300, height: 450, position: 'relative', textAlign: 'center'}}>
+        <Card sx={{ width: 280, height: 450, position: 'relative', textAlign: 'center'}}>
 
             <CardActionArea component={Link} to={`/listing/${listing._id}`} sx={{ height: 450, textDecoration: 'none' }}>
                 {isFundraiserOrRecruitment && (

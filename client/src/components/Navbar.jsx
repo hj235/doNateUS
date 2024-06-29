@@ -11,8 +11,8 @@ export default function Navbar() {
 
   return (
     <AppBar position="static" sx={{ backgroundColor: '#ffffff', boxShadow: 'none' }}>
-      <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+      <Toolbar sx={{ display: 'flex', justifyContent: "space-between"}}>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <IconButton component={Link} to="/">
             <Box component="img" src={logo} alt="Logo" sx={{ height: 20, width: 100 }} />
           </IconButton>

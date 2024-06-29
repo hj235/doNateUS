@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Card, CardContent, Typography, Box, CircularProgress, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
+import { CircularProgress, Box, Typography, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(relativeTime);
@@ -14,6 +14,11 @@ export function Updates({ announcementIds }) {
     useEffect(() => {
         const fetchUpdates = async () => {
             try {
+                if (!announcementIds || announcementIds.length === 0) {
+                    setLoading(false);
+                    return; // Exit early if announcementIds is not defined or empty
+                }
+
                 const promises = announcementIds.map(async (announcementId) => {
                     const response = await axios.get(`/api/updates/${announcementId}`);
                     return response.data;
@@ -23,6 +28,7 @@ export function Updates({ announcementIds }) {
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching updates:', error);
+                setLoading(false);
             }
         };
 

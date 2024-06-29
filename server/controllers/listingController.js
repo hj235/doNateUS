@@ -1,6 +1,7 @@
 // controller for register page at path '/register'
 
 const Listing = require('../models/listing');
+const User = require('../models/user')
 
 // create listing function
 async function createListing(req, res) {
@@ -63,6 +64,17 @@ async function deleteListing(req, res) {
         if (!listing) {
             return res.status(404).json({ error: 'Listing not found' });
         }
+
+        const updatePromises = [];
+        const usersToUpdate = await User.find({ liked_listings: id });
+
+        usersToUpdate.forEach(user => {
+            user.liked_listings = user.liked_listings.filter(listingId => listingId !== id);
+            updatePromises.push(user.save());
+        });
+
+        await Promise.all(updatePromises);
+
         return res.json({ message: 'Listing deleted successfully' });
     } catch (error) {
         return res.status(400).json({ error: error.message });
