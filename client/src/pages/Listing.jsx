@@ -8,6 +8,7 @@ import { LikeButton } from '../components/LikeButton';
 import { DeleteButton } from '../components/DeleteButton';
 import { EditButton } from '../components/EditButton';
 import { UpdateButton } from '../components/UpdateButton';
+import { Updates } from '../components/Updates';
 import { SimilarListings } from '../components/SimilarListings';
 import media_ph from '../assets/listing-media-placeholder.jpg';
 import profile_ph from '../assets/profile-placeholder.jpg';
@@ -39,7 +40,7 @@ function Listing() {
     const calculateDaysDifference = (day) => {
         const now = dayjs();
         const end = dayjs(day);
-        return end.diff(now, 'day');
+        return Math.abs(end.diff(now, 'day'));
     };
 
     const daysRemaining = calculateDaysDifference(listing.deadline);
@@ -65,7 +66,7 @@ function Listing() {
                     <Typography variant="h6" marginTop={2} style={{ fontWeight: 'bold' }}>Description</Typography>
                     <Typography variant="body1" marginTop={2} style={{ whiteSpace: 'pre-line' }}>{listing.description}</Typography>
                     <Typography variant="h6" marginTop={20} marginBottom={5} style={{ fontWeight: 'bold' }}> Similar Listings </Typography>
-                    
+
                 </Box>
 
                 <Box flex={2} padding={1} display="flex" flexDirection="column" >
@@ -92,12 +93,13 @@ function Listing() {
                             {daysRemaining === 1 ? '1 day remaining' : `${daysRemaining} days remaining`}
                         </Typography>
                         <Typography variant="h6" marginTop={4} style={{ fontWeight: 'bold' }}> Latest Updates </Typography>
+                        <Updates announcementIds={listing.updates} />
                     </Box>
                 </Box>
             </Box>
-            <SimilarListings listing = {listing}/>
+            <SimilarListings listing={listing} />
 
-    
+
         </Box>
     );
 }

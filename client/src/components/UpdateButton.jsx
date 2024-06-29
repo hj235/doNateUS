@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Dialog, Button, DialogActions, DialogTitle, DialogContent, TextField, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
+import { Dialog, Button, DialogActions, DialogTitle, DialogContent, TextField } from '@mui/material';
 import axios from 'axios';
 
 export function UpdateButton({ listingId }) {
     const [open, setOpen] = useState(false);
     const [formData, setFormData] = useState({
+        listingID: listingId, // Ensure this matches the field expected in the backend
         title: "",
         description: "",
     });
@@ -12,7 +13,13 @@ export function UpdateButton({ listingId }) {
     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const handleNewUpdate = async () => {
-        //TODO
+        try {
+            const response = await axios.post('/api/updates/create', formData);
+            console.log('New Update:', response.data);
+            handleClose();
+        } catch (error) {
+            console.error('Error creating update:', error);
+        }
     };
 
     const handleClickOpen = () => {

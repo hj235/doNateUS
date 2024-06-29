@@ -3,6 +3,7 @@ const router = express.Router();
 const {createListing, getListings, getSingleListing, deleteListing, updateListing} = require('../controllers/listingController');
 const {likeListing} = require('../controllers/likeController');
 
+// Listings
 router.get('/', getListings)
 router.post('/create', createListing)
 router.get('/discover', getListings)
