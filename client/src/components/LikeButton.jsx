@@ -7,7 +7,7 @@ import { useUserContext } from '../../hooks/useUserContext';
 
 
 export function LikeButton({ listing }) {
-    const { user } = useUserContext();
+    const { user, dispatch } = useUserContext();
     const [isLiked, setIsLiked] = useState(false);
     const [likeCount, setLikeCount] = useState(listing.likes);
     // Like Button
@@ -27,10 +27,15 @@ export function LikeButton({ listing }) {
                 userID: user._id,
                 listingID: listing._id
             });
-            setIsLiked(!isLiked);
-            setLikeCount(prevCount => isLiked ? prevCount - 1 : prevCount + 1);
+            if (response.error) {
+                console.log(response.error);
+            } else {
+                setIsLiked(!isLiked);
+                setLikeCount(prevCount => isLiked ? prevCount - 1 : prevCount + 1);
+                dispatch({type: 'LOGIN', payload: response.data});
+            }
         } catch (error) {
-            toast.error("Not Logged In")
+            toast.error("Not Logged In");
             console.error('Error liking listing:', error);
         }
     }

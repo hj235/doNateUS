@@ -160,7 +160,7 @@ export default function CreateListing() {
             </Box> */}
             <Box mb={3}>
               <label htmlFor='fileinput'>Upload a banner</label>
-              <input id='fileinput' type='file' key={file ? file.name : ''} onChange={(e) => setFile(e.target.files[0])} />
+              <input accept='image/*' id='fileinput' type='file' onChange={(e) => setFile(e.target.files[0])} />
               { fileURL && (
                 <CardMedia component="img" image={fileURL} alt='uploaded-file'/>
               )}

@@ -22,17 +22,15 @@ async function likeListing(req, res) {
       // Like the listing
       user.liked_listings.push(listingID);
       listing.likes++;
-      await user.save();
-      await listing.save();
-      return res.json({ message: 'Listing liked successfully.' });
     } else {
       // Unlike the listing
       user.liked_listings = user.liked_listings.filter(id => id.toString() !== listingID.toString());
       listing.likes--;
-      await user.save();
-      await listing.save();
-      return res.json({ message: 'Listing unliked successfully.' });
     }
+    await user.save();
+    await listing.save();
+    delete user.password;
+    return res.json(user);
 
   } catch (error) {
     console.error('Error liking/unliking listing:', error);
