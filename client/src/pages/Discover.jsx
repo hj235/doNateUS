@@ -47,9 +47,7 @@ export default function Discover() {
   };
 
   return (
-    <Container maxWidth>
-
-
+    <Box maxWidth="100%">
       <Box display="flex" flexDirection="row" gap={5}>
         <Box>
           <Box>
@@ -80,6 +78,6 @@ export default function Discover() {
           </Box>
         </Box>
       </Box>
-    </Container>
+    </Box>
   );
 }
