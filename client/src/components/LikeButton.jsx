@@ -8,12 +8,32 @@ import { useUserContext } from '../../hooks/useUserContext';
 
 export function LikeButton({ listing }) {
     const { user } = useUserContext();
+    const [likedListings, setLikedListings] = useState([])
     const [isLiked, setIsLiked] = useState(false);
     const [likeCount, setLikeCount] = useState(listing.likes);
     // Like Button
     useEffect(() => {
-        if (user && user.liked_listings) {
-            setIsLiked(user.liked_listings.includes(listing._id));
+
+        const fetchListings = async () => {
+            try {
+                const response = await axios.get(`/api/listings/liked/${user._id}`);
+                if (response.status === 200) {
+                    setLikedListings(response.data);
+                } else {
+                    console.error('Response not okay:', response.status, response.data);
+                    toast.error("Response not okay");
+                }
+
+            } catch (error) {
+                console.error('Error fetching listings:', error);
+                toast.error('Error fetching listings');
+            }
+        };
+
+        fetchListings();
+
+        if (user && likedListings) {
+            setIsLiked(likedListings.some(likedListing => likedListing._id === listing._id));
 
         } else {
             setIsLiked(false);
