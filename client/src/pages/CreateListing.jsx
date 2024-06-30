@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './CreateListing.css';
 import axios from 'axios';
-import { Button, TextField, InputLabel, FormControlLabel, Checkbox, Select, MenuItem } from '@mui/material';
+import { Container, Box, Typography, TextField, FormControl, InputLabel, Select, MenuItem, Button, Checkbox, FormControlLabel, Paper } from '@mui/material';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -25,6 +24,7 @@ export default function CreateListing() {
     target_balance: '',
     owner: user ? user._id : ''
   });
+
   const [file, setFile] = useState(null);
   const [fileURL, setFileURL] = useState(null);
 
@@ -106,68 +106,67 @@ export default function CreateListing() {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <div className="page-container-box">
-        <div className="wrapper-create">
-          <div className="form-box">
-            <form method="post" onSubmit={createListing}>
-              <h1>Create a Listing</h1>
-              <div className="main-box">
-                <div className='sub-box'>
-                  <h3>Mandatory Fields</h3>
-                  <InputLabel>Title</InputLabel>
-                  <TextField className="textfield" type="text" required
-                    value={data.title} onChange={(e) => setData({ ...data, title: e.target.value })} sx={{ background: 'white', userSelect: "none" }} />
-                  <br />
-                  <InputLabel>Description</InputLabel>
-                  <TextField className="textfield" type="text" required multiline minRows={5} maxRows={10}
-                    value={data.description} onChange={(e) => setData({ ...data, description: e.target.value })} sx={{ background: 'white', userSelect: "none" }} />
-                  <br />
-                  <InputLabel>Deadline</InputLabel>
-                  <DateTimePicker className="textfield" value={data.deadline} onChange={(newValue) => setData({ ...data, deadline: newValue })} />
-                  <br />
-                  <InputLabel>Category</InputLabel>
-                  <Select className='textfield' value={data.type} onChange={(e) => setData({ ...data, type: e.target.value })}>
-                    <MenuItem value={'Fundraiser'}> Fundraiser </MenuItem>
-                    <MenuItem value={'Recruitment'}> Recruitment </MenuItem>
-                    <MenuItem value={'Other'}> Other </MenuItem>
-                  </Select>
-                </div>
-
-                <div className='sub-box'>
-                  <h3>Others</h3>
-                  <InputLabel sx={{ width: 300 }} >Tags</InputLabel>
-                  <FormControlLabel control={<Checkbox />} label="Orientation" />
-                  <FormControlLabel control={<Checkbox />} label="Volunteer" />
-                  <FormControlLabel control={<Checkbox />} label="Donation" />
-                  <br />
-                  {data.type === 'Fundraiser' && (
-                    <>
-                      <InputLabel>Goal ($)</InputLabel>
-                      <TextField variant="outlined" id="target_balance" className="textfield" type="text"
-                        value={data.target_balance} onChange={(e) => setData({ ...data, target_balance: e.target.value })} sx={{ background: 'white', userSelect: "none" }} />
-                    </>
-                  )}
-                  {data.type === 'Recruitment' && (
-                    <>
-                      <InputLabel>Slots</InputLabel>
-                      <TextField variant="outlined" id="target_balance" className="textfield" type="text"
-                        value={data.target_balance} onChange={(e) => setData({ ...data, target_balance: e.target.value })} sx={{ background: 'white', userSelect: "none" }} />
-                    </>
-                  )}
-
-                  <label htmlFor='fileinput'>Upload a banner</label>
-                  <input id='fileinput' type='file' key={file ? file.name : ''} onChange={(e) => setFile(e.target.files[0] )} />
-                  {fileURL && <img src={fileURL} alt='uploaded-file' className='listingbanner' />}
-                  <button className='clearbutton' type='button' onClick={() => setFile(null)}>Clear file</button>
-
-                </div>
-              </div>
-              <Button type="submit" variant="text" sx={{ color: 'darkgray', '&:hover': { color: "black", userSelect: "none" } }}> Create</Button>
-            </form>
-            <br />
-          </div>
-        </div>
-      </div>
+      <Container maxWidth="md">
+        <Box component={Paper} p={4} mt={4} mb={4} boxShadow={3}>
+          <Typography variant="h4" gutterBottom>
+            Create a Listing
+          </Typography>
+          <form onSubmit={createListing}>
+            <Box mb={3}>
+              <TextField label="Title" fullWidth required
+                value={data.title} onChange={(e) => setData({ ...data, title: e.target.value })} />
+            </Box>
+            <Box mb={3}>
+              <TextField label="Description" fullWidth required multiline minRows={5} maxRows={10}
+                value={data.description} onChange={(e) => setData({ ...data, description: e.target.value })} />
+            </Box>
+            <Box mb={3}>
+              <DateTimePicker label="Deadline" value={data.deadline}
+                onChange={(newValue) => setData({ ...data, deadline: newValue })}
+                renderInput={(params) => <TextField {...params} fullWidth />} />
+            </Box>
+            <Box mb={3}>
+              <FormControl fullWidth>
+                <InputLabel>Category</InputLabel>
+                <Select
+                  value={data.type}
+                  onChange={(e) => setData({ ...data, type: e.target.value })}
+                >
+                  <MenuItem value={'Fundraiser'}>Fundraiser</MenuItem>
+                  <MenuItem value={'Recruitment'}>Recruitment</MenuItem>
+                  <MenuItem value={'Other'}>Other</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+            {data.type === 'Fundraiser' && (
+              <Box mb={3}>
+                <TextField label="Goal ($)" fullWidth
+                  value={data.target_balance} onChange={(e) => setData({ ...data, target_balance: e.target.value })} />
+              </Box>
+            )}
+            {data.type === 'Recruitment' && (
+              <Box mb={3}>
+                <TextField label="Slots" fullWidth
+                  value={data.target_balance} onChange={(e) => setData({ ...data, target_balance: e.target.value })} />
+              </Box>
+            )}
+            {/* <Box mb={3}>
+              <Typography variant="subtitle1" gutterBottom>
+                Tags
+              </Typography>
+              <FormControlLabel control={<Checkbox />} label="Orientation" />
+              <FormControlLabel control={<Checkbox />} label="Volunteer" />
+              <FormControlLabel control={<Checkbox />} label="Donation" />
+            </Box> */}
+            <Box mb={3}>
+              <input type="file" onChange={(e) => setFile(e.target.files[0])} />
+            </Box>
+            <Box textAlign="center">
+              <Button type="submit" variant="contained" color="primary"> Create </Button>
+            </Box>
+          </form>
+        </Box>
+      </Container>
     </LocalizationProvider>
   );
 }

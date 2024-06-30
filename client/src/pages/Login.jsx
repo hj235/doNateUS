@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './LoginRegister.css';
 import axios from 'axios';
-import { Button, TextField, Typography, Checkbox, FormControlLabel } from '@mui/material';
-import {useNavigate} from 'react-router-dom';
+import { Button, TextField, Typography, FormControlLabel, Checkbox, Container, Box, Paper } from '@mui/material';
 import toast from 'react-hot-toast';
+import { Link, useNavigate } from 'react-router-dom';
 import { useUserContext } from '../../hooks/useUserContext';
 
 export default function Login() {
@@ -22,56 +22,48 @@ export default function Login() {
 
   async function loginUser(e) {
     e.preventDefault();
-    const {name, password} = data
+    const { name, password } = data;
     try {
-      const {data} = await axios.post('/login', {
-        name,
-        password
-      });
+      const { data } = await axios.post('/login', { name, password });
       if (data.error) {
         toast.error(data.error);
       } else {
-        setData({
-          name: '',
-          password: ''
-        });
-
-        // save user data to local storage
+        setData({ name: '', password: '' });
         if (keepSignedIn) {
           localStorage.setItem('user', JSON.stringify(data));
         }
-
-        // update the user context
-        dispatch({type: 'LOGIN', payload: data});
-
+        dispatch({ type: 'LOGIN', payload: data });
         navigate('/');
       }
     } catch (error) {
-      console.log(error);
+      console.error('Error during login:', error);
+      toast.error('Error occurred during login.');
     }
   }
 
   document.title = "Login";
 
   return (
-    <div className="page-container-box">
-      <div className="wrapper">
-        <div className="form-box">
-          <form method="get" onSubmit={loginUser}>
-            <h1>Login</h1>
-            <br />
-            <TextField label="Username" variant="outlined" id="name" className="username" type="text" required
-              value={data.name} onChange={(e) => setData({ ...data, name: e.target.value })} sx={{ background: 'white', userSelect: "none" }} />
-            <br />
-            <TextField label="Password" variant="outlined" id="password" className="password" type="password" required
-              value={data.password} onChange={(e) => setData({ ...data, password: e.target.value })} sx={{ background: 'white', userSelect: "none" }} />
-            <br />
-            <FormControlLabel control={<Checkbox checked={keepSignedIn} onChange={(e) => setKeepSignedIn(e.target.checked)}
-              sx={{ color: 'gray', '&.Mui-checked': { color: 'gray' } }} />} label={<Typography sx={{ color: 'black' }}>Keep me signed in</Typography>} />
-            <Button type="submit" variant="text" sx={{ color: 'darkgray', '&:hover': { color: "black", userSelect: "none" } }}> Continue</Button>
-          </form>
-        </div>
-      </div>
-    </div>
-  )
+    <Container maxWidth="sm" style={{ display: 'flex', justifyContent: 'center' }}>
+      <Box component={Paper} p={10} boxShadow={3} width={400}>
+        <Typography variant="h4" gutterBottom align="center"> Login </Typography>
+        <form onSubmit={loginUser}>
+          <TextField label="Username" variant="outlined" fullWidth margin="normal" required id="name" type="text"
+            value={data.name} onChange={(e) => setData({ ...data, name: e.target.value })} />
+          <TextField label="Password" variant="outlined" fullWidth margin="normal" required id="password" type="password"
+            value={data.password} onChange={(e) => setData({ ...data, password: e.target.value })} />
+          <FormControlLabel
+            control={<Checkbox checked={keepSignedIn} onChange={(e) => setKeepSignedIn(e.target.checked)} />}
+            label="Keep me signed in"
+          />
+          <Button type="submit" variant="contained" color="primary" fullWidth> Continue </Button>
+        </form>
+
+        <Typography variant='body2' align='center' mt={2}>
+          <Link to="/register" style={{ textDecoration: 'none', color: 'grey' }}>Don't have an account? Register here</Link>
+        </Typography>
+        
+      </Box>
+    </Container>
+  );
 }

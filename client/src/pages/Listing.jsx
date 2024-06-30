@@ -9,6 +9,7 @@ import { LikeButton } from '../components/LikeButton';
 import { DeleteButton } from '../components/DeleteButton';
 import { EditButton } from '../components/EditButton';
 import { UpdateButton } from '../components/UpdateButton';
+import { Updates } from '../components/Updates';
 import { SimilarListings } from '../components/SimilarListings';
 import media_ph from '../assets/listing-media-placeholder.jpg';
 import profile_ph from '../assets/profile-placeholder.jpg';
@@ -38,10 +39,16 @@ function Listing() {
         </Box>;
     }
 
-    const calculateTimeDifference = (day) => {
-        day = dayjs(day);
-        return day.fromNow();
+    const calculateDaysDifference = (day) => {
+        const now = dayjs();
+        const end = dayjs(day);
+        return end.diff(now, 'day');
     };
+
+    const daysRemaining = calculateDaysDifference(listing.deadline);
+    const daysAgo = calculateDaysDifference(listing.created_at);
+    const hasGoal = listing.target_balance !== 0 && listing.target_balance !== null;
+    const tracked = listing.type === "Fundraiser" || listing.type === "Recruitment";
 
     const isOwner = user && listing.owner._id === user._id;
 
@@ -62,8 +69,8 @@ function Listing() {
                     </Box>
                     <Typography variant="h6" marginTop={2} style={{ fontWeight: 'bold' }}>Description</Typography>
                     <Typography variant="body1" marginTop={2} style={{ whiteSpace: 'pre-line' }}>{listing.description}</Typography>
-                    <Typography variant="h6" marginTop={20} marginBottom={5} style={{ fontWeight: 'bold' }}> Similar Listings </Typography>
-                    
+
+
                 </Box>
 
                 <Box flex={2} padding={1} display="flex" flexDirection="column" >
@@ -79,27 +86,38 @@ function Listing() {
                     )}
                     <Box display={'flex'} flexDirection={'column'} marginTop={5}>
                         <Typography variant="h6" style={{ fontWeight: 'bold' }}>Details</Typography>
-                        
-                        <Typography variant="body1" marginTop={2}>Category:</Typography>
+                        <Typography variant="body1" marginTop={2}>Listed</Typography>
+                        <Typography variant="body1" > {`${dayjs(listing.created_at).fromNow()}`} </Typography>
+                        <Typography variant="body1" marginTop={2}>Category</Typography>
                         <Typography variant="body1">{listing.type}</Typography>
+                        {tracked && (
+                            <React.Fragment>
+                                <Typography variant="body1" marginTop={2}>Progress</Typography>
+                                <Typography variant="body1">
+                                    {listing.type === 'Fundraiser' ? (
+                                        hasGoal ? `$${listing.current_balance}/$${listing.target_balance} raised` :
+                                            `$${listing.current_balance} raised`
+                                    ) : (
+                                        hasGoal ? `${listing.current_balance}/${listing.target_balance} slots taken` :
+                                            `${listing.current_balance} slots taken`
+                                    )}
+                                </Typography>
+                            </React.Fragment>
+                        )}
 
-                        <Typography variant="body1" marginTop={2}>Listed {calculateTimeDifference(listing.created_at)},</Typography>
-                        <Typography variant="body1">
-                            {dayjs(listing.created_at).format('D MMMM YYYY')}
-                        </Typography>
 
-                        <Typography variant="body1" marginTop={2}>Deadline {calculateTimeDifference(listing.deadline)},</Typography>
-                        <Typography variant="body1">
-                            {dayjs(listing.deadline).format('D MMMM YYYY, HHmm')}H
-                        </Typography>
-                        
+
+                        <Typography variant="body1" marginTop={2}>Deadline</Typography>
+                        <Typography variant="body1" > {`${dayjs(listing.deadline).fromNow()}`} </Typography>
                         <Typography variant="h6" marginTop={4} style={{ fontWeight: 'bold' }}> Latest Updates </Typography>
+                        <Updates announcementIds={listing.updates} />
                     </Box>
                 </Box>
             </Box>
-            <SimilarListings listing = {listing}/>
+            <Typography variant="h6" marginTop={20} marginBottom={5} style={{ fontWeight: 'bold' }}> Similar Listings </Typography>
+            <SimilarListings listing={listing} />
 
-    
+
         </Box>
     );
 }

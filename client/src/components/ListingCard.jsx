@@ -9,7 +9,8 @@ import dayjs from 'dayjs';
 
 export function ListingCard({ listing }) {
 
-    const isFundraiserOrRecruitment = listing.type === 'Fundraiser' || listing.type === 'Recruitment';
+    const hasGoal = listing.target_balance !== 0 && listing.target_balance !== null;
+    const tracked = listing.type === "Fundraiser" || listing.type === "Recruitment";
 
     const calculateDaysRemaining = (deadline) => {
         const now = dayjs();
@@ -20,18 +21,27 @@ export function ListingCard({ listing }) {
     const daysRemaining = calculateDaysRemaining(listing.deadline);
 
     return (
-        <Card sx={{ width: 300, height: 450, position: 'relative', textAlign: 'center'}}>
+        <Card sx={{ width: 280, height: 450, position: 'relative', textAlign: 'center' }}>
 
             <CardActionArea component={Link} to={`/listing/${listing._id}`} sx={{ height: 450, textDecoration: 'none' }}>
-                {isFundraiserOrRecruitment && (
+                {tracked && (
                     <React.Fragment>
                         <LinearProgress
-                            variant="determinate" sx={{ position: 'absolute', top: 0, left: 0, right: 0, height: 25 }}
+                            variant="determinate"
+                            sx={{ position: 'absolute', top: 0, left: 0, right: 0, height: 25 }}
                             value={(listing.current_balance / listing.target_balance) * 100}
                         />
                         <Typography
-                            variant="h7" sx={{ position: 'absolute', top: 0, left: 0, right: 0, color: 'white' }}>
-                            {listing.type === 'Fundraiser' ? `$${listing.current_balance}/$${listing.target_balance}` : `${listing.current_balance}/${listing.target_balance}`}
+                            variant="h7"
+                            sx={{ position: 'absolute', top: 0, left: 0, right: 0, color: 'white' }}
+                        >
+                            {listing.type === 'Fundraiser' ? (
+                                hasGoal ? `$${listing.current_balance}/$${listing.target_balance} raised` :
+                                    `$${listing.current_balance} raised`
+                            ) : (
+                                hasGoal ? `${listing.current_balance}/${listing.target_balance} slots taken` :
+                                    `${listing.current_balance} slots taken`
+                            )}
                         </Typography>
                     </React.Fragment>
                 )}

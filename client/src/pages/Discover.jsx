@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import './Discover.css';
-import { ListingCard } from '../components/ListingCard';
+import { Container, Box, CircularProgress, Typography, Paper } from '@mui/material';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { ListingCard } from '../components/ListingCard';
 import { FilterSelect } from '../components/FilterSelect';
 import { SearchBar } from '../components/SearchBar';
-import spinner from '../assets/loading-spinner.gif';
 
 export default function Discover() {
   document.title = "Discover";
@@ -13,11 +12,9 @@ export default function Discover() {
   const [listings, setListings] = useState([]);
   const [searchedListings, setSearchedListings] = useState([]);
   const [filteredListings, setFilteredListings] = useState([]);
-  // const [unfilteredListings, setUnfilteredListings] = useState([]);
   const [searchInput, setSearchInput] = useState("");
-  const [isloading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
-  //Fetch listings from database
   useEffect(() => {
     const fetchListings = async () => {
       try {
@@ -30,7 +27,6 @@ export default function Discover() {
           console.error('Response not okay:', response.status, response.data);
           toast.error("Response not okay");
         }
-
       } catch (error) {
         console.error('Error fetching listings:', error);
         toast.error('Error fetching listings');
@@ -40,43 +36,50 @@ export default function Discover() {
     fetchListings();
   }, []);
 
-  // Apply search input
   useEffect(() => {
     setSearchedListings(listings.filter(listing =>
       listing.title.toLowerCase().includes(searchInput.toLowerCase())
-    ))
+    ));
   }, [searchInput, listings]);
 
   const handleSearchInputChange = (event) => {
     setSearchInput(event.target.value);
   };
 
-  // // Monitor changes to searchedListings and reflect on UnfilteredListings
-  // useEffect(() => {
-  //   setUnfilteredListings(searchedListings)
-  // }, [searchedListings]);
-
-  // page
   return (
-    <div className="page-container">
-      <SearchBar searchInput={searchInput} handleSearchInputChange={handleSearchInputChange} />
-      <br />
-      <div className="listing">
-        <div className="filter-grid">
-          <h2>Filters:</h2>
-          <FilterSelect searchedListings={searchedListings} setFilteredListings={setFilteredListings} />
-        </div>
-        <div className="listing-grid">
-          {isloading
-            ? <div className="spinner-container"><img className="spinner" src={spinner} alt="Fetching listings... please wait" /></div>
-            : filteredListings.map(listing => (
-              <div className="listing-grid-item" key={listing._id}>
-                <ListingCard listing={listing} />
-              </div>
-            ))
-          }
-        </div>
-      </div>
-    </div>
+    <Container maxWidth>
+
+
+      <Box display="flex" flexDirection="row" gap={5}>
+        <Box>
+          <Box>
+            <SearchBar searchInput={searchInput} handleSearchInputChange={handleSearchInputChange} />
+          </Box>
+          <Box flexBasis="10%">
+            <Paper sx={{ padding: 2 }}>
+              <Typography variant="h4" gutterBottom>Filters</Typography>
+              <FilterSelect searchedListings={searchedListings} setFilteredListings={setFilteredListings} />
+            </Paper>
+          </Box>
+        </Box>
+
+
+
+        <Box flexBasis="90%">
+          <Box display="flex" flexWrap="wrap" gap={2}>
+            {isLoading
+              ? <Box display="flex" justifyContent="center" alignItems="center" width="100%">
+                <CircularProgress />
+              </Box>
+              : filteredListings.map(listing => (
+                <Box key={listing._id} mb={1}>
+                  <ListingCard listing={listing} />
+                </Box>
+              ))
+            }
+          </Box>
+        </Box>
+      </Box>
+    </Container>
   );
 }
