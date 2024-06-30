@@ -90,7 +90,7 @@ export function Updates({ liked_listings }) {
                 <Box key={index} display="flex" alignItems="flex-start" marginTop={2}>
                     {update.listing && (
                         <Box flexBasis="20%" mt= {2} mr={2} >
-                            <CardMedia component="img" height="100" image={update.listing.media || media_ph} />
+                            <CardMedia component="img" height="100" image={update.listing.media ? update.listing.media[0] : media_ph} />
                         </Box>
                     )}
                     <Box flexBasis="80%" textAlign={'left'}>
@@ -113,9 +113,9 @@ export function Updates({ liked_listings }) {
                 </Box>
             ))}
             {updates.length > visibleUpdates && (
-                <Button variant="contained" onClick={handleShowMore} marginTop={4}>
-                    Show More
-                </Button>
+                <Button variant="contained" onClick={handleShowMore} sx={{ marginTop: 4 }}>
+                Show More
+              </Button> 
             )}
             <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
                 {selectedUpdate && (

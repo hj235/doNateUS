@@ -10,8 +10,8 @@ export function ProfileCard({ user }) {
     const currentUser = useUserContext().user;
 
     return (
-        <Card maxwidth  sx={{ display: 'flex', textAlign: 'left'}}>
-            <CardMedia component="img" image={user.profilePicture || profile_ph}  sx={{ maxWidth: '50%' }}/>
+        <Card  sx={{ display: 'flex', textAlign: 'left'}}>
+            <CardMedia component="img" image={user.profilePicture || profile_ph}  sx={{ width: '50%' }}/>
             <CardContent>
                 <Typography variant="h4"> {user.name} </Typography>
                 <Typography variant="h6" sx={{ color: 'gray' }}> {user.email} </Typography>

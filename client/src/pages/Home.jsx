@@ -22,10 +22,9 @@ export default function Home() {
       }}
     >
       {user ? (
-        <Box maxWidth={1000} margin="auto" padding={4} bgcolor="rgba(255, 255, 255, 0.8)" borderRadius={4}>
-          <Box marginBottom={3}><ProfileCard user={user} /></Box>
-
-          <Button component={Link} to="/discover" variant="contained" marginBottom={1}>
+        <Box width={1000} margin="auto" padding={4} bgcolor="rgba(255, 255, 255, 0.8)" borderRadius={4}>
+          <Box sx={{ marginBottom: 3 }}><ProfileCard user={user} /></Box>
+          <Button component={Link} to="/discover" variant="contained">
             Browse Listings
           </Button>
           <Typography variant="h4" marginBottom={4} marginTop={4}>
@@ -36,7 +35,7 @@ export default function Home() {
           <LikedListings />
         </Box>
       ) : (
-        <Box maxWidth={600} margin="auto" padding={4} bgcolor="rgba(255, 255, 255, 0.8)" borderRadius={8}>
+        <Box width={600} margin="auto" padding={4} bgcolor="rgba(255, 255, 255, 0.8)" borderRadius={8}>
           <Typography variant="h2" marginBottom={2}>
             Welcome to doNateUS!
           </Typography>
