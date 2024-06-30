@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Container, Box, Typography, TextField, FormControl, InputLabel, Select, MenuItem, Button, Checkbox, FormControlLabel, Paper } from '@mui/material';
+import { Container, Box, Typography, TextField, FormControl, InputLabel, Select, MenuItem, Button, Checkbox, FormControlLabel, Paper, CardMedia } from '@mui/material';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -161,7 +161,9 @@ export default function CreateListing() {
             <Box mb={3}>
               <label htmlFor='fileinput'>Upload a banner</label>
               <input id='fileinput' type='file' key={file ? file.name : ''} onChange={(e) => setFile(e.target.files[0])} />
-              {fileURL && <img src={fileURL} alt='uploaded-file' className='listingbanner' />}
+              { fileURL && (
+                <CardMedia component="img" image={fileURL} alt='uploaded-file'/>
+              )}
               <button className='clearbutton' type='button' onClick={() => setFile(null)}>Clear file</button>
             </Box>
             <Box textAlign="center">
