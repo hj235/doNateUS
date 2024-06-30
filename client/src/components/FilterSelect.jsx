@@ -63,8 +63,8 @@ export function FilterSelect({ searchedListings, setFilteredListings}) {
             <RadioGroup value={filters.sortOption} onChange={handleSortOptionChange}>
                 <FormControlLabel value="created_at" control={<Radio />} label="Earliest created" />
                 <FormControlLabel value="created_at_desc" control={<Radio />} label="Latest created" />
-                <FormControlLabel value="deadline_at" control={<Radio />} label="Earliest deadline" />
-                <FormControlLabel value="deadline_at_desc" control={<Radio />} label="Furthest deadline" />
+                <FormControlLabel value="deadline_at" control={<Radio />} label="Ending Soon" />
+                {/* <FormControlLabel value="deadline_at_desc" control={<Radio />} label="Furthest deadline" /> */}
                 <FormControlLabel value="title" control={<Radio />} label="Title (A to Z)" />
             </RadioGroup>
             
@@ -73,6 +73,8 @@ export function FilterSelect({ searchedListings, setFilteredListings}) {
                 <FormControlLabel value="hide" control={<Radio />} label="Hide" />
                 <FormControlLabel value="show" control={<Radio />} label="Show" />
             </RadioGroup>
+
+
 
         </FormControl>
     );

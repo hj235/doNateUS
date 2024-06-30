@@ -45,6 +45,8 @@ function Listing() {
 
     const daysRemaining = calculateDaysDifference(listing.deadline);
     const daysAgo = calculateDaysDifference(listing.created_at);
+    const hasGoal = listing.target_balance !== 0 && listing.target_balance !== null;
+    const tracked = listing.type === "Fundraiser" || listing.type === "Recruitment";
 
     const isOwner = user && listing.owner._id === user._id;
 
@@ -65,7 +67,7 @@ function Listing() {
                     </Box>
                     <Typography variant="h6" marginTop={2} style={{ fontWeight: 'bold' }}>Description</Typography>
                     <Typography variant="body1" marginTop={2} style={{ whiteSpace: 'pre-line' }}>{listing.description}</Typography>
-                    
+
 
                 </Box>
 
@@ -83,15 +85,28 @@ function Listing() {
                     <Box display={'flex'} flexDirection={'column'} marginTop={5}>
                         <Typography variant="h6" style={{ fontWeight: 'bold' }}>Details</Typography>
                         <Typography variant="body1" marginTop={2}>Listed</Typography>
-                        <Typography variant="body1">
-                            {daysAgo === 1 ? '1 day remaining' : `${daysAgo} days ago`}
-                        </Typography>
+                        <Typography variant="body1" > {`${dayjs(listing.created_at).fromNow()}`} </Typography>
                         <Typography variant="body1" marginTop={2}>Category</Typography>
                         <Typography variant="body1">{listing.type}</Typography>
+                        {tracked && (
+                            <React.Fragment>
+                                <Typography variant="body1" marginTop={2}>Progress</Typography>
+                                <Typography variant="body1">
+                                    {listing.type === 'Fundraiser' ? (
+                                        hasGoal ? `$${listing.current_balance}/$${listing.target_balance} raised` :
+                                            `$${listing.current_balance} raised`
+                                    ) : (
+                                        hasGoal ? `${listing.current_balance}/${listing.target_balance} slots taken` :
+                                            `${listing.current_balance} slots taken`
+                                    )}
+                                </Typography>
+                            </React.Fragment>
+                        )}
+
+
+
                         <Typography variant="body1" marginTop={2}>Deadline</Typography>
-                        <Typography variant="body1">
-                            {daysRemaining === 1 ? '1 day remaining' : `${daysRemaining} days remaining`}
-                        </Typography>
+                        <Typography variant="body1" > {`${dayjs(listing.deadline).fromNow()}`} </Typography>
                         <Typography variant="h6" marginTop={4} style={{ fontWeight: 'bold' }}> Latest Updates </Typography>
                         <Updates announcementIds={listing.updates} />
                     </Box>

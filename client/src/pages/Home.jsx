@@ -25,7 +25,7 @@ export default function Home() {
             Welcome back, {user.name}!
           </Typography>
           <Button component={Link} to="/discover" variant="contained" marginBottom={1}>
-            Browse
+            Browse Listings
           </Button>
           <Typography variant="h4" marginBottom={4} marginTop={4}>
             Latest Updates & Announcements

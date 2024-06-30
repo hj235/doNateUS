@@ -42,44 +42,24 @@ export default function Login() {
 
   return (
     <Container maxWidth="sm" style={{ display: 'flex', justifyContent: 'center' }}>
-      <Box component={Paper} padding={7} mt={4} mb={4} boxShadow={3} width={400}>
-        <Typography variant="h4" gutterBottom align="center">
-          Login
-        </Typography>
+      <Box component={Paper} p={10} boxShadow={3} width={400}>
+        <Typography variant="h4" gutterBottom align="center"> Login </Typography>
         <form onSubmit={loginUser}>
-          <TextField
-            label="Username"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            required
-            id="name"
-            type="text"
-            value={data.name}
-            onChange={(e) => setData({ ...data, name: e.target.value })}
-          />
-          <TextField
-            label="Password"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            required
-            id="password"
-            type="password"
-            value={data.password}
-            onChange={(e) => setData({ ...data, password: e.target.value })}
-          />
+          <TextField label="Username" variant="outlined" fullWidth margin="normal" required id="name" type="text"
+            value={data.name} onChange={(e) => setData({ ...data, name: e.target.value })} />
+          <TextField label="Password" variant="outlined" fullWidth margin="normal" required id="password" type="password"
+            value={data.password} onChange={(e) => setData({ ...data, password: e.target.value })} />
           <FormControlLabel
             control={<Checkbox checked={keepSignedIn} onChange={(e) => setKeepSignedIn(e.target.checked)} />}
             label="Keep me signed in"
           />
-          <Button type="submit" variant="contained" color="primary" fullWidth>
-            Continue
-          </Button>
+          <Button type="submit" variant="contained" color="primary" fullWidth> Continue </Button>
         </form>
+
         <Typography variant='body2' align='center' mt={2}>
-          <Link to="/register" style={{ textDecoration: 'none', color: 'inherit' }}>Don't have an account? Register here</Link>
+          <Link to="/register" style={{ textDecoration: 'none', color: 'grey' }}>Don't have an account? Register here</Link>
         </Typography>
+        
       </Box>
     </Container>
   );

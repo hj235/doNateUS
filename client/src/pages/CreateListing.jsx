@@ -93,33 +93,17 @@ export default function CreateListing() {
           </Typography>
           <form onSubmit={createListing}>
             <Box mb={3}>
-              <TextField
-                label="Title"
-                fullWidth
-                required
-                value={data.title}
-                onChange={(e) => setData({ ...data, title: e.target.value })}
-              />
+              <TextField label="Title" fullWidth required
+                value={data.title} onChange={(e) => setData({ ...data, title: e.target.value })} />
             </Box>
             <Box mb={3}>
-              <TextField
-                label="Description"
-                fullWidth
-                required
-                multiline
-                minRows={5}
-                maxRows={10}
-                value={data.description}
-                onChange={(e) => setData({ ...data, description: e.target.value })}
-              />
+              <TextField label="Description" fullWidth required multiline minRows={5} maxRows={10}
+                value={data.description} onChange={(e) => setData({ ...data, description: e.target.value })} />
             </Box>
             <Box mb={3}>
-              <DateTimePicker
-                label="Deadline"
-                value={data.deadline}
+              <DateTimePicker label="Deadline" value={data.deadline}
                 onChange={(newValue) => setData({ ...data, deadline: newValue })}
-                renderInput={(params) => <TextField {...params} fullWidth />}
-              />
+                renderInput={(params) => <TextField {...params} fullWidth />} />
             </Box>
             <Box mb={3}>
               <FormControl fullWidth>
@@ -136,39 +120,29 @@ export default function CreateListing() {
             </Box>
             {data.type === 'Fundraiser' && (
               <Box mb={3}>
-                <TextField
-                  label="Goal ($)"
-                  fullWidth
-                  value={data.target_balance}
-                  onChange={(e) => setData({ ...data, target_balance: e.target.value })}
-                />
+                <TextField label="Goal ($)" fullWidth
+                  value={data.target_balance} onChange={(e) => setData({ ...data, target_balance: e.target.value })} />
               </Box>
             )}
             {data.type === 'Recruitment' && (
               <Box mb={3}>
-                <TextField
-                  label="Slots"
-                  fullWidth
-                  value={data.target_balance}
-                  onChange={(e) => setData({ ...data, target_balance: e.target.value })}
-                />
+                <TextField label="Slots" fullWidth
+                  value={data.target_balance} onChange={(e) => setData({ ...data, target_balance: e.target.value })} />
               </Box>
             )}
-            <Box mb={3}>
+            {/* <Box mb={3}>
               <Typography variant="subtitle1" gutterBottom>
                 Tags
               </Typography>
               <FormControlLabel control={<Checkbox />} label="Orientation" />
               <FormControlLabel control={<Checkbox />} label="Volunteer" />
               <FormControlLabel control={<Checkbox />} label="Donation" />
-            </Box>
+            </Box> */}
             <Box mb={3}>
               <input type="file" onChange={(e) => setFile(e.target.files[0])} />
             </Box>
             <Box textAlign="center">
-              <Button type="submit" variant="contained" color="primary">
-                Create
-              </Button>
+              <Button type="submit" variant="contained" color="primary"> Create </Button>
             </Box>
           </form>
         </Box>
