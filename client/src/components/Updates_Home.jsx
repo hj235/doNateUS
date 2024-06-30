@@ -26,7 +26,7 @@ export function Updates({ liked_listings }) {
                     const response = await axios.get(`/api/listings/${listingId}`);
                     const listing = response.data;
 
-                    if (listing.updates && listing.updates.length > 0) {
+                    if (listing && listing.updates && listing.updates.length > 0) {
                         // Fetch each update individually based on its ID
                         const updatePromises = listing.updates.map(async (updateId) => {
                             const updateResponse = await axios.get(`/api/updates/${updateId}`);
