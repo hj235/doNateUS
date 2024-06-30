@@ -115,18 +115,39 @@ async function logoutUser(req, res) {
 
 async function editUser(req, res) {
     try {
+        const { id } = req.params;
         const update = req.body;
-        const name = update.name;
 
         // check if user exists
-        const user = await User.findOne({ name });
+        const user = await User.findById(id);
         if (!user) {
             return res.json({
                 error: 'User could not be found. Please log in again.'
             });
         } else {
-            await User.findByIdAndUpdate(user._id, { ...update });
-            const newUser = await User.findOne({ name });
+            // Check for name
+            const { name, email } = update;
+            const nameExist = await User.findOne({ name });
+            if (nameExist && nameExist._id != id) {
+                return res.json({
+                    error: 'Username is invalid or already in use'
+                })
+            }
+ 
+            // Check for email
+            const emailExist = await User.findOne({ email });
+            if (emailExist && emailExist._id != id) {
+                return res.json({
+                    error: 'Email is invalid or already registered'
+                });
+            }
+
+            // Prevent password from being altered
+            if (update.password) {
+                delete update.password;
+            }
+
+            const newUser = await User.findByIdAndUpdate(user._id, { ...update });
             res.json({newUser});
         }
     } catch (error) {

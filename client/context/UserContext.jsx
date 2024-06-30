@@ -28,7 +28,9 @@ export const UserContextProvider = ({children}) => {
                 const response = await axios.get(`/api/user/get/${user._id}`);
                 if (response.status === 200) {
                     dispatch({type: 'LOGIN', payload: response.data});
-                    // localStorage.setItem('user', response.data);
+                    console.log(user)
+                    console.log(response.data)
+                    localStorage.setItem('user', JSON.stringify(response.data));
                 } else {
                     console.log('error retrieving previous logged in user');
                     localStorage.removeItem('user');
