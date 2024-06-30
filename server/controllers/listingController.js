@@ -46,7 +46,10 @@ async function getSingleListing(req ,res) {
 async function getLikedListings(req ,res) {
     const { id } = req.params;
     try {
-        const user = await User.findById(id).populate('liked_listings')
+        const user = await User.findById(id).populate({
+            path: 'liked_listings',
+            populate: { path: 'owner' },
+        });
         return res.json(user.liked_listings);
     } catch (error) {
         res.status(400).json({error: error.message})
