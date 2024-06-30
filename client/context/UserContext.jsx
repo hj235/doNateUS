@@ -1,4 +1,5 @@
 import { createContext, useReducer, useState, useEffect } from 'react';
+import axios from 'axios';
 
 export const UserContext = createContext(null);
 
@@ -22,7 +23,16 @@ export const UserContextProvider = ({children}) => {
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('user'));
         if (user) {
-            dispatch({type: 'LOGIN', payload: user});
+            const validateUser = async () => {
+                const response = await axios.get(`/api/user/get/${user._id}`);
+                if (response.status === 200) {
+                    dispatch({type: 'LOGIN', payload: response.data});
+                } else {
+                    console.log('error retrieving previous logged in user');
+                }
+            }
+
+            validateUser();
         }
     }, []);
 

@@ -134,6 +134,24 @@ async function editUser(req, res) {
     }
 }
 
+async function getUser(req, res) {
+    try {
+        const { id } = req.params;
+
+        // check if user exists
+        const user = await User.findById(id);
+        if (!user) {
+            return res.json({
+                error: 'User not found'
+            });
+        }
+        delete user.password;
+        return res.json(user);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 // Test: successfully creates entry in mongoDB collection
 // async function registerUser(req, res) {
 //     const user = await User.create({
@@ -150,4 +168,5 @@ module.exports = {
     loginUser,
     logoutUser,
     editUser,
+    getUser,
 };
