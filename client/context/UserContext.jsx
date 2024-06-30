@@ -29,6 +29,8 @@ export const UserContextProvider = ({children}) => {
                     dispatch({type: 'LOGIN', payload: response.data});
                 } else {
                     console.log('error retrieving previous logged in user');
+                    localStorage.removeItem('user');
+                    dispatch({type: 'LOGOUT'});
                 }
             }
 
