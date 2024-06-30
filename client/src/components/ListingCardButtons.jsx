@@ -40,8 +40,8 @@ export function ListingCardButtons({ listing }) {
             <CardContent sx={{ position: 'absolute', bottom: 40, width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
                 <LikeButton listing={listing} />
                 <IconButton onClick={handleListingRedirect}> <Comment /> </IconButton>
-                {isOwner && (
-                    <IconButton onClick={handleMenuOpen} > <MoreVert /> </IconButton>)}
+                {/* {isOwner && (
+                    <IconButton onClick={handleMenuOpen} > <MoreVert /> </IconButton>)} */}
             </CardContent>
 
             <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>

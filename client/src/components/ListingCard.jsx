@@ -47,7 +47,8 @@ export function ListingCard({ listing }) {
                 )}
                 <CardMedia component="img" height="200" image={listing.media ? listing.media[0] : media_ph} />
                 <CardContent>
-                    <Typography variant="h5"> {listing.title} </Typography>
+                    <Typography variant="h6"sx={{ display: '-webkit-box', overflow: 'hidden', WebkitBoxOrient: 'vertical', WebkitLineClamp: 1 }}> 
+                        {listing.title} </Typography>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 8 }}>
                         <CardMedia component="img" sx={{ borderRadius: '50%', width: 30, height: 30, marginRight: 1 }} image={listing.owner.profilePicture || profile_ph}
                         />
