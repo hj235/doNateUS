@@ -39,7 +39,7 @@ export default function CreateListing() {
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
-          setFileURL(reader.result);
+        setFileURL(reader.result);
       }
       reader.readAsDataURL(file);
     } else {
@@ -79,7 +79,7 @@ export default function CreateListing() {
           console.log('Retrieved new listing successfully');
         }
       }
-      
+
       setData({
         title: '',
         description: '',
@@ -95,7 +95,7 @@ export default function CreateListing() {
         toast.dismiss(loading);
         navigate(`/listing/${response.data._id}`);
       }, 3000);
-      
+
     } catch (error) {
       toast.error('Error occurred while creating listing.');
       console.log(error);
@@ -159,7 +159,10 @@ export default function CreateListing() {
               <FormControlLabel control={<Checkbox />} label="Donation" />
             </Box> */}
             <Box mb={3}>
-              <input type="file" onChange={(e) => setFile(e.target.files[0])} />
+              <label htmlFor='fileinput'>Upload a banner</label>
+              <input id='fileinput' type='file' key={file ? file.name : ''} onChange={(e) => setFile(e.target.files[0])} />
+              {fileURL && <img src={fileURL} alt='uploaded-file' className='listingbanner' />}
+              <button className='clearbutton' type='button' onClick={() => setFile(null)}>Clear file</button>
             </Box>
             <Box textAlign="center">
               <Button type="submit" variant="contained" color="primary"> Create </Button>

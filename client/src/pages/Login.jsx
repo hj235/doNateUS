@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './LoginRegister.css';
 import axios from 'axios';
 import { Button, TextField, Typography, FormControlLabel, Checkbox, Container, Box, Paper } from '@mui/material';
 import toast from 'react-hot-toast';

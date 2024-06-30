@@ -1,6 +1,5 @@
 import React from 'react';
 import { Card, CardContent, CardMedia, Typography, LinearProgress, CardActionArea } from '@mui/material';
-import { Link } from 'react-router-dom';
 import profile_ph from '../assets/profile-placeholder.jpg';
 import dayjs from 'dayjs';
 import { useUserContext } from '../../hooks/useUserContext';
@@ -11,11 +10,11 @@ export function ProfileCard({ user }) {
     const currentUser = useUserContext().user;
 
     return (
-        <Card sx={{ display: 'flex', maxWidth: '50%', position: 'relative', textAlign: 'left'}}>
+        <Card maxwidth  sx={{ display: 'flex', textAlign: 'left'}}>
             <CardMedia component="img" image={user.profilePicture || profile_ph}  sx={{ maxWidth: '50%' }}/>
             <CardContent>
-                <Typography variant="h5"> {user.name} </Typography>
-                <Typography variant="h5" sx={{ color: 'gray' }}> {user.email} </Typography>
+                <Typography variant="h4"> {user.name} </Typography>
+                <Typography variant="h6" sx={{ color: 'gray' }}> {user.email} </Typography>
                 <Typography variant="body2" sx={{ color: 'gray' }}>
                         Joined: {dayjs(user.created_at).format('D MMMM YYYY')}
                 </Typography>

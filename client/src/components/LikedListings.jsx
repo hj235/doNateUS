@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import '../pages/Discover.css';
+import { Box, CircularProgress} from '@mui/material';
 import { ListingCard } from './ListingCard';
 import axios from 'axios';
 import toast from 'react-hot-toast';
@@ -8,7 +8,7 @@ import { useUserContext } from '../../hooks/useUserContext';
 
 export function LikedListings() {
     const [listings, setListings] = useState([]);
-    const [isloading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
     const { user } = useUserContext();
 
     //Fetch listings from database
@@ -35,17 +35,30 @@ export function LikedListings() {
     }, []);
 
     return (
-        <div className="listing">
-            <div className="listing-grid">
-            {isloading
-                ? <div className="spinner-container"><img className="spinner" src={spinner} alt="Fetching listings... please wait" /></div>
-                : listings.map(listing => (
-                <div className="listing-grid-item" key={listing._id}>
-                    <ListingCard listing={listing} />
-                </div>
-                ))
-            }
-            </div>
-        </div>
+        <Box display="flex" flexWrap="wrap" gap={6}>
+          {isLoading
+            ? <Box display="flex" justifyContent="center" alignItems="center" width="100%">
+              <CircularProgress />
+            </Box>
+            : listings.map(listing => (
+              <Box key={listing._id} mb={1}>
+                <ListingCard listing={listing} />
+              </Box>
+            ))
+          }
+
+      </Box>
+        // <div className="listing">
+        //     <div className="listing-grid">
+        //     {isloading
+        //         ? <div className="spinner-container"><img className="spinner" src={spinner} alt="Fetching listings... please wait" /></div>
+        //         : listings.map(listing => (
+        //         <div className="listing-grid-item" key={listing._id}>
+        //             <ListingCard listing={listing} />
+        //         </div>
+        //         ))
+        //     }
+        //     </div>
+        // </div>
     )
 }

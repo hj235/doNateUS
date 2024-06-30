@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useUserContext } from '../../hooks/useUserContext';
 import { Box, Typography, Button } from '@mui/material';
-import { EditProfile } from '../components/EditProfile';
 import { LikedListings } from '../components/LikedListings';
 import { ProfileCard } from '../components/ProfileCard';
 import { Updates } from '../components/Updates_Home';
@@ -11,7 +10,6 @@ import background from '../assets/giving-right-reasons.png';
 export default function Home() {
   document.title = "Welcome";
   const { user } = useUserContext();
-  // const welcomeText = isLoggedIn ? ", " + user.name + "!" : " to doNateUS!";
 
   return (
     <Box
@@ -24,13 +22,9 @@ export default function Home() {
       }}
     >
       {user ? (
-        <Box maxWidth={600} margin="auto" padding={4} bgcolor="rgba(255, 255, 255, 0.8)" borderRadius={4}>
-          <Typography variant="h2" marginBottom={2}>
-            Welcome back, {user.name}!
-          </Typography>
+        <Box maxWidth={1000} margin="auto" padding={4} bgcolor="rgba(255, 255, 255, 0.8)" borderRadius={4}>
+          <Box marginBottom={3}><ProfileCard user={user} /></Box>
 
-              <ProfileCard user={user} />
-              
           <Button component={Link} to="/discover" variant="contained" marginBottom={1}>
             Browse Listings
           </Button>
@@ -38,9 +32,9 @@ export default function Home() {
             Latest Updates & Announcements
           </Typography>
           <Updates liked_listings={user.liked_listings} />
+          <h2>Liked Listings</h2>
+          <LikedListings />
         </Box>
-
-            <EditProfile />
       ) : (
         <Box maxWidth={600} margin="auto" padding={4} bgcolor="rgba(255, 255, 255, 0.8)" borderRadius={8}>
           <Typography variant="h2" marginBottom={2}>
@@ -52,9 +46,6 @@ export default function Home() {
           <Button component={Link} to="/register" variant="contained">
             Create an account
           </Button>
-            
-            <h2>Liked Listings</h2>
-            <LikedListings />
           <Box marginTop={2}>
             <Typography variant="body1">
               <Link to="/discover">Browse without an account</Link>
