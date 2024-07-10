@@ -12,6 +12,7 @@ export function EditButton({ listing, onSave }) {
         deadline: listing.deadline ? new Date(listing.deadline).toISOString().substr(0, 16) : '',
         current_balance: listing.current_balance,
         target_balance: listing.target_balance,
+        media: listing.media,
     });
 
     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -48,15 +49,15 @@ export function EditButton({ listing, onSave }) {
                     <TextField margin="dense" variant="standard" id="deadline" name="deadline" label="Deadline" type="datetime-local" fullWidth value={formData.deadline} onChange={handleChange} />
                     <FormControl fullWidth margin="dense" variant="standard">
                         <InputLabel id="type-label">Type</InputLabel>
-                        <Select labelId="type-label" id="type" name="type" value={formData.type} onChange={handleChange}>
+                        <Select labelid="type-label" id="type" name="type" value={formData.type} onChange={handleChange}>
                             <MenuItem value="Fundraiser">Fundraiser</MenuItem>
                             <MenuItem value="Recruitment">Recruitment</MenuItem>
                             <MenuItem value="Other">Other</MenuItem>
                         </Select>
                     </FormControl>
                     <FormControl fullWidth margin="dense" variant="standard">
-                        <InputLabel labelId="status-label">Status</InputLabel>
-                        <Select labelId="status-label" id="status" name="status" value={formData.status} onChange={handleChange}>
+                        <InputLabel id="status-label">Status</InputLabel>
+                        <Select labelid="status-label" id="status" name="status" value={formData.status} onChange={handleChange}>
                             <MenuItem value="Open">Open</MenuItem>
                             <MenuItem value="Closed">Closed</MenuItem>
                             <MenuItem value="Completed">Completed</MenuItem>
@@ -64,6 +65,7 @@ export function EditButton({ listing, onSave }) {
                     </FormControl>
                     <TextField margin="dense" variant="standard" id="current_balance" name="current_balance" label="Current Balance" type="number" fullWidth value={formData.current_balance} onChange={handleChange} />
                     <TextField margin="dense" variant="standard" id="target_balance" name="target_balance" label="Target Balance" type="number" fullWidth value={formData.target_balance} onChange={handleChange} />
+                    
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="primary">Cancel</Button>

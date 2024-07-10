@@ -11,8 +11,10 @@ import { EditButton } from '../components/EditButton';
 import { UpdateButton } from '../components/UpdateButton';
 import { Updates } from '../components/Updates';
 import { SimilarListings } from '../components/SimilarListings';
+import { MediaList } from '../components/MediaList';
 import media_ph from '../assets/listing-media-placeholder.jpg';
 import profile_ph from '../assets/profile-placeholder.jpg';
+import { EditMedia } from '../components/EditMedia';
 
 function Listing() {
     dayjs.extend(relativeTime);
@@ -67,10 +69,12 @@ function Listing() {
                         />
                         <Typography variant="h6"> {listing.owner.name} </Typography>
                     </Box>
+
                     <Typography variant="h6" marginTop={2} style={{ fontWeight: 'bold' }}>Description</Typography>
                     <Typography variant="body1" marginTop={2} style={{ whiteSpace: 'pre-line' }}>{listing.description}</Typography>
 
-
+                    <Typography variant="h6" marginTop={2} style={{ fontWeight: 'bold' }}>Media</Typography>
+                    <MediaList media={listing.media.slice(1)} />
                 </Box>
 
                 <Box flex={2} padding={1} display="flex" flexDirection="column" >
@@ -80,6 +84,7 @@ function Listing() {
                         <Box width={180} marginTop={5}>
                             <Typography variant="h6" style={{ fontWeight: 'bold' }}>Owner Actions</Typography>
                             <EditButton listing={listing} onSave={setListing} />
+                            <EditMedia listing={listing} onSave={setListing} />
                             <DeleteButton listingId={id} />
                             <UpdateButton listingId={id} />
                         </Box>

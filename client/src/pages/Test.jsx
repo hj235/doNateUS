@@ -23,8 +23,16 @@ export default function Test() {
         __v: 0,
         _id: "666844ec16e8321857a97c94"
     }
+    const arr = [1,2,3];
+    const arr2 = [4,5,6];
+    const arr3 = arr.concat(arr2);
+    const Comp = () => <>ello</>;
     return (
         <div>
+            <p>{arr}</p>
+            <p>{arr2}</p>
+            <p>{arr3}</p>
+            <Comp />
             <h1>Test page</h1>
             <ListingCard listing={listing} />
             <LinearProgress variant="determinate" value={50} />
