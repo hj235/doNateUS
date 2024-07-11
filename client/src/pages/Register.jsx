@@ -34,6 +34,7 @@ export default function Register() {
       }
     } catch (error) {
       console.error('Error during registration:', error);
+      toast.dismiss(loading)
       toast.error('Error occurred during registration.');
     }
   }

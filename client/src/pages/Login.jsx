@@ -40,6 +40,7 @@ export default function Login() {
       }
     } catch (error) {
       console.error('Error during login:', error);
+      toast.dismiss(loading)
       toast.error('Error occurred during login.');
     }
   }
