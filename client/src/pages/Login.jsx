@@ -24,7 +24,9 @@ export default function Login() {
     const { name, password } = data;
     try {
       const { data } = await axios.post('/login', { name, password });
+      const loading = toast.loading('Attempting Login')
       if (data.error) {
+        toast.dismiss(loading);
         toast.error(data.error);
       } else {
         setData({ name: '', password: '' });
@@ -32,6 +34,7 @@ export default function Login() {
           localStorage.setItem('user', JSON.stringify(data));
         }
         dispatch({ type: 'LOGIN', payload: data });
+        toast.success('Logged in succesfully')
         navigate('/');
       }
     } catch (error) {

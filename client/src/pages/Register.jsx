@@ -21,11 +21,14 @@ export default function Register() {
     const { name, email, password } = data;
     try {
       const { data } = await axios.post('/register', { name, email, password });
+      const loading = toast.loading('Attempting Registration')
       if (data.error) {
+        toast.dismiss(loading)
         toast.error(data.error);
       } else {
         setData({ name: '', email: '', password: '' });
         dispatch({ type: 'LOGIN', payload: data });
+        toast.dismiss(loading)
         toast.success('Registration success. Welcome!');
         navigate('/');
       }
