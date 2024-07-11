@@ -34,6 +34,7 @@ export default function Login() {
           localStorage.setItem('user', JSON.stringify(data));
         }
         dispatch({ type: 'LOGIN', payload: data });
+        toast.dismiss(loading);
         toast.success('Logged in succesfully')
         navigate('/');
       }
