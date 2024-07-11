@@ -23,8 +23,8 @@ export default function Login() {
     e.preventDefault();
     const { name, password } = data;
     try {
-      const { data } = await axios.post('/login', { name, password });
       const loading = toast.loading('Attempting Login')
+      const { data } = await axios.post('/login', { name, password });
       if (data.error) {
         toast.dismiss(loading);
         toast.error(data.error);

@@ -20,8 +20,8 @@ export default function Register() {
     e.preventDefault();
     const { name, email, password } = data;
     try {
-      const { data } = await axios.post('/register', { name, email, password });
       const loading = toast.loading('Attempting Registration')
+      const { data } = await axios.post('/register', { name, email, password });
       if (data.error) {
         toast.dismiss(loading)
         toast.error(data.error);
