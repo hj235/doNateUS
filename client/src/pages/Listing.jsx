@@ -110,10 +110,14 @@ function Listing() {
                             </React.Fragment>
                         )}
 
-
-
                         <Typography variant="body1" marginTop={2}>Deadline</Typography>
                         <Typography variant="body1" > {`${dayjs(listing.deadline).fromNow()}`} </Typography>
+
+                        <Typography variant="body1" marginTop={2}>Tags</Typography>
+                        {listing.tags.map((tag, index) => (
+                         <Typography key={index} variant="body1"> {tag} </Typography>))
+                         }
+
                         <Typography variant="h6" marginTop={4} style={{ fontWeight: 'bold' }}> Latest Updates </Typography>
                         <Updates announcementIds={listing.updates} />
                     </Box>
