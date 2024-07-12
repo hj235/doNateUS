@@ -22,7 +22,8 @@ export default function CreateListing() {
     type: '',
     deadline: dayjs(),
     target_balance: '',
-    owner: user ? user._id : ''
+    owner: user ? user._id : '',
+    tags: [],
   });
 
   const [file, setFile] = useState(null);
@@ -47,11 +48,20 @@ export default function CreateListing() {
     }
   }, [file]);
 
+  const handleTagChange = (tag) => {
+    setData((prevState) => {
+      const tags = prevState.tags.includes(tag)
+        ? prevState.tags.filter((t) => t !== tag)
+        : [...prevState.tags, tag];
+      return { ...prevState, tags };
+    });
+  };
+
   const createListing = async (e) => {
     e.preventDefault();
     try {
       const toastie = toast.loading('Creating listing...');
-      const { title, description, type, deadline, target_balance, owner } = data;
+      const { title, description, type, deadline, target_balance, owner, tags } = data;
       const response = await axios.post('/api/listings/create', {
         title,
         description,
@@ -59,24 +69,20 @@ export default function CreateListing() {
         deadline,
         target_balance,
         owner,
+        tags,
       });
       if (response.data.error) {
         toast.error('Error occurred while creating listing.', { id: toastie });
       }
 
-      let mediaURL = null
+      let mediaURL = null;
       if (file) {
         const fileRef = ref(mediaRef, `/listing/${response.data._id}/banner`);
         await uploadBytes(fileRef, file);
-        await getDownloadURL(fileRef).then(url => {
-          console.log(`File uploaded to firebase storage at: ${url}`);
-          mediaURL = url;
-        });
+        mediaURL = await getDownloadURL(fileRef);
         const fbResponse = await axios.patch(`/api/listings/update/${response.data._id}`, { media: mediaURL });
         if (fbResponse.data.error) {
           toast.error('Error occurred while uploading banner. Please try again later.');
-        } else {
-          console.log('Retrieved new listing successfully');
         }
       }
 
@@ -88,6 +94,7 @@ export default function CreateListing() {
         media: null,
         target_balance: '',
         owner: user ? user._id : '',
+        tags: [],
       });
       toast.success('Listing created successfully!', { id: toastie });
       const loading = toast.loading('Redirecting to listing page');
@@ -140,34 +147,43 @@ export default function CreateListing() {
             </Box>
             {data.type === 'Fundraiser' && (
               <Box mb={3}>
-                <TextField label="Goal ($)" fullWidth
+                <TextField label="Goal ($)" fullWidth type="number"
                   value={data.target_balance} onChange={(e) => setData({ ...data, target_balance: e.target.value })} />
               </Box>
             )}
             {data.type === 'Recruitment' && (
               <Box mb={3}>
-                <TextField label="Slots" fullWidth
+                <TextField label="Slots" fullWidth type="number"
                   value={data.target_balance} onChange={(e) => setData({ ...data, target_balance: e.target.value })} />
               </Box>
             )}
-            {/* <Box mb={3}>
+            <Box mb={3}>
               <Typography variant="subtitle1" gutterBottom>
                 Tags
               </Typography>
-              <FormControlLabel control={<Checkbox />} label="Orientation" />
-              <FormControlLabel control={<Checkbox />} label="Volunteer" />
-              <FormControlLabel control={<Checkbox />} label="Donation" />
-            </Box> */}
+              {["Orientation", "Volunteer", "Donation", "Community", "Education", "Health", "Environment", "Food", "Fashion", "Travel", "Sports", "Arts"].map((tag) => (
+                <FormControlLabel
+                  key={tag}
+                  control={
+                    <Checkbox
+                      checked={data.tags.includes(tag)}
+                      onChange={() => handleTagChange(tag)}
+                    />
+                  }
+                  label={tag}
+                />
+              ))}
+            </Box>
             <Box mb={3}>
               <label htmlFor='fileinput'>Upload a banner</label>
               <input accept='image/*' id='fileinput' type='file' onChange={(e) => setFile(e.target.files[0])} />
-              { fileURL && (
-                <CardMedia component="img" image={fileURL} alt='uploaded-file'/>
+              {fileURL && (
+                <CardMedia component="img" image={fileURL} alt='uploaded-file' />
               )}
               <button className='clearbutton' type='button' onClick={() => setFile(null)}>Clear file</button>
             </Box>
             <Box textAlign="center">
-              <Button type="submit" variant="contained" color="primary"> Create </Button>
+              <Button type="submit" variant="contained" color="primary">Create</Button>
             </Box>
           </form>
         </Box>

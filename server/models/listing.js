@@ -14,7 +14,8 @@ const listingSchema = new mongoose.Schema({
   current_balance: { type: Number, default: 0 },
   target_balance: { type: Number, default: 0 },
   likes : {type: Number, default: 0},
-  updates: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Update'}]
+  updates: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Update'}],
+  tags: [{ type: String}]
 });
 
 module.exports = mongoose.model('Listing', listingSchema);

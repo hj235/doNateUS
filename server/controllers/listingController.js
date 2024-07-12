@@ -6,17 +6,16 @@ const User = require('../models/user');
 // create listing function
 async function createListing(req, res) {
     try {
-        const {  title, description, type, deadline, media, target_balance, owner} = req.body;
+        const {  title, description, type, deadline, media, target_balance, owner, tags} = req.body;
         // Check if fields are present? not sure
 
         // Checks all passed, register user into database
         const listing = await Listing.create({
-            title, description, type, deadline, media, target_balance, owner
+            title, description, type, deadline, media, target_balance, owner, tags
         });
 
         return res.json(listing);
 
-    // IDK what to do LMAO
     } catch (err) {
         return res.json(err);
     }
