@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { useSortedByKey } from '../../hooks/useSortedByKey';
 import { FormControl, FormControlLabel, Radio, RadioGroup, Select, MenuItem, Typography } from '@mui/material';
+import { useUserContext } from '../../hooks/useUserContext';
 import dayjs from 'dayjs';
 
 export function FilterSelect({ searchedListings, setFilteredListings}) {
+    const { user } = useUserContext();
     const [filters, setFilters] = useState({
-        sortOption: 'created_at',
+        sortOption: 'created_at_desc',
         typeFilter: 'All',
-        deadlinepassed: 'hide'
+        deadlinepassed: 'hide',
+        misc: 'All',
     });
 
     const [deadlineListings, setDeadLineListings] = useState(searchedListings);
-    const [typeListings, setTypeListings] = useState(deadlineListings);
+    const [miscListings, setMiscListings] = useState(deadlineListings)
+    const [typeListings, setTypeListings] = useState(miscListings);
+    
 
     const { sortedByKey } = useSortedByKey();
 
@@ -32,8 +37,18 @@ export function FilterSelect({ searchedListings, setFilteredListings}) {
     }, [deadlineListings, filters]);
 
     useEffect(() => {
-        setFilteredListings(sortedByKey(typeListings, filters.sortOption));
-    }, [typeListings, filters]);
+        if (filters.misc === "User") {
+            setMiscListings(typeListings.filter(listing => listing.owner._id === user._id));
+        } else if (filters.misc === "Liked") {
+            setMiscListings(typeListings.filter(listing => user.liked_listings.includes(listing._id)));
+        } else {
+            setMiscListings(typeListings, filters.sortOption)
+        }
+    }, [typeListings, filters, user]);
+
+    useEffect(() => {
+        setFilteredListings(sortedByKey(miscListings, filters.sortOption));
+    }, [miscListings, filters]);
 
     const handleSortOptionChange = (event) => {
         setFilters({ ...filters, sortOption: event.target.value });
@@ -43,6 +58,9 @@ export function FilterSelect({ searchedListings, setFilteredListings}) {
     };
     const handleDeadlineChange = (event) => {
         setFilters({ ...filters, deadlinepassed: event.target.value });
+    };
+    const handleMisc = (event) => {
+        setFilters({ ...filters, misc: event.target.value});
     };
 
     return (
@@ -73,7 +91,22 @@ export function FilterSelect({ searchedListings, setFilteredListings}) {
                 <FormControlLabel value="hide" control={<Radio />} label="Hide" />
                 <FormControlLabel value="show" control={<Radio />} label="Show" />
             </RadioGroup>
-
+            { user && (
+                <>
+                <Typography variant="h6"> Show </Typography>
+                <Select
+                    value={filters.miscFilter}
+                    onChange={handleMisc}
+                    sx={{ width: 250, background: 'white' }}
+                >
+                    <MenuItem value={'Allr'}> All </MenuItem>
+                    <MenuItem value={'User'}> My Listings </MenuItem>
+                    <MenuItem value={'Liked'}> Liked Listings </MenuItem>
+                </Select>
+                </>
+            )
+            }
+            
 
 
         </FormControl>
