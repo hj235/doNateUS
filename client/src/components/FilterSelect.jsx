@@ -23,7 +23,9 @@ export function FilterSelect({ searchedListings, setFilteredListings}) {
 
     useEffect(() => {
         if (filters.deadlinepassed === 'hide') {
-            setDeadLineListings(searchedListings.filter(listing => dayjs(listing.deadline).isAfter(dayjs())));
+            setDeadLineListings(searchedListings.filter(listing => 
+                dayjs(listing.deadline).isAfter(dayjs()) && listing.status === 'Open'
+            ));
         } else {
             setDeadLineListings(searchedListings);
         }

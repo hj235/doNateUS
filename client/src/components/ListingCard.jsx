@@ -29,7 +29,7 @@ export function ListingCard({ listing }) {
                         <LinearProgress
                             variant="determinate"
                             sx={{ position: 'absolute', top: 0, left: 0, right: 0, height: 25 }}
-                            value={(listing.current_balance / listing.target_balance) * 100}
+                            value = {Math.min(100, (listing.current_balance / listing.target_balance) * 100)}
                         />
                         <Typography
                             variant="h7"
@@ -63,8 +63,8 @@ export function ListingCard({ listing }) {
             <ListingCardButtons sx={{ position: 'absolute', bottom: 0 }} listing={listing} />objectFit
 
             <CardContent sx={{ position: 'absolute', bottom: 8, width: '100%', textAlign: 'center' }}>
-                <Typography variant="body2" sx={{ color: daysRemaining > 0 ? 'gray' : 'red' }}>
-                    {daysRemaining > 0 ? `${daysRemaining} days remaining` : 'Project has ended'}
+                <Typography variant="body2" sx={{ color: daysRemaining > 0  && listing.status === "Open"? 'gray' : 'red' }}>
+                    {daysRemaining > 0 && listing.status === "Open" ? `${daysRemaining} days remaining` : 'Project has ended'}
                 </Typography>
             </CardContent>
 
