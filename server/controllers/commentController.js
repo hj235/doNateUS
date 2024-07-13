@@ -25,3 +25,7 @@ async function createCommentOnPost(req, res) {
         return res.json(err);
     }
 }
+
+module.exports = {
+    createCommentOnPost
+};

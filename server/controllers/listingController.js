@@ -22,12 +22,19 @@ async function createListing(req, res) {
 }
 
 // get all listings
-async function getListings(req ,res) {
+async function getListings(req, res) {
     try {
-        const listings = await Listing.find().populate('owner')
-        return res.json(listings)
+        const listings = await Listing.find().populate('owner').populate({
+                path: 'comments',
+                populate: {
+                    path: 'owner',
+                    model: 'User'
+                }
+            });
+        
+        return res.json(listings);
     } catch (error) {
-        res.status(400).json({error: error.message})
+        res.status(400).json({ error: error.message });
     }
 }
 
@@ -35,7 +42,13 @@ async function getListings(req ,res) {
 async function getSingleListing(req ,res) {
     const { id } = req.params;
     try {
-        const listing = await Listing.findById(id).populate('owner')
+        const listing = await Listing.findById(id).populate('owner').populate({
+            path: 'comments',
+            populate: {
+                path: 'owner',
+                model: 'User'
+            }
+        });
         return res.json(listing)
     } catch (error) {
         res.status(400).json({error: error.message})

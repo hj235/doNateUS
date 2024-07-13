@@ -54,6 +54,8 @@ app.use('/', require('./routes/authroutes'));
 app.use('/api/listings', require('./routes/listingroutes'));
 app.use('/api/updates', require('./routes/updateroutes'));
 app.use('/listing', require('./routes/listingroutes'));
+app.use('/api/comments', require('./routes/commentroutes'));
+
 
 // sets up Express sever to listen for incoming requests on port defined in .env
 const port = process.env.PORT;

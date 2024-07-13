@@ -76,7 +76,7 @@ function Listing() {
 
                     <Typography variant="h6" marginTop={2} style={{ fontWeight: 'bold' }}>Media</Typography>
                     <MediaList media={listing.media.slice(1)} />
-                    <CommentSection comments={listing.comments || []} />
+                    <CommentSection comments={listing.comments || []} user={user} listingID={listing._id}/>
                 </Box>
 
                 <Box flex={2} padding={1} display="flex" flexDirection="column" >
