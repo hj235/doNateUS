@@ -55,8 +55,30 @@ async function createCommentOnComment(req, res) {
     }
 }
 
+async function deleteComment(req, res) {
+    const { id } = req.params;
+    try {
+        const updatedComment = await Comment.findByIdAndUpdate(id, {
+            owner: '669382099cccabd053367ac5',
+            content: 'deleted'
+        }, { new: true });
+
+        if (!updatedComment) {
+            return res.status(404).json({ error: 'Comment not found' });
+        }
+
+        return res.json({ message: 'Comment updated to "deleted" successfully', comment: updatedComment });
+    } catch (error) {
+        return res.status(500).json({ error: 'An error occurred while updating the comment' });
+    }
+}
+
+
+
+
 module.exports = {
     getComment,
     createCommentOnPost,
-    createCommentOnComment
+    createCommentOnComment,
+    deleteComment
 };

@@ -41,15 +41,36 @@ export function Comment({ commentID, user, listingOwner }) {
                 setReplyContent('');
                 setReplyVisible(false);
                 // Optionally, refresh the comment to show the new reply
-                const response = await axios.get(`/api/comments/get/${commentID}`);
-                if (response.status === 200) {
-                    setComment(response.data);
+                const refreshResponse = await axios.get(`/api/comments/get/${commentID}`);
+                if (refreshResponse.status === 200) {
+                    setComment(refreshResponse.data);
                 }
             } else {
                 toast.error('Error occurred while posting comment.', { id: toastie });
             }
         } catch (error) {
             console.error('Error submitting reply:', error);
+        }
+    };
+
+    const handleCommentDelete = async () => {
+        try {
+            const confirmDelete = window.confirm('Are you sure you want to delete this comment?');
+            if (confirmDelete) {
+                const toastie = toast.loading('Deleting comment...');
+                const response = await axios.patch(`/api/comments/delete/${commentID}`);
+                if (response.status === 200) {
+                    toast.success('Comment deleted successfully!', { id: toastie });
+                    const refreshResponse = await axios.get(`/api/comments/get/${commentID}`);
+                    if (refreshResponse.status === 200) {
+                        setComment(refreshResponse.data);
+                    }
+                } else {
+                    toast.error('Error occurred while deleting comment.', { id: toastie });
+                }
+            }
+        } catch (error) {
+            console.error('Error deleting comment:', error);
         }
     };
 
@@ -61,17 +82,18 @@ export function Comment({ commentID, user, listingOwner }) {
         <>
             <Box key={comment._id} marginTop={3} sx={{ background: "#f5f5f5", padding: 2, marginLeft: commentID ? 2 : 0 }}>
                 <Box display="flex" flexDirection="row" alignItems="center">
-                    <CardMedia component="img" sx={{ borderRadius: '50%', width: 30, height: 30, marginRight: 1 }} image={comment.owner.profilePicture || profile_ph} />
+                    <CardMedia component="img" sx={{ borderRadius: '50%', width: 30, height: 30, marginRight: 1 }} image={comment.owner?.profilePicture || profile_ph} />
                     <Typography variant="body2">
-                        {comment.owner.name} {comment.owner._id === listingOwner._id && <strong>Owner</strong>}
+                        {comment.owner?.name} {comment.owner?._id === listingOwner?._id && <strong>Owner</strong>}
                     </Typography>
-
-                    <Typography variant="body2" color="textSecondary"> ·{dayjs(comment.created_at).fromNow()} </Typography>
+                    <Typography variant="body2" color="textSecondary"> · {dayjs(comment.created_at).fromNow()} </Typography>
                 </Box>
                 <Typography variant="body1" sx={{ marginTop: 1 }}>
                     {comment.content}
                 </Typography>
-                <Button onClick={() => setReplyVisible(!replyVisible)}>Reply</Button>
+                {user && (
+                    <Button onClick={() => setReplyVisible(!replyVisible)}>Reply</Button>
+                )}
                 {replyVisible && (
                     <Box mt={2}>
                         <TextField
@@ -87,6 +109,9 @@ export function Comment({ commentID, user, listingOwner }) {
                             Submit
                         </Button>
                     </Box>
+                )}
+                {user && user._id === comment.owner._id && (
+                    <Button onClick={handleCommentDelete}>Delete</Button>
                 )}
                 {comment.child_comments.length === 0 ? (
                     null
