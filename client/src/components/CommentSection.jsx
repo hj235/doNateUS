@@ -4,11 +4,11 @@ import { Typography, TextField, Button, Box, CardMedia } from '@mui/material';
 import toast from 'react-hot-toast';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import profile_ph from '../assets/profile-placeholder.jpg';
+import { Comment } from './Comment'
 
 dayjs.extend(relativeTime);
 
-export function CommentSection({ comments, user, listingID }) {
+export function CommentSection({ comments, user, listingID, listingOwner }) {
     const [data, setData] = useState({
         owner: user ? user._id : '',
         content: '',
@@ -64,16 +64,7 @@ export function CommentSection({ comments, user, listingID }) {
                 <Typography>No comments</Typography>
             ) : (
                 comments.map(comment => (
-                    <Box key={comment._id} marginTop={3} sx={{ background: "#f5f5f5", padding: 2 }}>
-                        <Box display="flex" flexDirection="row" alignItems="center">
-                            <CardMedia component="img" sx={{ borderRadius: '50%', width: 30, height: 30, marginRight: 1 }} image={comment.owner.profilePicture || profile_ph} />
-                            <Typography variant="subtitle1"> {comment.owner.name} · </Typography>
-                            <Typography variant="body2" color="textSecondary"> {dayjs(comment.created_at).fromNow()} </Typography>
-                        </Box>
-                        <Typography variant="body1" sx={{ marginTop: 1 }}>
-                            {comment.content}
-                        </Typography>
-                    </Box>
+                    <Comment commentID={comment._id} user={user} listingOwner={listingOwner}/>
                 ))
             )}
         </>

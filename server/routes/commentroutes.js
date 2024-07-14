@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { createCommentOnPost, deleteCommentFromPost, getCommentFromComment, createCommentOnComment, deleteCommentFromComment } = require('../controllers/commentController');
+const { getComment, createCommentOnPost, createCommentOnComment, deleteComment } = require('../controllers/commentController');
 
+router.get('/get/:id', getComment)
 router.post('/post', createCommentOnPost)
+router.post('/reply/:id', createCommentOnComment);
 // router.delete('/comment/:id', deleteCommentFromPost)
 // router.get('/comment/:id', getCommentFromComment)
 // router.post('/comment/:id', createCommentOnComment)

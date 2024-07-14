@@ -48,8 +48,6 @@ function Listing() {
         return end.diff(now, 'day');
     };
 
-    const daysRemaining = calculateDaysDifference(listing.deadline);
-    const daysAgo = calculateDaysDifference(listing.created_at);
     const hasGoal = listing.target_balance !== 0 && listing.target_balance !== null;
     const tracked = listing.type === "Fundraiser" || listing.type === "Recruitment";
 
@@ -76,7 +74,7 @@ function Listing() {
 
                     <Typography variant="h6" marginTop={2} style={{ fontWeight: 'bold' }}>Media</Typography>
                     <MediaList media={listing.media.slice(1)} />
-                    <CommentSection comments={listing.comments || []} user={user} listingID={listing._id}/>
+                    <CommentSection comments={listing.comments || []} user={user} listingID={listing._id} listingOwner={listing.owner}/>
                 </Box>
 
                 <Box flex={2} padding={1} display="flex" flexDirection="column" >
