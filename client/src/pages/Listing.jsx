@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { Card, CardMedia, Typography, Box, CircularProgress } from '@mui/material';
+import { TextField, Card, CardMedia, Typography, Box, CircularProgress } from '@mui/material';
 import { useUserContext } from '../../hooks/useUserContext';
 import { LikeButton } from '../components/LikeButton';
 import { DeleteButton } from '../components/DeleteButton';
@@ -12,6 +12,7 @@ import { UpdateButton } from '../components/UpdateButton';
 import { Updates } from '../components/Updates';
 import { SimilarListings } from '../components/SimilarListings';
 import { MediaList } from '../components/MediaList';
+import { CommentSection } from '../components/CommentSection';
 import media_ph from '../assets/listing-media-placeholder.jpg';
 import profile_ph from '../assets/profile-placeholder.jpg';
 import { EditMedia } from '../components/EditMedia';
@@ -47,8 +48,6 @@ function Listing() {
         return end.diff(now, 'day');
     };
 
-    const daysRemaining = calculateDaysDifference(listing.deadline);
-    const daysAgo = calculateDaysDifference(listing.created_at);
     const hasGoal = listing.target_balance !== 0 && listing.target_balance !== null;
     const tracked = listing.type === "Fundraiser" || listing.type === "Recruitment";
 
@@ -75,6 +74,7 @@ function Listing() {
 
                     <Typography variant="h6" marginTop={2} style={{ fontWeight: 'bold' }}>Media</Typography>
                     <MediaList media={listing.media.slice(1)} />
+                    <CommentSection comments={listing.comments || []} user={user} listingID={listing._id} listingOwner={listing.owner}/>
                 </Box>
 
                 <Box flex={2} padding={1} display="flex" flexDirection="column" >
@@ -115,17 +115,18 @@ function Listing() {
 
                         <Typography variant="body1" marginTop={2}>Tags</Typography>
                         {listing.tags.map((tag, index) => (
-                         <Typography key={index} variant="body1"> {tag} </Typography>))
-                         }
+                            <Typography key={index} variant="body1"> {tag} </Typography>))
+                        }
 
                         <Typography variant="h6" marginTop={4} style={{ fontWeight: 'bold' }}> Latest Updates </Typography>
                         <Updates announcementIds={listing.updates} />
+
+                        <Typography variant="h6" marginTop={20} marginBottom={5} style={{ fontWeight: 'bold' }}> Similar Listings </Typography>
+                        <SimilarListings listing={listing} />
                     </Box>
                 </Box>
-            </Box>
-            <Typography variant="h6" marginTop={20} marginBottom={5} style={{ fontWeight: 'bold' }}> Similar Listings </Typography>
-            <SimilarListings listing={listing} />
 
+            </Box>
 
         </Box>
     );

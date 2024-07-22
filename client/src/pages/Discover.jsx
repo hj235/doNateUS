@@ -41,7 +41,7 @@ export default function Discover() {
       listing.title.toLowerCase().includes(searchInput.toLowerCase())
     ));
   }, [searchInput, listings]);
-
+  
   const handleSearchInputChange = (event) => {
     setSearchInput(event.target.value);
   };

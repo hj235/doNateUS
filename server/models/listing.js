@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const User = require('./user');
 const Update = require('./update')
+const Comment = require('./comment')
 
 const listingSchema = new mongoose.Schema({
   created_at: { type: Date, default: Date.now },
@@ -15,7 +16,8 @@ const listingSchema = new mongoose.Schema({
   target_balance: { type: Number, default: 0 },
   likes : {type: Number, default: 0},
   updates: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Update'}],
-  tags: [{ type: String}]
+  tags: [{ type: String}],
+  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment'}],
 });
 
 module.exports = mongoose.model('Listing', listingSchema);
