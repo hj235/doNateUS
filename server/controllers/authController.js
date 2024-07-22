@@ -20,15 +20,15 @@ async function registerUser(req, res) {
         }
 
         // Check if password is good
-        if (!password/* || password.length < 8*/) {
+        if (!password || password.length < 8) {
             return res.json({
                 error: 'Password should be at least 8 characters long'
             })
         }
 
         // Check for email
-        const exist = await User.findOne({ email }); // finds a matching email in database
-        if (!name || exist) {
+        const emailExist = await User.findOne({ email }); // finds a matching email in database
+        if (!email || emailExist) {
             return res.json({
                 error: 'Email is invalid or already registered'
             });
