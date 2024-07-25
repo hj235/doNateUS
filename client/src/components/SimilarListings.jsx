@@ -10,6 +10,19 @@ export function SimilarListings({ listing }) {
     const [isLoading, setIsLoading] = useState(true);
     const [visibleListings, setVisibleListings] = useState(4); // Initial number of listings to display
 
+    const countSimilarity = (ls) => {
+        let count = 0;
+        listing.tags.forEach(tag => {
+            if (ls.tags.indexOf(tag) != -1) {
+                count++;
+            }
+        })
+        return count;
+    }
+    const cmp = (a, b) => {
+        return b.similarity - a.similarity;
+    }
+
     useEffect(() => {
         const fetchListings = async () => {
             try {
@@ -17,7 +30,9 @@ export function SimilarListings({ listing }) {
 
                 if (response.status === 200) {
                     setIsLoading(false);
-                    setListings(response.data);
+                    setListings(response.data.map(ls => ({ ...ls, similarity: countSimilarity(ls) })).toSorted(cmp));
+
+
                 } else {
                     console.error('Response not okay:', response.status, response.data);
                     toast.error("Response not okay");
