@@ -45,7 +45,7 @@ export function ListingCard({ listing }) {
                         </Typography>
                     </React.Fragment>
                 )}
-                <CardMedia component="img" height="200" image={listing.media ? listing.media[0] : media_ph} />
+                <CardMedia component="img" height="200" image={listing.media && listing.media.length > 0 ? listing.media[0] : media_ph } />
                 <CardContent>
                     <Typography variant="h6"sx={{ display: '-webkit-box', overflow: 'hidden', WebkitBoxOrient: 'vertical', WebkitLineClamp: 1 }}> 
                         {listing.title} </Typography>
