@@ -64,7 +64,7 @@ export function CommentSection({ comments, user, listingID, listingOwner }) {
                 <Typography>No comments</Typography>
             ) : (
                 comments.map(comment => (
-                    <Comment commentID={comment._id} user={user} listingOwner={listingOwner}/>
+                    <Comment key={comment._id} commentID={comment._id} user={user} listingOwner={listingOwner}/>
                 ))
             )}
         </>
