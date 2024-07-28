@@ -10,7 +10,7 @@ export function Recommendations({ user }) {
     const [liked, setLiked] = useState([]);
     const [loadingLiked, setLoadingLiked] = useState(true);
     const [isLoading, setIsLoading] = useState(true);
-    const [visibleListings, setVisibleListings] = useState(4); // Initial number of listings to display
+    const [visibleListings, setVisibleListings] = useState(3); // Initial number of listings to display
     const [favTags, setFavTags] = useState([]);
 
     useEffect(() => {
@@ -102,7 +102,7 @@ export function Recommendations({ user }) {
 
     // Function to load more listings
     const loadMoreListings = () => {
-        setVisibleListings((prevVisible) => prevVisible + 4);
+        setVisibleListings((prevVisible) => prevVisible + 3);
     };
 
     // Function to filter and display top listings based on visibleListings state
