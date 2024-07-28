@@ -14,14 +14,14 @@ async function registerUser(req, res) {
         // Check for name
         const nameExist = await User.findOne({ name }); // finds a matching name in database
         if (!name || nameExist) {
-            return res.json({
+            return res.status(400).json({
                 error: 'Username is invalid or already in use'
             })
         }
 
         // Check if password is good
         if (!password || password.length < 8) {
-            return res.json({
+            return res.status(400).json({
                 error: 'Password should be at least 8 characters long'
             })
         }
@@ -29,7 +29,7 @@ async function registerUser(req, res) {
         // Check for email
         const emailExist = await User.findOne({ email }); // finds a matching email in database
         if (!email || emailExist) {
-            return res.json({
+            return res.status(400).json({
                 error: 'Email is invalid or already registered'
             });
         }
@@ -63,7 +63,7 @@ async function loginUser(req, res) {
         // check if user exists
         const user = await User.findOne({ name });
         if (!user) {
-            return res.json({
+            return res.status(400).json({
                 error: 'User not found'
             })
         }
@@ -77,7 +77,7 @@ async function loginUser(req, res) {
             // json the user for development purposes, but later should remove for confidentiality
             return res.json({ ...user._doc, token });
         } else {
-            return res.json({ error: 'Incorrect password' })
+            return res.status(400).json({ error: 'Incorrect password' })
         }
     } catch (error) {
         console.log(error)
@@ -92,7 +92,7 @@ async function logoutUser(req, res) {
         // check if user exists
         const user = await User.findOne({ name });
         if (!user) {
-            return res.json({
+            return res.status(400).json({
                 error: 'User not found'
             })
         }
@@ -103,10 +103,9 @@ async function logoutUser(req, res) {
             // Create a login token
             const token = createToken(user._id);
 
-            // json the user for development purposes, but later should remove for confidentiality
             return res.json({ ...user._doc, token });
         } else {
-            return res.json({ error: 'Incorrect password' })
+            return res.status(400).json({ error: 'Incorrect password' })
         }
     } catch (error) {
         console.log(error)
@@ -121,7 +120,7 @@ async function editUser(req, res) {
         // check if user exists
         const user = await User.findById(id);
         if (!user) {
-            return res.json({
+            return res.status(400).json({
                 error: 'User could not be found. Please log in again.'
             });
         } else {
@@ -129,7 +128,7 @@ async function editUser(req, res) {
             const { name, email } = update;
             const nameExist = await User.findOne({ name });
             if (nameExist && nameExist._id != id) {
-                return res.json({
+                return res.status(400).json({
                     error: 'Username is invalid or already in use'
                 })
             }
@@ -137,7 +136,7 @@ async function editUser(req, res) {
             // Check for email
             const emailExist = await User.findOne({ email });
             if (emailExist && emailExist._id != id) {
-                return res.json({
+                return res.status(400).json({
                     error: 'Email is invalid or already registered'
                 });
             }
@@ -147,7 +146,7 @@ async function editUser(req, res) {
                 delete update.password;
             }
 
-            const newUser = await User.findByIdAndUpdate(user._id, { ...update });
+            const newUser = await User.findByIdAndUpdate(user._id, { ...update }, { new: true });
             res.json({newUser});
         }
     } catch (error) {
@@ -162,27 +161,17 @@ async function getUser(req, res) {
         // check if user exists
         const user = await User.findById(id);
         if (!user) {
-            return res.json({
+            return res.status(400).json({
                 error: 'User not found'
             });
         }
-        delete user.password;
+        user.password = undefined;
+        console.log(user);
         return res.json(user);
     } catch (error) {
         console.log(error);
     }
 }
-
-// Test: successfully creates entry in mongoDB collection
-// async function registerUser(req, res) {
-//     const user = await User.create({
-//         name: 'test',
-//         email: 'test',
-//         password: 'test'
-//     });
-
-//     return res.json(user);
-// }
 
 module.exports = {
     registerUser,

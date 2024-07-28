@@ -42,7 +42,10 @@ export function EditProfile() {
                 });
             }
 
-            const newUser = { ...formData, profilePicture: mediaURL };
+            let newUser = { ...formData };
+            if (mediaURL) {
+                newUser.profilePicture = mediaURL;
+            }
             const response = await axios.patch(`/api/user/edit/${user._id}`, newUser);
             if (response.data.error) {
                 console.log(response.data.error);

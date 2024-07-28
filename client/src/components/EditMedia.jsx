@@ -24,13 +24,7 @@ export function EditMedia({ listing, onSave }) {
                 }
                 reader.readAsDataURL(file);
             }
-        // files.forEach(file => {
-        //     const reader = new FileReader();
-        //     reader.onload = () => {
-        //         setFileURLs(fileURLs.concat([reader.result]));
-        //     }
-        //     reader.readAsDataURL(file);
-        // });
+        
         } else {
             setFileURLs([]);
         }
@@ -49,35 +43,6 @@ export function EditMedia({ listing, onSave }) {
                     mediaURLs.push(url);
                 });
             }
-            // const promises = [];
-            // for (let i = 0; i < files.length; i++) {
-            //     const file = files[i];
-            //     const fileRef = ref(mediaRef, `/listing/${listing._id}/media/${file.name}`);
-            //     // JS flattens promises?? wtf
-            //     promises.push(uploadBytes(fileRef, file).then((res) => {
-            //         getDownloadURL(fileRef).then(url => {
-            //             console.log(`File uploaded to firebase storage at: ${url}`);
-            //             mediaURLs.push(url);
-            //         });
-            //     }));
-            // }
-            // files.forEach(file => {
-            //     const fileRef = ref(mediaRef, `/listing/${listing._id}/media/${file.name}`);
-            //     // JS flattens promises?? wtf
-            //     promises.push(uploadBytes(fileRef, file).then((res) => {
-            //         getDownloadURL(fileRef).then(url => {
-            //             console.log(`File uploaded to firebase storage at: ${url}`);
-            //             mediaURLs.push(url);
-            //         });
-            //     }));
-            // });
-
-            // await Promise.all(promises);
-            // promises.forEach((url) => {})
-            // files.forEach(file => {
-            //     const fileRef = ref(mediaRef, `/listing/${listing._id}/media/${file.name}`);
-            //     await
-            // })
             
             const response = await axios.patch(`/api/listings/update/${listing._id}`, { media: listing.media.concat(mediaURLs) });
             console.log('Updated data:', response.data);
