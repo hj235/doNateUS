@@ -26,11 +26,13 @@ export function SimilarListings({ listing }) {
     useEffect(() => {
         const fetchListings = async () => {
             try {
-                const response = await axios.get('/api/listings');
+                const response = await axios.get('/api/listings');                
 
                 if (response.status === 200) {
                     setIsLoading(false);
-                    setListings(response.data.map(ls => ({ ...ls, similarity: countSimilarity(ls) })).toSorted(cmp));
+                    setListings(response.data.map(ls => ({ ...ls, similarity: countSimilarity(ls) }))
+                    .filter(item => item._id !== listing._id)
+                    .toSorted(cmp));
 
 
                 } else {
