@@ -3,7 +3,6 @@ import { Box, CircularProgress} from '@mui/material';
 import { ListingCard } from './ListingCard';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import spinner from '../assets/loading-spinner.gif';
 import { useUserContext } from '../../hooks/useUserContext';
 
 export function LikedListings() {

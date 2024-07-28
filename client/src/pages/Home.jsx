@@ -6,6 +6,7 @@ import { LikedListings } from '../components/LikedListings';
 import { ProfileCard } from '../components/ProfileCard';
 import { Updates } from '../components/Updates_Home';
 import background from '../assets/giving-right-reasons.png';
+import { Recommendations } from '../components/Recommendations';
 
 export default function Home() {
   document.title = "Welcome";
@@ -33,6 +34,8 @@ export default function Home() {
           <Updates liked_listings={user.liked_listings} />
           <h2>Liked Listings</h2>
           <LikedListings />
+          <h2>Recommended Listings</h2>
+          <Recommendations user={user} />
         </Box>
       ) : (
         <Box width={600} margin="auto" padding={4} bgcolor="rgba(255, 255, 255, 0.8)" borderRadius={8}>
