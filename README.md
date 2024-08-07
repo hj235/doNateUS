@@ -1,12 +1,14 @@
 
-<img src="client/src/assets/LogoClear.png" style="background-color: white; width: 100%; display: block;" />
+<a href='https://donateus.vercel.app/'><img src="client/src/assets/LogoClear.png" style="background-color: white; width: 100%; display: block;" /></a>
 
-## Introducing doNateUS
+## Introducing <a href='https://donateus.vercel.app/'>doNateUS</a>
 
 <h3>A web application designed to seamlessly connect fundraisers with donors. </h3>
 <h4>NUS Orbital project by Ng Hong Jing and Koh Ting Wei</h4>
 
 Proposed Level of Achievement: Apollo
+
+<a href='https://donateus.vercel.app/'>Click here to visit the prototype website</a>
 
 **Poster** <br/> **Video** <br/> **User Guide** <br/> **Project Log** <br/> **Testing Log**
 
